@@ -1,0 +1,23 @@
+- As a guest (or any user), I want to:
+	- view the calendar of events and select an event
+	- select a table/vendor at an event, and see the shoes they're selling
+	- sign in, if I already have one
+	- register as a new user
+- As a user, I want to:
+	- search for a shoe from an external API
+	- add a shoe (searched or at a table) to my "favorites"
+	- view my favorite shoes and remove one
+	- select a vendor and "follow" them
+	- view my followed vendors and unfollow one
+	- apply to become a vendor
+	- see my notifications
+- As a vendor, I want to:
+	(everything a user can do)
+	- book a table within an event
+	- add shoes (with price and quality) to my table
+	- cancel a table
+- As an admin, I want to:
+	(everything a user can do)
+	- create an event
+	- cancel an event
+	- approve/deny a user to become an vendor
