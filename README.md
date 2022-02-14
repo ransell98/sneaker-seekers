@@ -34,6 +34,7 @@ Bob is a sneaker flipper who travels from convention to convention. He uses *Sne
     <dt>Brand</dt>
     <dd>A company that makes shoes. Guests and users are able to search for only specific brands if they wish to do so.</dd>
 </dl>
+
 ## Learning Goal Candidates
 - React animation/transition 
 - Lombok 
