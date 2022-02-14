@@ -29,6 +29,7 @@ It may be difficult for customers and even vendors to bridge the gap in connecti
     <dt>Brand</dt>
     <dd>A company that makes shoes. Guests and users are able to search for only specific brands if they wish to do so.</dd>
 </dl>
+
 ## Learning Goal Candidates
 - React animation/transition 
 - Lombok 
