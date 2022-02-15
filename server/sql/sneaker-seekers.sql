@@ -38,6 +38,7 @@ create table vendor_table (
 	vendor_table_id int primary key auto_increment, 
     event_id int not null, 
     app_user_id int not null,
+    is_booked boolean not null default(0),
     constraint fk_vendor_table_event_id
 		foreign key (event_id)
         references `event`(event_id), 
@@ -62,25 +63,38 @@ create table style (
         references brand(brand_id)
 );
 
+create table `condition` (
+	condition_id int primary key auto_increment, 
+    condition_name varchar(50) not null
+);
+
 create table listing (
 	listing_id int primary key auto_increment, 
     listing_price int not null, 
-    listing_condition varchar(50) not null, 
     quantity int not null, 
     style_id int not null, 
-    vendor_table int not null, 
+    vendor_table_id int not null, 
+    condition_id int not null,
     constraint listing_style_id 
 		foreign key (style_id)
         references style(style_id),
 	constraint listing_vendor_table_id
 		foreign key (vendor_table_id)
-        references vendor_table(vendor_table_id)
+        references vendor_table(vendor_table_id),
+    constraint listing_condition_id
+		foreign key (condition_id)
+        references `condition`(condition_id)    
 );
 
 create table follow (
-	follow_id int primary key auto_increment, 
     follower_id int not null,
-    vendor_id int not null
+    vendor_id int not null,
+    constraint fk_follow_follower_id
+		foreign key (follower_id)
+        references app_user(app_user_id),
+    constraint fk_follow_vendor_id
+		foreign key (vendor_id)
+        references app_user(app_user_id)    
 );
 
 create table favorite (
@@ -102,17 +116,4 @@ create table upgrade_request (
 		foreign key (app_user_id)
         references app_user(app_user_id)
 );
-
-
-
-
-
-
-
-
-
-
-
-
-
 
