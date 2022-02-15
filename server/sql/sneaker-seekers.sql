@@ -5,8 +5,7 @@ use sneaker_seekers;
 create table app_user (
     app_user_id int primary key auto_increment,
     username varchar(50) not null unique,
-    password_hash varchar(2048) not null,
-    disabled boolean not null default(0)
+    password_hash varchar(2048) not null
 );
 
 create table app_role (
