@@ -2,18 +2,22 @@ import { useContext, useState } from "react";
 import { Button, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBookmark, faCalendar, faGear, faHeart, faHouse, faLock, faMagnifyingGlass, faRightFromBracket, faUser, faUserPlus } from '@fortawesome/free-solid-svg-icons'
-import AuthContext from "../contexts/AuthContext";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBookmark, faCalendar, faGear, faHeart, faHouse, faLock, faMagnifyingGlass, faRightFromBracket, faUser, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 
-import '../styles/Navbar.css';
+import '../styles/Navbar.css';  
+
+import AuthContext from "../contexts/AuthContext";
 
 function SiteNavbar() {
     const context = useContext(AuthContext);
-    //testing only
-    context.username = true;
 
     const [expanded, setExpanded] = useState(false);
+
+    function handleLogout() {
+        setExpanded(false);
+        context.setUsername(null);
+    }
 
     return(
         <Navbar bg="light" expand="md" expanded={expanded}>
@@ -83,7 +87,7 @@ function SiteNavbar() {
                                 </LinkContainer>
                             </NavDropdown>
                             <Nav.Item>
-                                <Button variant="secondary" onClick={() => setExpanded(false)}>
+                                <Button variant="secondary" onClick={handleLogout}>
                                     <FontAwesomeIcon icon={faRightFromBracket}/>
                                     Logout
                                 </Button>
