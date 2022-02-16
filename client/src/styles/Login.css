@@ -6,10 +6,14 @@
 .fa-eye {
     margin-left: -13px;
 }
+.fa-eye:hover {
+    color: blue;
+    cursor: pointer;
+}
 .fa-eye-slash {
     margin-left: -15px;
 }
-.fa-eye:hover, .fa-eye-slash:hover {
-    color: blue;
+.fa-eye-slash:hover {
+    color: red;
     cursor: pointer;
 }

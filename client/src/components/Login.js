@@ -49,6 +49,7 @@ function Login() {
                                 onChange={(event) => setUsername(event.target.value)}
                                 value={username}
                                 disabled={isLoading}
+                                required
                             />
                         </Col>
                     </Row>
@@ -69,6 +70,7 @@ function Login() {
                                 onChange={(event) => setPassword(event.target.value)}
                                 value={password}
                                 disabled={isLoading}
+                                required
                             />
                         </Col>
                         <Col xs={1}>
