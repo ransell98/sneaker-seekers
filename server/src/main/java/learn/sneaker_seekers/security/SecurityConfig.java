@@ -24,17 +24,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.cors();
 
+        // paths still needs to be set
+
         http.authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/health_check").permitAll()
                 .antMatchers(HttpMethod.POST, "/authenticate", "/encode", "/user/create").permitAll()
                 .antMatchers(HttpMethod.POST, "/refresh_token").authenticated()
-                .antMatchers(HttpMethod.GET, ).authenticated()
-                .antMatchers(HttpMethod.PUT, ).authenticated()
-                .antMatchers(HttpMethod.POST, ).hasAnyAuthority()
-                .antMatchers(HttpMethod.PUT, ).hasAnyAuthority()
-                .antMatchers(HttpMethod.DELETE, ).hasAuthority()
-                .antMatchers(HttpMethod.GET, ).hasAuthority()
-                .antMatchers(HttpMethod.PUT, ).hasAuthority()
+                .antMatchers(HttpMethod.GET).authenticated()
+                .antMatchers(HttpMethod.PUT).authenticated()
+                .antMatchers(HttpMethod.POST).hasAnyAuthority()
+                .antMatchers(HttpMethod.PUT).hasAnyAuthority()
+                .antMatchers(HttpMethod.DELETE).hasAuthority()
+                .antMatchers(HttpMethod.GET).hasAuthority()
+                .antMatchers(HttpMethod.PUT).hasAuthority()
                 .antMatchers("/**").denyAll()
                 .and()
                 .addFilter(new JwtRequestFilter(authenticationManager(), converter))

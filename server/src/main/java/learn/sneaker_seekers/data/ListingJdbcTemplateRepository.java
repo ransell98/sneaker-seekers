@@ -1,4 +1,11 @@
 package learn.sneaker_seekers.data;
 
-public class ListingJdbcTemplateRepository {
+import org.springframework.jdbc.core.JdbcTemplate;
+
+public class ListingJdbcTemplateRepository implements ListingRepository{
+
+    private final JdbcTemplate jdbcTemplate;
+
+    public ListingJdbcTemplateRepository(JdbcTemplate jdbcTemplate) {this.jdbcTemplate = jdbcTemplate;}
+
 }

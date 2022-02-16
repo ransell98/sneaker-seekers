@@ -2,14 +2,14 @@ package learn.sneaker_seekers.models;
 
 public class Favorite {
     private int favoriteId;
-    private int shoeId;
+    private int styleId;
     private int appUserId;
 
     public Favorite(){}
 
-    public Favorite(int favoriteId, int shoeId, int appUserId){
+    public Favorite(int favoriteId, int styleId, int appUserId){
         this.favoriteId = favoriteId;
-        this.shoeId = shoeId;
+        this.styleId = styleId;
         this.appUserId = appUserId;
     }
 
@@ -21,12 +21,12 @@ public class Favorite {
         this.favoriteId = favoriteId;
     }
 
-    public int getShoeId() {
-        return shoeId;
+    public int getStyleId() {
+        return styleId;
     }
 
-    public void setShoeId(int shoeId) {
-        this.shoeId = shoeId;
+    public void setStyleId(int styleId) {
+        this.styleId = styleId;
     }
 
     public int getAppUserId() {
