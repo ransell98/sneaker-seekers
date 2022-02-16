@@ -1,6 +1,6 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { Button, Col, Form, Row } from "react-bootstrap";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
@@ -9,6 +9,7 @@ import '../styles/Login.css';
 
 import AuthContext from "../contexts/AuthContext";
 
+import Page from "./Page";
 import Loading from "./Loading";
 
 function Login() {
@@ -16,6 +17,7 @@ function Login() {
     const [password, setPassword] = useState("");
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    
     const context = useContext(AuthContext);
     const navigate = useNavigate();
 
@@ -33,7 +35,7 @@ function Login() {
     }
 
     return (
-        <Container>
+        <Page title="User Login">
             <Form onSubmit={onSubmit}>
                 <Form.Group controlId="formUsername" className="mt-5 mb-4">
                     <Row>
@@ -95,7 +97,7 @@ function Login() {
             {isLoading
             ? <Loading/>
             : <></>}
-        </Container>
+        </Page>
     );
 }
 

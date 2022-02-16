@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import './styles/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -45,7 +45,7 @@ function App() {
   return (
     <div className="App">
       <AuthContext.Provider value={{ username, setUsername }}>
-        <Router>
+        <BrowserRouter>
           <SiteNavbar/>
           <Routes>
             {
@@ -60,7 +60,7 @@ function App() {
               })
             }
           </Routes>
-        </Router>
+        </BrowserRouter>
       </AuthContext.Provider>
     </div>
   );

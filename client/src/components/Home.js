@@ -1,9 +1,10 @@
+import Page from "./Page";
 
 function Home() {
     return (
-        <>
-            <h1>Home</h1>
-        </>
+        <Page title="Sneaker Seekers">
+            
+        </Page>
     );
 }
 
