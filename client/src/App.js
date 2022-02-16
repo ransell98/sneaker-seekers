@@ -54,6 +54,7 @@ function App() {
                   <Route
                     path={page.url} 
                     element={page.component}
+                    key={page.url}
                   />
                 );
               })
