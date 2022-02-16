@@ -34,7 +34,7 @@ const ROUTES = [
   "component": <Favorites/>},
   {"url": "/followed",
   "component": <Followed/>},
-  {"url": "/settings",
+  {"url": "/account",
   "component": <AccountSettings/>},
   {"url": "/",
   "component": <Navigate replace to="/home"/>},
