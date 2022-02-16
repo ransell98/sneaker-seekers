@@ -1,24 +1,15 @@
 package learn.sneaker_seekers.models;
 
 public class Follow {
-    private int followId;
+
     private int followerId;
     private int vendorId;
 
     public Follow(){}
 
-    public Follow(int followId, int followerId, int vendorId){
-        this.followId = followId;
+    public Follow(int followerId, int vendorId){
         this.followerId = followerId;
         this.vendorId = vendorId;
-    }
-
-    public int getFollowId() {
-        return followId;
-    }
-
-    public void setFollowId(int followId) {
-        this.followId = followId;
     }
 
     public int getFollowerId() {
