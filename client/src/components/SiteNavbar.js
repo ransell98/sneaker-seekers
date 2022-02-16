@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Button, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
@@ -11,19 +11,21 @@ import '../styles/Navbar.css';
 function SiteNavbar() {
     const context = useContext(AuthContext);
     //testing only
-    context.username = false;
+    context.username = true;
+
+    const [expanded, setExpanded] = useState(false);
 
     return(
-        <Navbar bg="light" expand="md">
+        <Navbar bg="light" expand="md" expanded={expanded}>
             <Container>
                 <LinkContainer to="/home">
                     <Navbar.Brand>Sneaker Seekers</Navbar.Brand>
                 </LinkContainer>
-                <Navbar.Toggle />
+                <Navbar.Toggle onClick={() => setExpanded(expanded ? false : "expanded")} />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav>
                         <Nav.Item className="ms-0 ms-lg-4">
-                            <LinkContainer to="/home">
+                            <LinkContainer to="/home" onClick={() => setExpanded(false)}>
                                 <Nav.Link>
                                     <FontAwesomeIcon icon={faHouse}/>
                                     Home
@@ -31,7 +33,7 @@ function SiteNavbar() {
                             </LinkContainer>
                         </Nav.Item>
                         <Nav.Item className="ms-0 ms-lg-4">
-                            <LinkContainer to="/events">
+                            <LinkContainer to="/events" onClick={() => setExpanded(false)}>
                                 <Nav.Link>
                                     <FontAwesomeIcon icon={faCalendar}/>
                                     Events
@@ -39,7 +41,7 @@ function SiteNavbar() {
                             </LinkContainer>
                         </Nav.Item>
                         <Nav.Item className="ms-0 ms-lg-4">
-                            <LinkContainer to="/search">
+                            <LinkContainer to="/search" onClick={() => setExpanded(false)}>
                                 <Nav.Link>
                                     <FontAwesomeIcon icon={faMagnifyingGlass}/>
                                     Search <span className="d-inline d-md-none d-lg-inline">Sneakers</span>
@@ -60,20 +62,20 @@ function SiteNavbar() {
                                 id="basic-nav-dropdown"
                                 className="mb-2 mb-md-0 me-1 me-md-4"
                             >
-                                <LinkContainer to="/favorites">
+                                <LinkContainer to="/favorites" onClick={() => setExpanded(false)}>
                                     <NavDropdown.Item>
                                         <FontAwesomeIcon icon={faHeart}/>
                                         Favorite Sneakers
                                     </NavDropdown.Item>
                                 </LinkContainer>
-                                <LinkContainer to="/followed">
+                                <LinkContainer to="/followed" onClick={() => setExpanded(false)}>
                                     <NavDropdown.Item>
                                         <FontAwesomeIcon icon={faBookmark}/>
                                         Followed Vendors
                                     </NavDropdown.Item>
                                 </LinkContainer>
                                 <NavDropdown.Divider/>
-                                <LinkContainer to="/account">
+                                <LinkContainer to="/account" onClick={() => setExpanded(false)}>
                                     <NavDropdown.Item>
                                         <FontAwesomeIcon icon={faGear}/>
                                         Account Settings
@@ -81,7 +83,7 @@ function SiteNavbar() {
                                 </LinkContainer>
                             </NavDropdown>
                             <Nav.Item>
-                                <Button variant="secondary">
+                                <Button variant="secondary" onClick={() => setExpanded(false)}>
                                     <FontAwesomeIcon icon={faRightFromBracket}/>
                                     Logout
                                 </Button>
@@ -89,7 +91,7 @@ function SiteNavbar() {
                         </>
                         : <>
                             <Nav.Item className="mb-2 mb-md-0 me-1 me-md-4">
-                                <LinkContainer to="/register">
+                                <LinkContainer to="/register" onClick={() => setExpanded(false)}>
                                     <Button variant="outline-secondary">
                                         <FontAwesomeIcon icon={faUserPlus}/>
                                         Register
@@ -97,7 +99,7 @@ function SiteNavbar() {
                                 </LinkContainer>
                             </Nav.Item>
                             <Nav.Item>
-                                <LinkContainer to="/login">
+                                <LinkContainer to="/login" onClick={() => setExpanded(false)}>
                                     <Button variant="primary">
                                         <FontAwesomeIcon icon={faLock}/>
                                         Login
