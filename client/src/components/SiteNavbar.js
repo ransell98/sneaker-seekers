@@ -2,8 +2,11 @@ import { useContext } from "react";
 import { Button, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBookmark, faCalendar, faGear, faHeart, faHouse, faLock, faMagnifyingGlass, faRightFromBracket, faUser, faUserPlus } from '@fortawesome/free-solid-svg-icons'
 import AuthContext from "../contexts/AuthContext";
 
+import '../styles/Navbar.css';
 
 function SiteNavbar() {
     const context = useContext(AuthContext);
@@ -11,7 +14,7 @@ function SiteNavbar() {
     context.username = false;
 
     return(
-        <Navbar bg="light" expand="lg">
+        <Navbar bg="light" expand="md">
             <Container>
                 <LinkContainer to="/home">
                     <Navbar.Brand>Sneaker Seekers</Navbar.Brand>
@@ -19,56 +22,86 @@ function SiteNavbar() {
                 <Navbar.Toggle />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav>
-                        <Nav.Item>
+                        <Nav.Item className="ms-0 ms-lg-4">
                             <LinkContainer to="/home">
-                                <Nav.Link>Home</Nav.Link>
+                                <Nav.Link>
+                                    <FontAwesomeIcon icon={faHouse}/>
+                                    Home
+                                </Nav.Link>
                             </LinkContainer>
                         </Nav.Item>
-                        <Nav.Item>
+                        <Nav.Item className="ms-0 ms-lg-4">
                             <LinkContainer to="/events">
-                                <Nav.Link>Events</Nav.Link>
+                                <Nav.Link>
+                                    <FontAwesomeIcon icon={faCalendar}/>
+                                    Events
+                                </Nav.Link>
                             </LinkContainer>
                         </Nav.Item>
-                        <Nav.Item>
+                        <Nav.Item className="ms-0 ms-lg-4">
                             <LinkContainer to="/search">
-                                <Nav.Link>Search Sneakers</Nav.Link>
+                                <Nav.Link>
+                                    <FontAwesomeIcon icon={faMagnifyingGlass}/>
+                                    Search <span className="d-inline d-md-none d-lg-inline">Sneakers</span>
+                                </Nav.Link>
                             </LinkContainer>
                         </Nav.Item>
                     </Nav>
                     <Nav className="ms-auto">
                         {context.username
                         ? <>
-                            <NavDropdown title="My Account" id="basic-nav-dropdown">
+                            <NavDropdown 
+                                title={
+                                    <span>
+                                        <FontAwesomeIcon icon={faUser}/>
+                                        <span className="d-inline d-md-none d-lg-inline">My</span> Account
+                                    </span>
+                                } 
+                                id="basic-nav-dropdown"
+                                className="mb-2 mb-md-0 me-1 me-md-4"
+                            >
                                 <LinkContainer to="/favorites">
                                     <NavDropdown.Item>
+                                        <FontAwesomeIcon icon={faHeart}/>
                                         Favorite Sneakers
                                     </NavDropdown.Item>
                                 </LinkContainer>
                                 <LinkContainer to="/followed">
                                     <NavDropdown.Item>
+                                        <FontAwesomeIcon icon={faBookmark}/>
                                         Followed Vendors
                                     </NavDropdown.Item>
                                 </LinkContainer>
                                 <NavDropdown.Divider/>
                                 <LinkContainer to="/account">
                                     <NavDropdown.Item>
+                                        <FontAwesomeIcon icon={faGear}/>
                                         Account Settings
                                     </NavDropdown.Item>
                                 </LinkContainer>
                             </NavDropdown>
                             <Nav.Item>
-                                <Button variant="secondary">Logout</Button>
+                                <Button variant="secondary">
+                                    <FontAwesomeIcon icon={faRightFromBracket}/>
+                                    Logout
+                                </Button>
                             </Nav.Item>
                         </>
                         : <>
-                            <Nav.Item>
-                                <LinkContainer to="/login">
-                                    <Button variant="secondary">Login</Button>
+                            <Nav.Item className="mb-2 mb-md-0 me-1 me-md-4">
+                                <LinkContainer to="/register">
+                                    <Button variant="outline-secondary">
+                                        <FontAwesomeIcon icon={faUserPlus}/>
+                                        Register
+                                    </Button>
                                 </LinkContainer>
                             </Nav.Item>
                             <Nav.Item>
-                                <LinkContainer to="/register">
-                                    <Nav.Link>Register</Nav.Link>
+                                <LinkContainer to="/login">
+                                    <Button variant="primary">
+                                        <FontAwesomeIcon icon={faLock}/>
+                                        Login
+                                    </Button>
                                 </LinkContainer>
                             </Nav.Item>
                         </>}
