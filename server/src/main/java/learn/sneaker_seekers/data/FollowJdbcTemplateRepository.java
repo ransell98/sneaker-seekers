@@ -1,4 +1,63 @@
 package learn.sneaker_seekers.data;
 
-public class FollowJdbcTemplateRepository {
+import learn.sneaker_seekers.models.Follow;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
+
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+import java.util.List;
+
+public class FollowJdbcTemplateRepository implements FollowRepository {
+
+    private final JdbcTemplate jdbcTemplate;
+
+    public FollowJdbcTemplateRepository(JdbcTemplate jdbcTemplate) { this.jdbcTemplate = jdbcTemplate; }
+
+
+    @Override
+    public List<Follow> findByFollowerId(int followerId) {
+
+        final String sql = "select follower_id, vendor_id "
+                + "from follow "
+                + "where follower_id = " + followerId + ";";
+
+        return jdbcTemplate.query(sql, new FollowMapper());
+
+    }
+
+    @Override
+    public Follow add(Follow follow) throws DataAccessException {
+
+        final String sql = "insert into follow"
+                + "(follower_id, vendor_id) "
+                + "values (?, ?);";
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        int rowsAffected = jdbcTemplate.update(conn -> {
+            PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            statement.setInt(1, follow.getFollowerId());
+            statement.setInt(2, follow.getVendorId());
+            return statement;
+        }, keyHolder);
+
+        if (rowsAffected <= 0) {
+            throw new DataAccessException("Follow insert failed.", null);
+        }
+
+        return follow;
+
+    }
+
+    @Override
+    public boolean deleteByFollowerIdAndVendorId(int followerId, int vendorId) throws DataAccessException {
+
+        final String sql = "delete from follow "
+                + "where follower_id = " + followerId + " and vendor_id = " + vendorId + ";";
+
+        int rowsAffected = jdbcTemplate.update(sql);
+        return rowsAffected > 0;
+
+    }
 }
