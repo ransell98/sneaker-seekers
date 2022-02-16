@@ -17,6 +17,29 @@ import Favorites from "./components/Favorites";
 import Followed from "./components/Followed";
 import AccountSettings from "./components/AccountSettings";
 
+const ROUTES = [
+  {"url": "/home",
+  "component": <Home/>},
+  {"url": "/events/:id",
+  "component": <Event/>},
+  {"url": "/events",
+  "component": <Events/>},
+  {"url": "/search",
+  "component": <SearchSneakers/>},
+  {"url": "/login",
+  "component": <Login/>},
+  {"url": "/register",
+  "component": <Register/>},
+  {"url": "/favorites",
+  "component": <Favorites/>},
+  {"url": "/followed",
+  "component": <Followed/>},
+  {"url": "/settings",
+  "component": <AccountSettings/>},
+  {"url": "/",
+  "component": <Navigate replace to="/home"/>},
+]
+
 function App() {
   const [username, setUsername] = useState();
   return (
@@ -25,16 +48,16 @@ function App() {
         <Router>
           <SiteNavbar/>
           <Routes>
-            <Route path="/home" element={<Home/>}/>
-            <Route path="/events/:id" element={<Event/>}/>
-            <Route path="/events" element={<Events/>}/>
-            <Route path="/search" element={<SearchSneakers/>}/>
-            <Route path="/login" element={<Login/>}/>
-            <Route path="/register" element={<Register/>}/>
-            <Route path="/favorites" element={<Favorites/>}/>
-            <Route path="/followed" element={<Followed/>}/>
-            <Route path="/account" element={<AccountSettings/>}/>
-            <Route path="/" element={<Navigate replace to="/home" />}/>
+            {
+              ROUTES.map((page) => {
+                return (
+                  <Route
+                    path={page.url} 
+                    element={page.component}
+                  />
+                );
+              })
+            }
           </Routes>
         </Router>
       </AuthContext.Provider>
