@@ -23,7 +23,16 @@ function SiteNavbar() {
         <Navbar bg="light" expand="md" expanded={expanded}>
             <Container>
                 <LinkContainer to="/home">
-                    <Navbar.Brand>Sneaker Seekers</Navbar.Brand>
+                    <Navbar.Brand>
+                        <img
+                            alt="Sneaker Seekers logo"
+                            src="/logo-v1/sneaker-seekers-logo-v1.svg"
+                            width={30}
+                            height={30}
+                            className="d-inline-block align-top"
+                        />{" "}
+                        Sneaker Seekers
+                    </Navbar.Brand>
                 </LinkContainer>
                 <Navbar.Toggle onClick={() => setExpanded(expanded ? false : "expanded")} />
                 <Navbar.Collapse id="basic-navbar-nav">
