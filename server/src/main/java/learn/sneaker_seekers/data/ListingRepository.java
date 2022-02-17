@@ -10,6 +10,6 @@ public interface ListingRepository {
 
     Listing add(Listing listing) throws DataAccessException;
 
-    Listing deleteByListingId(int listingId) throws DataAccessException;
+    boolean deleteByListingId(int listingId) throws DataAccessException;
 
 }
