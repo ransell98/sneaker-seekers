@@ -4,16 +4,12 @@
     font-size: x-large;
 }
 .fa-eye {
-    margin-left: -13px;
-}
-.fa-eye:hover {
     color: blue;
-    cursor: pointer;
+    margin-left: -13px;
 }
 .fa-eye-slash {
     margin-left: -15px;
 }
-.fa-eye-slash:hover {
-    color: red;
+.fa-eye:hover, .fa-eye-slash:hover {
     cursor: pointer;
 }

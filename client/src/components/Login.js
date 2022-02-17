@@ -44,7 +44,7 @@ function Login() {
                         </Col>
                         <Col xs={10} md={8}>
                             <Form.Control
-                                type="email"
+                                type="text"
                                 placeholder="Username"
                                 onChange={(event) => setUsername(event.target.value)}
                                 value={username}
@@ -77,8 +77,8 @@ function Login() {
                             <FontAwesomeIcon
                                 icon={
                                     isPasswordVisible
-                                    ? faEye
-                                    : faEyeSlash
+                                    ? faEyeSlash
+                                    : faEye
                                 }
                                 onClick={toggleIsPasswordVisible}
                             />
