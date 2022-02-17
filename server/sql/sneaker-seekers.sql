@@ -55,7 +55,7 @@ create table style (
 	style_id int primary key auto_increment, 
     style_name varchar(100) not null, 
     `description` varchar(3600) not null,
-    release_year date not null, 
+    release_year int not null, 
     brand_id int not null, 
     constraint fk_style_brand_id
 		foreign key (brand_id)
