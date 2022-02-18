@@ -1,0 +1,35 @@
+.error-card {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+.error-card .card-header {
+    font-size: xx-large;
+}
+.error-card .fa-triangle-exclamation {
+    color: yellow;
+}
+.error-card .card-text {
+    font-size: large;
+    font-style: italic;
+}
+@media (prefers-reduced-motion: no-preference) {
+    .error-card {
+        animation: Error-mount 0.2s ease-in-out
+    }
+}
+@keyframes Error-mount {
+    from {
+      transform: translateX(0vw)
+    }
+    30% {
+      transform: translateX(-0.5vw)
+    }
+    60% {
+      transform: translateX(0.5vw)
+    }
+    to {
+      transform: translateX(0vw)
+    }
+}
