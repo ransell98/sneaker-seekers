@@ -6,15 +6,17 @@ public class Style {
     private int brandId;
     private String description;
     private int releaseYear;
+    private String styleImage;
 
     public Style(){}
 
-    public Style(int styleId, String styleName, int brandId, String description, int releaseYear){
+    public Style(int styleId, String styleName, int brandId, String description, int releaseYear, String styleImage){
         this.styleId = styleId;
         this.styleName = styleName;
         this.brandId = brandId;
         this.description = description;
         this.releaseYear = releaseYear;
+        this.styleImage = styleImage;
     }
 
     public int getStyleId() {
@@ -55,5 +57,13 @@ public class Style {
 
     public void setReleaseYear(int releaseYear) {
         this.releaseYear = releaseYear;
+    }
+
+    public String getStyleImage() {
+        return styleImage;
+    }
+
+    public void setStyleImage(String styleImage) {
+        this.styleImage = styleImage;
     }
 }

@@ -21,7 +21,7 @@ public class EventJdbcTemplateRepository implements EventRepository {
     @Override
     public List<Event> findAll() {
 
-        final String sql = "select event_id, event_date, event_location, num_table "
+        final String sql = "select event_id, event_date, num_table, location_id "
                 + "from `event`;";
 
         return jdbcTemplate.query(sql, new EventMapper());
@@ -31,7 +31,7 @@ public class EventJdbcTemplateRepository implements EventRepository {
     @Override
     public Event findByEventId(int eventId) {
 
-        final String sql = "select event_id, event_date, event_location, num_table "
+        final String sql = "select event_id, event_date, num_table, location_id "
                 + "from `event` "
                 + "where event_id = " + eventId + ";";
 
@@ -43,7 +43,7 @@ public class EventJdbcTemplateRepository implements EventRepository {
     public Event add(Event event) throws DataAccessException {
 
         final String sql = "insert into `event`"
-                + "(event_id, event_date, event_location, num_table) "
+                + "(event_id, event_date, num_table, location_id) "
                 + "values (?, ?, ?, ?);";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -51,8 +51,8 @@ public class EventJdbcTemplateRepository implements EventRepository {
             PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, event.getEventId());
             statement.setString(2, event.getEventDate().toString());
-            statement.setString(3, event.getEventLocation());
-            statement.setInt(4, event.getNumTable());
+            statement.setInt(3, event.getNumTable());
+            statement.setInt(4, event.getLocationId());
             return statement;
         }, keyHolder);
 
