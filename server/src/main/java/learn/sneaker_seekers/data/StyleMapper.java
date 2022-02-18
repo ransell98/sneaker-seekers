@@ -17,6 +17,7 @@ public class StyleMapper implements RowMapper<Style> {
         style.setDescription(rs.getString("description"));
         style.setReleaseYear(rs.getInt("release_year"));
         style.setBrandId(rs.getInt("brand_id"));
+        style.setStyleImage(rs.getString("style_image"));
 
         return style;
 
