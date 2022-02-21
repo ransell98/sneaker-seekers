@@ -1,20 +1,21 @@
 package learn.sneaker_seekers.data;
 
 import learn.sneaker_seekers.models.Condition;
+import learn.sneaker_seekers.models.Listing;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.List;
+import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-class ConditionJdbcTemplateRepositoryTest {
+class ListingJdbcTemplateRepositoryTest {
 
     @Autowired
-    ConditionJdbcTemplateRepository repository;
+    ListingJdbcTemplateRepository repository;
 
     @Autowired
     KnownGoodState knownGoodState;
@@ -25,10 +26,12 @@ class ConditionJdbcTemplateRepositoryTest {
     }
 
     @Test
-    void shouldFindAll() {
-        List<Condition> conditionList = repository.findAll();
-        assertNotNull(conditionList);
-        assertTrue(conditionList.size() >= 5);
+    void shouldFindByTableId() {
+
     }
 
+    @Test
+    void shouldAdd() {
+
+    }
 }
