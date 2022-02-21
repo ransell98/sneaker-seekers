@@ -6,7 +6,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUpRightFromSquare, faEye, faEyeSlash, faLock, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 
-import '../styles/Login.css';
+import '../styles/LoginAndRegister.css';
 
 import AuthContext from "../contexts/AuthContext";
 
@@ -40,7 +40,7 @@ function Login() {
             <Form onSubmit={onSubmit}>
                 <Form.Group controlId="formUsername" className="mt-2 mb-4">
                     <Row>
-                        <Col md={2}>
+                        <Col md={3}>
                             <Form.Label>Username</Form.Label>
                         </Col>
                         <Col xs={10} md={8}>
@@ -57,7 +57,7 @@ function Login() {
                 </Form.Group>
                 <Form.Group controlId="formPassword" className="my-4">
                     <Row>
-                        <Col md={2}>
+                        <Col md={3}>
                             <Form.Label>Password</Form.Label>
                         </Col>
                         <Col xs={10} md={8}>

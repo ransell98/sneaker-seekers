@@ -33,3 +33,10 @@
 .fa-eye:hover, .fa-eye-slash:hover {
     cursor: pointer;
 }
+.passwords-error-message {
+    color: red;
+    font-style: italic;
+}
+.register-paragraph-column {
+    font-weight: bold;
+}
