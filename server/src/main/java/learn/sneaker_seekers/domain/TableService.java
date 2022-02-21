@@ -48,11 +48,15 @@ public class TableService {
         return result;
     }
 
-    private Result validate(Table table) {
+    private Result validate(Table table) throws DataAccessException {
         Result result = new Result();
 
         if (table == null) {
             result.addErrorMessage("Table cannot be null.");
+        }
+
+        if (table.getTableNumber() > repository.getMaxTables(table.getEventId())) {
+            result.addErrorMessage("Table number cannot be greater that event's max tables.");
         }
 
         return result;

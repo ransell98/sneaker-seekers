@@ -5,14 +5,16 @@ public class Table {
     private int eventId;
     private int appUserId;
     private boolean isBooked;
+    private int tableNumber;
 
     public Table(){}
 
-    public Table(int tableId, int eventId, int appUserId, boolean isBooked){
+    public Table(int tableId, int eventId, int appUserId, boolean isBooked, int tableNumber){
         this.tableId = tableId;
         this.eventId = eventId;
         this.appUserId = appUserId;
         this.isBooked = isBooked;
+        this.tableNumber = tableNumber;
     }
 
     public int getTableId() {
@@ -45,5 +47,13 @@ public class Table {
 
     public void setBooked(boolean booked) {
         isBooked = booked;
+    }
+
+    public int getTableNumber() {
+        return tableNumber;
+    }
+
+    public void setTableNumber(int tableNumber) {
+        this.tableNumber = tableNumber;
     }
 }
