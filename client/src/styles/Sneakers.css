@@ -1,0 +1,12 @@
+.sneaker-style img {
+    max-height: 300px;
+    max-width: 90%;
+    margin: 5%;
+    margin-top: 0px;
+}
+.sneaker-style .btn {
+    border-radius: 30px;
+}
+.sneaker-style .btn svg {
+    margin-left: 0.5em;
+}
