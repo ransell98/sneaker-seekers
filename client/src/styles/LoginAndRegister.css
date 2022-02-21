@@ -9,9 +9,6 @@
 .card-register .fa-user-plus, .card-login .fa-lock {
     margin-right: 0.5em;
 }
-.card-register .row {
-    height: 100%;
-}
 .card-register .btn {
     margin: auto;
 }

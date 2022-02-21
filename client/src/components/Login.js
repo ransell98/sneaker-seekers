@@ -117,11 +117,11 @@ function Login() {
     function renderRegisterButton() {
         return (
             <LinkContainer to="/register">
-                <Row>
+                <Row className="mt-4 mt-xl-5">
                     <Button
                         variant="primary"
                         size="lg"
-                        className="col-4 offset-4"
+                        className="col-6 offset-3 col-md-4 offset-md-4"
                         disabled={isLoading}
                     >
                         Register
@@ -140,6 +140,9 @@ function Login() {
                     New User
                 </Card.Header>
                 <Card.Body>
+                    <p className="">
+                        Create an account to keep track of your favorite sneakers and vendors, or become a vendor and start selling sneakers at upcoming events.
+                    </p>
                     {renderRegisterButton()}
                 </Card.Body>
             </Card>
