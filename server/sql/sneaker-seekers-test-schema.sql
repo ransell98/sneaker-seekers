@@ -174,10 +174,10 @@ begin
         ('2022-10-21', 30, 1),
         ('2023-03-25', 35, 3);
         
-	insert into vendor_table (is_booked, event_id, app_user_id)
+	insert into vendor_table (is_booked, table_number, event_id, app_user_id)
 		values 
-        (1, 2, 2),
-        (1, 3, 1);
+        (1, 13, 2, 2),
+        (1, 21, 3, 1);
         
 	insert into brand (brand_name)
 		values 

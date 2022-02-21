@@ -19,8 +19,9 @@ public class StyleJdbcTemplateRepository implements StyleRepository{
     @Override
     public Style findByStyleId(int styleId) {
 
-        final String sql = "select style_id, style_name, `description`, release_year, brand_id, style_image "
-                + "from style;";
+        final String sql = "select style_id, style_name, `description`, release_year, style_image, brand_id "
+                + "from style "
+                + "where style_id = " + styleId + ";";
 
         return jdbcTemplate.queryForObject(sql, new StyleMapper());
 
@@ -32,8 +33,21 @@ public class StyleJdbcTemplateRepository implements StyleRepository{
                 + "values (?, ?, ?, ?);";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
+        int rowsAffected = jdbcTemplate.update(con -> {
+            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, style.getStyleName());
+            ps.setString(2, style.getDescription());
+            ps.setInt(3, style.getReleaseYear());
+            ps.setInt(4, style.getBrandId());
+            return ps;
+        }, keyHolder);
 
-        return null;
+        if (rowsAffected <= 0) {
+            return null;
+        }
+
+        style.setStyleId(keyHolder.getKey().intValue());
+        return style;
     }
 
 }
