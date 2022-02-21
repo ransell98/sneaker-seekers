@@ -4,11 +4,13 @@ import learn.sneaker_seekers.models.Follow;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.List;
 
+@Repository
 public class FollowJdbcTemplateRepository implements FollowRepository {
 
     private final JdbcTemplate jdbcTemplate;

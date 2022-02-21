@@ -12,4 +12,6 @@ public interface TableRepository {
 
     boolean update(Table table) throws DataAccessException;
 
+    int getMaxTables(int eventId) throws DataAccessException;
+
 }

@@ -1,7 +1,6 @@
-drop database if exists sneaker_seekers; 
-create database sneaker_seekers; 
-use sneaker_seekers; 
-
+drop database if exists sneaker_seekers_test; 
+create database sneaker_seekers_test; 
+use sneaker_seekers_test; 
 
 create table app_user (
     app_user_id int primary key auto_increment,
@@ -129,5 +128,97 @@ create table upgrade_request (
 		foreign key (app_user_id)
         references app_user(app_user_id)
 );
+
+
+delimiter //
+create procedure set_known_good_state()
+begin
+
+	delete from upgrade_request;
+    alter table upgrade_request auto_increment = 1; 
+    delete from favorite; 
+    alter table favorite auto_increment = 1;
+    delete from follow;
+    alter table follow auto_increment = 1;
+    delete from listing; 
+    alter table listing auto_increment = 1;
+    delete from `condition`;
+    alter table `condition` auto_increment = 1;
+    delete from style; 
+    alter table style auto_increment = 1;
+    delete from brand;
+    alter table brand auto_increment = 1;
+    delete from vendor_table;
+    alter table vendor_table auto_increment = 1;
+    delete from `event`;
+    alter table `event` auto_increment = 1;
+    delete from location; 
+    alter table location auto_increment = 1;
+    delete from app_user; 
+    alter table app_user auto_increment = 1; 
+    
+    insert into app_user (username, password_hash)
+		values
+        ('dn7149ns', 'Great!password'),
+        ('nx9187tx', 'Somethingpassword?');
+    
+    insert into location (location_name, location_address, location_city)
+		values
+        ('Minneapolis Convention Center', '1301 2nd Ave S', 'Minneapolis, MN'),
+        ('Los Angeles Convention Center', '1201 S Figueroa St', 'Los Angeles, CA'),
+        ('Austin Convention Center', '500 E Cesar Chavez St', 'Austin, TX');
+        
+	insert into `event` (event_date, num_table, location_id)
+		values
+        ('2022-06-10', 45, 2),
+        ('2022-10-21', 30, 1),
+        ('2023-03-25', 35, 3);
+        
+	insert into vendor_table (is_booked, event_id, app_user_id)
+		values 
+        (1, 2, 2),
+        (1, 3, 1);
+        
+	insert into brand (brand_name)
+		values 
+        ('Nike'),
+        ('Addidas');
+    
+    insert into style (style_name, `description`, release_year, brand_id)
+		values 
+        ('Panda Dunks', 'Black and white low-top dunks', 2019, 1),
+        ('Nature Pale Coral Dunks', 'Peachy pink and white low-top dunks', 2020, 1);
+        
+	insert into `condition` (condition_name)
+		values 
+        ('Mint'),
+        ('New'),
+        ('Never worn'),
+        ('Slightly worn'),
+        ('Bad');
+        
+	
+    insert into listing (listing_price, quantity, style_id, vendor_table_id, condition_id)
+		values 
+        (450, 15, 1, 1, 2),
+        (400, 12, 2, 2, 2);
+        
+	insert into follow (follower_id, vendor_id)
+		values 
+        (1, 2),
+        (2, 1);
+        
+	insert into favorite (style_id, app_user_id)
+		values (1, 2);
+        
+	insert into upgrade_request (app_user_id)
+		values (1);
+
+end //
+delimiter ;
+        
+	
+
+
 
 

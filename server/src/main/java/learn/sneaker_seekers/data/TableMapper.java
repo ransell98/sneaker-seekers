@@ -16,6 +16,7 @@ public class TableMapper implements RowMapper<Table> {
         table.setEventId(rs.getInt("event_id"));
         table.setAppUserId(rs.getInt("app_user_id"));
         table.setBooked(rs.getBoolean("is_booked"));
+        table.setTableNumber(rs.getInt("table_number"));
 
         return table;
     }

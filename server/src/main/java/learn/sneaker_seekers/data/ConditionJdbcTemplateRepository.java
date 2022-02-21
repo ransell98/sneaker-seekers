@@ -2,9 +2,11 @@ package learn.sneaker_seekers.data;
 
 import learn.sneaker_seekers.models.Condition;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class ConditionJdbcTemplateRepository implements ConditionRepository{
 
     private final JdbcTemplate jdbcTemplate;

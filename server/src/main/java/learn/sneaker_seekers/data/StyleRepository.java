@@ -6,4 +6,6 @@ public interface StyleRepository {
 
     Style findByStyleId(int styleId);
 
+    Style add(Style style);
+
 }

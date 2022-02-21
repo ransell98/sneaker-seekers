@@ -1,6 +1,6 @@
 package learn.sneaker_seekers.data;
 
-import learn.sneaker_seekers.models.Brand;
+import learn.sneaker_seekers.models.Condition;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +11,10 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-class BrandJdbcTemplateRepositoryTest {
+class ConditionJdbcTemplateRepositoryTest {
 
     @Autowired
-    BrandJdbcTemplateRepository repository;
+    ConditionJdbcTemplateRepository repository;
 
     @Autowired
     KnownGoodState knownGoodState;
@@ -26,20 +26,9 @@ class BrandJdbcTemplateRepositoryTest {
 
     @Test
     void shouldFindAll() {
-        List<Brand> brand = repository.findAll();
-        assertNotNull(brand);
-        assertTrue(brand.size() >= 2);
+        List<Condition> conditionList = repository.findAll();
+        assertNotNull(conditionList);
+        assertTrue(conditionList.size() >= 5);
     }
 
-    @Test
-    void shouldAdd() throws DataAccessException {
-        Brand brand = new Brand();
-        brand.setBrandName("Jordan");
-
-        Brand actual = repository.add(brand);
-        brand.setBrandId(3);
-
-        assertNotNull(actual);
-        assertEquals(brand, actual);
-    }
 }

@@ -32,7 +32,7 @@ public class BrandJdbcTemplateRepository implements BrandRepository{
 
         final String sql = "insert into brand"
                 + "(brand_id, brand_name) "
-                + "values (?, ?, ?);";
+                + "values (?, ?);";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(conn -> {
