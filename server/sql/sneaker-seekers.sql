@@ -2,6 +2,7 @@ drop database if exists sneaker_seekers;
 create database sneaker_seekers; 
 use sneaker_seekers; 
 
+
 create table app_user (
     app_user_id int primary key auto_increment,
     username varchar(50) not null unique,
@@ -26,18 +27,29 @@ create table app_user_role (
 		references app_role(app_role_id)
 );
 
+create table location (
+	location_id int primary key auto_increment, 
+    location_name varchar(100) not null, 
+    location_address varchar(100) not null, 
+    location_city varchar(100) not null
+);
+
 create table `event` (
 	event_id int primary key auto_increment,
     event_date date not null, 
-    event_location varchar(100), 
-    num_table int not null
+    num_table int not null,
+    event_image varchar(300) not null, 
+    location_id int not null, 
+    constraint fk_event_location_id
+		foreign key (location_id)
+        references location(location_id)
 );
 
 create table vendor_table (
 	vendor_table_id int primary key auto_increment, 
+    is_booked boolean not null default(0),
     event_id int not null, 
     app_user_id int not null,
-    is_booked boolean not null default(0),
     constraint fk_vendor_table_event_id
 		foreign key (event_id)
         references `event`(event_id), 
@@ -56,6 +68,7 @@ create table style (
     style_name varchar(100) not null, 
     `description` varchar(3600) not null,
     release_year int not null, 
+    style_image varchar(300) not null, 
     brand_id int not null, 
     constraint fk_style_brand_id
 		foreign key (brand_id)

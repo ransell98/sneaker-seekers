@@ -18,14 +18,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public SecurityConfig(JwtConverter converter) {
         this.converter = converter;
     }
-
+/*
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.cors();
 
         // paths still needs to be set
-
         http.authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/health_check").permitAll()
                 .antMatchers(HttpMethod.POST, "/authenticate", "/encode", "/user/create").permitAll()
@@ -50,5 +49,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();
     }
-
+*/
 }
