@@ -1,0 +1,29 @@
+body {
+    margin-bottom: 0px !important;
+    background-color: #eeeeee !important;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif !important;
+}
+h1, h2, h3, .navbar-brand {
+    font-variant: small-caps;
+}
+/* button colors */
+.btn-primary {
+    background-color: #dd0011 !important;
+    border-color: #bb0000 !important;
+}
+.navbar .btn-outline-primary {
+    color: #ffffff;
+    border-color: #bb0000 !important;
+}
+.btn-primary:hover, 
+.btn-outline-primary:hover, 
+.btn-outline-primary:focus, 
+.btn-outline-primary::before,
+.btn-outline-primary:visited {
+    background-color: #bb0000 !important;
+}
+.btn-primary:focus,
+.btn-outline-primary:focus {
+    outline-color: #bb0000 !important;
+    box-shadow: #bb0000 !important;
+}

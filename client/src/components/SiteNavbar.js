@@ -20,7 +20,7 @@ function SiteNavbar() {
     }
 
     return(
-        <Navbar bg="light" expand="md" expanded={expanded}>
+        <Navbar bg="black" variant="dark" expand="md" expanded={expanded}>
             <Container>
                 <LinkContainer to="/home">
                     <Navbar.Brand>
@@ -105,7 +105,7 @@ function SiteNavbar() {
                         : <>
                             <Nav.Item className="mb-2 mb-md-0 me-1 me-md-4">
                                 <LinkContainer to="/register" onClick={() => setExpanded(false)}>
-                                    <Button variant="outline-secondary">
+                                    <Button variant="outline-primary">
                                         <FontAwesomeIcon icon={faUserPlus}/>
                                         Register
                                     </Button>
