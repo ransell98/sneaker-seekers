@@ -1,9 +1,10 @@
 import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Col, Form, Row } from "react-bootstrap";
+import { Button, Card, Col, Form, Row } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { faArrowUpRightFromSquare, faEye, faEyeSlash, faLock, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 
 import '../styles/Login.css';
 
@@ -34,10 +35,10 @@ function Login() {
         }, 1000);
     }
 
-    return (
-        <Page title="User Login">
+    function renderLoginForm() {
+        return (
             <Form onSubmit={onSubmit}>
-                <Form.Group controlId="formUsername" className="mt-5 mb-4">
+                <Form.Group controlId="formUsername" className="mt-2 mb-4">
                     <Row>
                         <Col md={2}>
                             <Form.Label>Username</Form.Label>
@@ -89,13 +90,72 @@ function Login() {
                     <Button
                         variant="primary"
                         type="submit"
-                        className="col-4 offset-7 col-lg-2 offset-lg-8"
+                        className="col-4 offset-4"
                         disabled={isLoading}
                     >
-                        Login
+                        Sign In Now
                     </Button>
                 </Row>
             </Form>
+        );
+    }
+
+    function renderLoginCard() {
+        return (
+            <Card className="card-login flex-fill">
+                <Card.Header>
+                    <FontAwesomeIcon icon={faLock}/>
+                    Returning User
+                </Card.Header>
+                <Card.Body>
+                    {renderLoginForm()}
+                </Card.Body>
+            </Card>
+        );
+    }
+
+    function renderRegisterButton() {
+        return (
+            <LinkContainer to="/register">
+                <Row>
+                    <Button
+                        variant="primary"
+                        size="lg"
+                        className="col-4 offset-4"
+                        disabled={isLoading}
+                    >
+                        Register
+                        <FontAwesomeIcon icon={faArrowUpRightFromSquare}/>
+                    </Button>
+                </Row>
+            </LinkContainer>
+        );
+    }
+
+    function renderRegisterCard() {
+        return(
+            <Card className="card-register flex-fill">
+                <Card.Header>
+                    <FontAwesomeIcon icon={faUserPlus}/>
+                    New User
+                </Card.Header>
+                <Card.Body>
+                    {renderRegisterButton()}
+                </Card.Body>
+            </Card>
+        );
+    }
+
+    return (
+        <Page title="User Login">
+            <Row>
+                <Col xs={12} lg={6} className="d-flex">
+                    {renderRegisterCard()}
+                </Col>
+                <Col xs={12} lg={6} className="d-flex">
+                    {renderLoginCard()}
+                </Col>
+            </Row>
             {isLoading
             ? <Loading/>
             : <></>}

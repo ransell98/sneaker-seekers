@@ -1,13 +1,33 @@
+.card-register, .card-login {
+    margin: 2em 0em;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.card-register .card-header, .card-login .card-header {
+    text-align: center;
+    font-size: x-large;
+}
+.card-register .fa-user-plus, .card-login .fa-lock {
+    margin-right: 0.5em;
+}
+.card-register .row {
+    height: 100%;
+}
+.card-register .btn {
+    margin: auto;
+}
+.card-register .btn .fa-arrow-up-right-from-square {
+    margin-left: 0.5em;
+}
 .fa-eye, .fa-eye-slash {
     padding: 0px;
     margin-top: 5px;
     font-size: x-large;
 }
 .fa-eye {
-    color: blue;
     margin-left: -13px;
 }
 .fa-eye-slash {
+    color: gray;
     margin-left: -15px;
 }
 .fa-eye:hover, .fa-eye-slash:hover {
