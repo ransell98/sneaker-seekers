@@ -1,10 +1,17 @@
-.card {
+.event-card {
     max-width: 700px;
-    margin: 2em;
+    margin: 4em;
     margin-left: auto;
     margin-right: auto;
 }
-.card:hover {
+.event-card:hover {
     cursor: pointer;
     transform: scale3d(1.02, 1.04, 1);
+}
+.event-card .card-img {
+    max-height: 250px;
+    max-width: 250px;
+}
+.event-card .card-header {
+    font-size: x-large;
 }

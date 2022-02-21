@@ -12,7 +12,7 @@ public class StyleJdbcTemplateRepository implements StyleRepository{
     @Override
     public Style findByStyleId(int styleId) {
 
-        final String sql = "select style_id, style_name, `description`, release_year, brand_id "
+        final String sql = "select style_id, style_name, `description`, release_year, brand_id, style_image "
                 + "from style;";
 
         return jdbcTemplate.queryForObject(sql, new StyleMapper());
