@@ -33,17 +33,17 @@ public class TableJdbcTemplateRepository implements TableRepository {
     public Table add(Table table) throws DataAccessException {
 
         final String sql = "insert into vendor_table"
-                + "(vendor_table_id, event_id, app_user_id, is_booked, table_number) "
+                + "(vendor_table_id, is_booked, table_number, event_id, app_user_id) "
                 + "values (?, ?, ?, ?, ?);";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(conn -> {
             PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, table.getTableId());
-            statement.setInt(2, table.getEventId());
-            statement.setInt(3, table.getAppUserId());
-            statement.setBoolean(4, table.isBooked());
-            statement.setInt(5, table.getTableNumber());
+            statement.setBoolean(2, table.isBooked());
+            statement.setInt(3, table.getTableNumber());
+            statement.setInt(4, table.getEventId());
+            statement.setInt(5, table.getAppUserId());
             return statement;
         }, keyHolder);
 
@@ -62,10 +62,10 @@ public class TableJdbcTemplateRepository implements TableRepository {
 
         final String sql = "update table set "
                 + "vendor_table_id = ?, "
-                + "event_id = ?, "
-                + "app_user_id = ?, "
                 + "is_booked = ?, "
                 + "table_number ? "
+                + "event_id = ?, "
+                + "app_user_id = ?, "
                 + "where vendor_table_id = ?;";
 
         int rowsAffected = jdbcTemplate.update(sql,

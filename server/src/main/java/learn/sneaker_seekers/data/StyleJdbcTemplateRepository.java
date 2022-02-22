@@ -29,8 +29,8 @@ public class StyleJdbcTemplateRepository implements StyleRepository{
 
     @Override
     public Style add(Style style) {
-        final String sql = "insert into style (style_name, `description`, release_year, brand_id) "
-                + "values (?, ?, ?, ?);";
+        final String sql = "insert into style (style_name, `description`, release_year, style_image, brand_id) "
+                + "values (?, ?, ?, ?, ?);";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(con -> {
@@ -38,7 +38,8 @@ public class StyleJdbcTemplateRepository implements StyleRepository{
             ps.setString(1, style.getStyleName());
             ps.setString(2, style.getDescription());
             ps.setInt(3, style.getReleaseYear());
-            ps.setInt(4, style.getBrandId());
+            ps.setString(4, style.getStyleImage());
+            ps.setInt(5, style.getBrandId());
             return ps;
         }, keyHolder);
 

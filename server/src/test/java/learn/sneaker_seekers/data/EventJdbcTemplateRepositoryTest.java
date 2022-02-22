@@ -1,6 +1,5 @@
 package learn.sneaker_seekers.data;
 
-import learn.sneaker_seekers.models.Brand;
 import learn.sneaker_seekers.models.Event;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -39,8 +38,8 @@ class EventJdbcTemplateRepositoryTest {
         Event event = new Event();
         event.setEventDate(LocalDate.of(2022, 8, 15));
         event.setNumTable(20);
+        event.setEventImage(null);
         event.setLocationId(2);
-
         Event actual = repository.add(event);
         assertNotNull(actual);
         assertEquals(NEXT_ID, actual.getEventId());

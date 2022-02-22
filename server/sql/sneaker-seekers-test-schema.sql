@@ -154,6 +154,9 @@ begin
     alter table `event` auto_increment = 1;
     delete from location; 
     alter table location auto_increment = 1;
+    delete from app_user_role; 
+    delete from app_role; 
+    alter table app_role auto_increment = 1; 
     delete from app_user; 
     alter table app_user auto_increment = 1; 
     
@@ -161,6 +164,17 @@ begin
 		values
         ('dn7149ns', 'Great!password'),
         ('nx9187tx', 'Somethingpassword?');
+    
+    insert into app_role (`name`) 
+		values 
+        ('USER'),
+        ('VENDOR'),
+        ('ADMIN'); 
+    
+    insert into app_user_role (app_user_id, app_role_id)
+		values 
+        (1, 2),
+        (2, 2);
     
     insert into location (location_name, location_address, location_city)
 		values

@@ -37,6 +37,7 @@ class StyleJdbcTemplateRepositoryTest {
         style.setStyleName("Yellow Strike");
         style.setDescription("Yellow and white low-top Nike dunks");
         style.setReleaseYear(2020);
+        style.setStyleImage(null);
         style.setBrandId(1);
 
         Style actual = repository.add(style);
