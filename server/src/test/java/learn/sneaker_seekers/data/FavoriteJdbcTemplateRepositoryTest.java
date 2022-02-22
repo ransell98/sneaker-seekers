@@ -29,7 +29,8 @@ class FavoriteJdbcTemplateRepositoryTest {
 
     @Test
     void shouldFindByAppUserId() {
-
+        List<Favorite> favorites = repository.findByAppUserId(1);
+        assertEquals(1, 1);
     }
 
     @Test

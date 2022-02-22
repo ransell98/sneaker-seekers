@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -27,7 +28,8 @@ class ListingJdbcTemplateRepositoryTest {
 
     @Test
     void shouldFindByTableId() {
-
+        List<Listing> listing = repository.findByTableId(2);
+        assertEquals(1, 1);
     }
 
     @Test
