@@ -15,6 +15,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 class ListingJdbcTemplateRepositoryTest {
 
+    final static int NEXT_ID = 3;
+
     @Autowired
     ListingJdbcTemplateRepository repository;
 
@@ -33,7 +35,17 @@ class ListingJdbcTemplateRepositoryTest {
     }
 
     @Test
-    void shouldAdd() {
+    void shouldAdd() throws DataAccessException {
+        Listing listing = new Listing();
+        listing.setListingPrice(BigDecimal.valueOf(500));
+        listing.setQuantity(15);
+        listing.setStyleId(2);
+        listing.setTableId(1);
+        listing.setListingCondition(listing.getListingCondition());
+
+        Listing actual = repository.add(listing);
+        assertNotNull(actual);
+        assertEquals(NEXT_ID, actual.getListingId());
 
     }
 }

@@ -55,7 +55,7 @@ public class UpgradeRequestJdbcTemplateRepository implements UpgradeRequestRepos
     @Override
     public boolean deleteByUpgradeRequestId(int upgradeRequestId) throws DataAccessException {
 
-        int rowsAffected = jdbcTemplate.update("delete from upgrade_request_id where upgrade_request_id = ?;", upgradeRequestId);
+        int rowsAffected = jdbcTemplate.update("delete from upgrade_request where upgrade_request_id = ?;", upgradeRequestId);
         return rowsAffected > 0;
 
     }
