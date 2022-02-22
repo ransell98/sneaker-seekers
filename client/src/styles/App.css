@@ -18,12 +18,11 @@ h1, h2, h3, .navbar-brand {
 .btn-primary:hover, 
 .btn-outline-primary:hover, 
 .btn-outline-primary:focus, 
-.btn-outline-primary::before,
 .btn-outline-primary:visited {
     background-color: #bb0000 !important;
 }
 .btn-primary:focus,
 .btn-outline-primary:focus {
     outline-color: #bb0000 !important;
-    box-shadow: #bb0000 !important;
+    box-shadow: 0 0 0 5px #bb0000a8 !important;
 }
