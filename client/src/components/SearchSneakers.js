@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
-import { Button, Col, Form, Image, Row } from "react-bootstrap";
+import { Col, Form, Row } from "react-bootstrap";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
 import "../styles/Sneakers.css";
 
 import Page from "./Page";
+import SneakerStyleCard from "./SneakerStyleCard";
 import Loading from "./Loading";
 
 //testing only
@@ -90,48 +91,6 @@ function SearchSneakers() {
         );
     }
 
-    function renderStyle() {
-        return (
-            <div className="sneaker-style mt-4 ms-lg-5">
-                <h2>
-                    {style.style_name}
-                </h2>
-                <Row>
-                    <Col xs={12} md={{span: 6, order: 2}}>
-                        <Image src={style.image}/>
-                    </Col>
-                    <Col>
-                        <h4>
-                            Brand: {style.brand.brand_name}
-                        </h4>
-                        <h4>
-                            Release Year: {style.release_year}
-                        </h4>
-                        <p>
-                            {style.description}
-                        </p>
-                        <Row>
-                            <Col xs={{span:4, offset:4}}>
-                                {renderAddToFavoritesButton()}
-                            </Col>
-                        </Row>
-                    </Col>
-                </Row>
-            </div>
-        );
-    }
-
-    function renderAddToFavoritesButton() {
-        return (
-            <Button
-                onClick={() => console.log("Favorite")}
-            >
-                Favorite
-                <FontAwesomeIcon icon={faHeart}/>
-            </Button>
-        );
-    }
-
     return (
         <Page title="Search Sneakers">
             {renderSearchBar()}
@@ -141,7 +100,7 @@ function SearchSneakers() {
                 {query
                 ? <>
                     {style
-                    ? renderStyle()
+                    ? <SneakerStyleCard style={style}/>
                     : <p>
                         No sneaker found.
                     </p>
