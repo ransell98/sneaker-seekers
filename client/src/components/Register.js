@@ -132,14 +132,14 @@ function Register() {
                         </Col>
                     </Row>
                 </Form.Group>
-                <p 
+                <Form.Text
                     className="passwords-error-message"
                     hidden={showErrorMessage && isConfirmPasswordDirty
                         ? false
                         : true}
                 >
                     Passwords do not match.
-                </p>
+                </Form.Text>
                 <Form.Group controlId="formVendorCheckbox" className="my-4">
                     <Form.Check 
                         type="checkbox" 
@@ -164,7 +164,7 @@ function Register() {
 
     function renderRegisterCard() {
         return(
-            <Card className="card-register">
+            <Card className="card-register mt-2 mt-md-5">
                 <Card.Body>
                     <h3>
                         Get Started Today for Free
