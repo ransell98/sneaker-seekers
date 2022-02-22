@@ -1,24 +1,22 @@
 package learn.sneaker_seekers.data;
 
-import learn.sneaker_seekers.models.Condition;
-import learn.sneaker_seekers.models.Listing;
+import learn.sneaker_seekers.models.Table;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-class ListingJdbcTemplateRepositoryTest {
+class TableJdbcTemplateRepositoryTest {
 
     final static int NEXT_ID = 3;
 
     @Autowired
-    ListingJdbcTemplateRepository repository;
+    TableJdbcTemplateRepository repository;
 
     @Autowired
     KnownGoodState knownGoodState;
@@ -29,23 +27,28 @@ class ListingJdbcTemplateRepositoryTest {
     }
 
     @Test
-    void shouldFindByTableId() {
-        List<Listing> listing = repository.findByTableId(2);
+    void shouldFindById() {
+        List<Table> expected = repository.findByEventId(2);
         assertEquals(1, 1);
     }
 
     @Test
-    void shouldAdd() throws DataAccessException {
-        Listing listing = new Listing();
-        listing.setListingPrice(BigDecimal.valueOf(500));
-        listing.setQuantity(15);
-        listing.setStyleId(2);
-        listing.setTableId(1);
-        listing.setListingCondition(listing.getListingCondition());
-
-        Listing actual = repository.add(listing);
-        assertNotNull(actual);
-        assertEquals(NEXT_ID, actual.getListingId());
-
+    void shouldNotFindNonExisting() {
+        List<Table> none = repository.findByEventId(19);
+        assertNotEquals(0, none);
     }
+
+    @Test
+    void shouldAdd() throws DataAccessException {
+        Table table = new Table();
+        table.setBooked(true);
+        table.setTableNumber(18);
+        table.setEventId(3);
+        table.setAppUserId(1);
+
+        Table actual = repository.add(table);
+        assertNotNull(actual);
+        assertEquals(NEXT_ID, actual.getTableId());
+    }
+
 }

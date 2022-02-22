@@ -4,11 +4,13 @@ import learn.sneaker_seekers.models.UpgradeRequest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.List;
 
+@Repository
 public class UpgradeRequestJdbcTemplateRepository implements UpgradeRequestRepository{
 
     private final JdbcTemplate jdbcTemplate;
@@ -53,7 +55,7 @@ public class UpgradeRequestJdbcTemplateRepository implements UpgradeRequestRepos
     @Override
     public boolean deleteByUpgradeRequestId(int upgradeRequestId) throws DataAccessException {
 
-        int rowsAffected = jdbcTemplate.update("delete from upgrade_request_id where upgrade_request_id = ?;", upgradeRequestId);
+        int rowsAffected = jdbcTemplate.update("delete from upgrade_request where upgrade_request_id = ?;", upgradeRequestId);
         return rowsAffected > 0;
 
     }

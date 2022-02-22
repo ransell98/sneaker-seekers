@@ -43,8 +43,8 @@ public class EventJdbcTemplateRepository implements EventRepository {
     public Event add(Event event) throws DataAccessException {
 
         final String sql = "insert into `event`"
-                + "(event_id, event_date, num_table, location_id) "
-                + "values (?, ?, ?, ?);";
+                + "(event_id, event_date, num_table, event_image, location_id) "
+                + "values (?, ?, ?, ?, ?);";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(conn -> {
@@ -52,7 +52,8 @@ public class EventJdbcTemplateRepository implements EventRepository {
             statement.setInt(1, event.getEventId());
             statement.setString(2, event.getEventDate().toString());
             statement.setInt(3, event.getNumTable());
-            statement.setInt(4, event.getLocationId());
+            statement.setString(4, event.getEventImage());
+            statement.setInt(5, event.getLocationId());
             return statement;
         }, keyHolder);
 

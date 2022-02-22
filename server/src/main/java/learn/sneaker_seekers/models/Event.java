@@ -6,14 +6,16 @@ public class Event {
     private int eventId;
     private LocalDate eventDate;
     private int numTable;
+    private String eventImage;
     private int locationId;
 
-    public Event(){}
+    public Event() {}
 
-    public Event(int eventId, LocalDate eventDate, int numTable, int locationId){
+    public Event(int eventId, LocalDate eventDate, int numTable, String eventImage, int locationId){
         this.eventId = eventId;
         this.eventDate = eventDate;
         this.numTable = numTable;
+        this.eventImage = eventImage;
         this.locationId = locationId;
     }
 
@@ -39,6 +41,14 @@ public class Event {
 
     public void setNumTable(int numTable) {
         this.numTable = numTable;
+    }
+
+    public String getEventImage() {
+        return eventImage;
+    }
+
+    public void setEventImage(String eventImage) {
+        this.eventImage = eventImage;
     }
 
     public int getLocationId() {

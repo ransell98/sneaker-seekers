@@ -79,4 +79,9 @@ public class AppUser implements UserDetails {
         return !disabled;
     }
 
+    public boolean hasAuthority(String authority) {
+        return authorities.stream()
+                .anyMatch(a -> a.equals(authority));
+    }
+
 }

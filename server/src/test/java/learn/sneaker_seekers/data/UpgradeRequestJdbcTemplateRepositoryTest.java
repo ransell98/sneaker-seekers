@@ -1,6 +1,6 @@
 package learn.sneaker_seekers.data;
 
-import learn.sneaker_seekers.models.Favorite;
+import learn.sneaker_seekers.models.UpgradeRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +11,12 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-class FavoriteJdbcTemplateRepositoryTest {
+class UpgradeRequestJdbcTemplateRepositoryTest {
 
     final static int NEXT_ID = 2;
 
     @Autowired
-    FavoriteJdbcTemplateRepository repository;
+    UpgradeRequestJdbcTemplateRepository repository;
 
     @Autowired
     KnownGoodState knownGoodState;
@@ -26,31 +26,31 @@ class FavoriteJdbcTemplateRepositoryTest {
         knownGoodState.set();
     }
 
-
     @Test
-    void shouldFindByAppUserId() {
-        List<Favorite> favorites = repository.findByAppUserId(1);
-        assertEquals(1, 1);
+    void shouldFindAll() {
+        List<UpgradeRequest> upgradeRequest = repository.findAll();
+        assertNotNull(upgradeRequest);
+        assertTrue(upgradeRequest.size() >= 1);
     }
 
     @Test
     void shouldAdd() throws DataAccessException {
-        Favorite favorite = new Favorite();
-        favorite.setStyleId(1);
-        favorite.setAppUserId(1);
-        Favorite actual = repository.add(favorite);
+        UpgradeRequest upgradeRequest = new UpgradeRequest();
+        upgradeRequest.setAppUserId(2);
+
+        UpgradeRequest actual = repository.add(upgradeRequest);
         assertNotNull(actual);
-        assertEquals(NEXT_ID, actual.getFavoriteId());
+        assertEquals(NEXT_ID, actual);
     }
 
     @Test
     void shouldDeleteExisting() throws DataAccessException {
-        assertTrue(repository.deleteByFavoriteId(1));
+        assertTrue(repository.deleteByUpgradeRequestId(1));
     }
 
     @Test
     void shouldNotDeleteNonExisting() throws DataAccessException {
-        assertFalse(repository.deleteByFavoriteId(38));
+        assertFalse(repository.deleteByUpgradeRequestId(33));
     }
 
 }
