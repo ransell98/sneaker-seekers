@@ -187,11 +187,14 @@ function Event() {
     }
     
     return (
-        <Page title={
-            (isEventLoading || !thisEvent)
-            ? "View Event"
-            : thisEvent.event_name
-        }>
+        <Page>
+            <h1 className="mt-3 mt-md-5">
+                {
+                    (isEventLoading || !thisEvent)
+                    ? "View Event"
+                    : thisEvent.event_name
+                }
+            </h1>
             {isEventLoading
             ? <Loading/>
             : <>

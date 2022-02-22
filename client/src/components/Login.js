@@ -1,7 +1,6 @@
 import { useState, useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button, Card, Col, Form, Row } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUpRightFromSquare, faEye, faEyeSlash, faLock, faUserPlus } from '@fortawesome/free-solid-svg-icons';
@@ -105,7 +104,7 @@ function Login() {
             <Card className="card-login flex-fill">
                 <Card.Header>
                     <FontAwesomeIcon icon={faLock}/>
-                    Returning User
+                    User Login
                 </Card.Header>
                 <Card.Body>
                     {renderLoginForm()}
@@ -114,49 +113,14 @@ function Login() {
         );
     }
 
-    function renderRegisterButton() {
-        return (
-            <LinkContainer to="/register">
-                <Row className="mt-4 mt-xl-5">
-                    <Button
-                        variant="primary"
-                        size="lg"
-                        className="col-6 offset-3 col-md-4 offset-md-4"
-                        disabled={isLoading}
-                    >
-                        Register
-                        <FontAwesomeIcon icon={faArrowUpRightFromSquare}/>
-                    </Button>
-                </Row>
-            </LinkContainer>
-        );
-    }
-
-    function renderRegisterCard() {
-        return(
-            <Card className="card-register flex-fill">
-                <Card.Header>
-                    <FontAwesomeIcon icon={faUserPlus}/>
-                    New User
-                </Card.Header>
-                <Card.Body>
-                    <p className="">
-                        Create an account to keep track of your favorite sneakers and vendors, or become a vendor and start selling sneakers at upcoming events.
-                    </p>
-                    {renderRegisterButton()}
-                </Card.Body>
-            </Card>
-        );
-    }
-
     return (
-        <Page title="User Login">
+        <Page>
             <Row>
-                <Col xs={12} lg={6} className="d-flex">
-                    {renderRegisterCard()}
-                </Col>
-                <Col xs={12} lg={6} className="d-flex">
+                <Col xs={12} lg={{span: 6, offset: 3}} className="d-flex">
                     {renderLoginCard()}
+                </Col>
+                <Col xs={12} lg={{span: 6, offset: 3}} className="d-flex">
+                    <p className="mt-3 ms-auto me-auto">First time logging in? Please <Link to="/register">Register</Link></p>
                 </Col>
             </Row>
             {isLoading

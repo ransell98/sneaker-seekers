@@ -182,10 +182,11 @@ function Register() {
     }
 
     return (
-        <Page title="Register">
+        <Page>
             <Row>
                 <Col lg={4} className="register-paragraph-column">
-                    <p className="mt-5">
+                    <h1 className="mt-3 mt-md-5">Register</h1>
+                    <p className="mt-3 mt-md-5">
                         Create an account today to keep track of your favorite sneakers and followed vendors.
                     </p>
                     <p>

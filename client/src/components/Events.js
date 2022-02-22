@@ -136,7 +136,8 @@ function Events() {
     }
 
     return (
-        <Page title="Browse Upcoming Events">
+        <Page>
+            <h1 className="mt-3 mt-md-5">Browse Upcoming Events</h1>
             {isLoading
             ? <Loading/>
             : <>

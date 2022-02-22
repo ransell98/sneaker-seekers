@@ -4,7 +4,7 @@ import { Fade } from "react-bootstrap";
 
 import PropTypes from "prop-types";
 
-function Page({ children, title }) {
+function Page({ children }) {
     const [isFadeIn, setIsFadeIn] = useState(false);
 
     useEffect(() => {
@@ -16,7 +16,6 @@ function Page({ children, title }) {
     return (
         <Fade in={isFadeIn}>
             <Container>
-                <h1 className="mt-5">{title}</h1>
                 {children}
             </Container>
         </Fade>
@@ -28,7 +27,6 @@ Page.propTypes = {
         PropTypes.arrayOf(PropTypes.element),
         PropTypes.element.isRequired
     ]),
-    title: PropTypes.string.isRequired,
 }
 
 export default Page;
