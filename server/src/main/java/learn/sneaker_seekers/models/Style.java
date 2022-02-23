@@ -1,11 +1,11 @@
 package learn.sneaker_seekers.models;
 
 public class Style {
-    private int styleId;
+    private int styleId; // TODO: change to string & not autoincremented
     private String styleName;
-    private int brandId;
+    private int brandId; // TODO: change to Brand model
     private String description;
-    private int releaseYear;
+    private int releaseYear; // TODO: change to LocalDate
     private String styleImage;
 
     public Style(){}

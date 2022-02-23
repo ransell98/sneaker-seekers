@@ -1,7 +1,6 @@
 .page-card {
     height: 300px;
     border-radius: 15px;
-    margin: 2em;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .page-card:hover {
@@ -13,6 +12,5 @@
     margin-top: 1em;
 }
 .page-card .card-text {
-    font-size: large;
     margin: 1em 3em;
 }

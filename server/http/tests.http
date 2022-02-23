@@ -1,0 +1,14 @@
+@host = http://localhost:8080
+
+### events
+GET {{host}}/sneakerseekers/event HTTP/1.1
+
+###
+GET {{host}}/sneakerseekers/event/1 HTTP/1.1
+
+### locations
+GET {{host}}/sneakerseekers/location HTTP/1.1
+
+### brands w/o host variable
+
+GET http://localhost:8080/sneakerseekers/brand HTTP/1.1

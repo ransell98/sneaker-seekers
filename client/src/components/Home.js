@@ -7,11 +7,12 @@ import '../styles/Home.css';
 
 function Home() {
     return (
-        <Page title="Welcome to Sneaker Seekers">
+        <Page>
+            <h1 className="mt-3 mt-md-5">Welcome to Sneaker Seekers</h1>
             <Row>
                 <Col xs={12} lg={6} xl={{span: 5, offset: 1}}>
                     <LinkContainer to="/events">
-                        <Card className="page-card">
+                        <Card className="page-card mx-3 mt-3 mt-md-5">
                             <h2>
                                 Browse Events
                             </h2>
@@ -23,7 +24,7 @@ function Home() {
                 </Col>
                 <Col xs={12} lg={6} xl={5}>
                     <LinkContainer to="/search">
-                        <Card className="page-card">
+                        <Card className="page-card mx-3 mt-3 mt-md-5">
                             <h2>
                                 Search Sneakers
                             </h2>
