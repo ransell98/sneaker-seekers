@@ -26,6 +26,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors();
 
         http.authorizeRequests()
+                .antMatchers(HttpMethod.GET, "/health_check").permitAll()
+                .antMatchers(HttpMethod.POST, "/authenticate", "/encode", "/user/create").permitAll()
+                .antMatchers(HttpMethod.POST, "/refresh_token").authenticated()
                 .antMatchers(HttpMethod.GET, "/sneakerseekers/brand").permitAll()
                 .antMatchers(HttpMethod.POST, "/sneakerseekers/brand").hasAnyAuthority("VENDOR", "ADMIN")
                 .antMatchers(HttpMethod.GET, "/sneakerseekers/condition").permitAll()
