@@ -18,6 +18,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public SecurityConfig(JwtConverter converter) {
         this.converter = converter;
     }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+
+        http.csrf().disable();
+        http.cors();
+
+        http.authorizeRequests()
+                .antMatchers(HttpMethod.GET, "/sneakerseekers/brand").permitAll()
+                .antMatchers("/**").denyAll()
+                .and()
+                .addFilter(new JwtRequestFilter(authenticationManager(), converter))
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+    }
+
+    @Override
+    @Bean
+    protected AuthenticationManager authenticationManager() throws Exception {
+        return super.authenticationManager();
+    }
 /*
     @Override
     protected void configure(HttpSecurity http) throws Exception {
