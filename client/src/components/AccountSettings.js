@@ -1,9 +1,45 @@
+import { useContext, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
+import { Button, Form } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+
+import AuthContext from "../contexts/AuthContext";
+
+import Page from "./Page";
 
 function AccountSettings() {
+    const context = useContext(AuthContext);
+    const navigate = useNavigate();    
+
+    useEffect(() => {
+        if (!context.username) {
+            redirect();
+        }
+    }, [context]);
+
+    function redirect() {
+        navigate("/login");
+    }
+
     return (
-        <>
-            <h1>Account Settings</h1>
-        </>
+        <Page>
+            <h1 className="mt-3 mt-md-5">Account Settings</h1>
+            <hr/>
+            <p>Change Username</p>
+            <p>Change Password</p>
+            <hr/>
+            <p>Become a vendor</p>
+            <LinkContainer to="/account/delete">
+                <Button variant="warning">
+                    <FontAwesomeIcon icon={faTrash}/>
+                    {" "}
+                    Delete Account
+                </Button>
+            </LinkContainer>
+        </Page>
     );
 }
 
