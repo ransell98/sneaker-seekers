@@ -65,10 +65,15 @@ class FavoriteServiceTest {
 
     @Test
     void shouldDeleteById() throws DataAccessException {
-        int favoriteId = 1;
-        Result<Boolean> result = new Result<>();
-        result.setPayload(service.deleteByFavoriteId(favoriteId));
-        assertEquals(true, result.getPayload());
+        when(repository.deleteByFavoriteId(1)).thenReturn(true);
+        boolean success = service.deleteByFavoriteId(1);
+        assertTrue(success);
+    }
+
+    @Test
+    void shouldNotDeleteMissingId() throws DataAccessException {
+        boolean success = service.deleteByFavoriteId(30);
+        assertFalse(success);
     }
 
     Favorite makeFavorite() {

@@ -60,7 +60,7 @@ public class TableJdbcTemplateRepository implements TableRepository {
     @Override
     public boolean update(Table table) throws DataAccessException {
 
-        final String sql = "update table set "
+        final String sql = "update vendor_table set "
                 + "vendor_table_id = ?, "
                 + "is_booked = ?, "
                 + "table_number ? "
@@ -70,10 +70,10 @@ public class TableJdbcTemplateRepository implements TableRepository {
 
         int rowsAffected = jdbcTemplate.update(sql,
                 table.getTableId(),
-                table.getEventId(),
-                table.getAppUserId(),
                 table.isBooked(),
-                table.getTableNumber());
+                table.getTableNumber(),
+                table.getEventId(),
+                table.getAppUserId());
 
         return rowsAffected > 0;
 

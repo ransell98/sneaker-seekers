@@ -1,9 +1,6 @@
 package learn.sneaker_seekers.domain;
 
-import learn.sneaker_seekers.data.FollowRepository;
 import learn.sneaker_seekers.data.ListingRepository;
-import learn.sneaker_seekers.models.Condition;
-import learn.sneaker_seekers.models.Follow;
 import learn.sneaker_seekers.models.Listing;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

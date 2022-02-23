@@ -63,6 +63,19 @@ class FollowServiceTest {
         assertEquals(ResultType.INVALID, actual.getStatus());
     }
 
+    @Test
+    void shouldDeleteById() throws DataAccessException {
+        when(repository.deleteByFollowerIdAndVendorId(1, 2)).thenReturn(true);
+        boolean success = service.deleteByFollowerIdAndVendorId(1, 2);
+        assertTrue(success);
+    }
+
+    @Test
+    void shouldNotDeleteMissingId() throws DataAccessException {
+        boolean success = service.deleteByFollowerIdAndVendorId(30, 51);
+        assertFalse(success);
+    }
+
     Follow makeFollow() {
         Follow follow = new Follow();
         follow.setFollowerId(2);
