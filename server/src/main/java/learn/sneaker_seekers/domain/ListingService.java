@@ -42,7 +42,7 @@ public class ListingService {
         Result result = new Result();
 
         if (listing == null) {
-            result.addErrorMessage("Listing cannot be null.");
+            result.addMessage("Listing cannot be null.", ResultType.INVALID);
         }
 
         return result;

@@ -38,15 +38,15 @@ public class EventService {
         Result result = new Result();
 
         if (event == null) {
-            result.addErrorMessage("Event cannot be null.");
+            result.addMessage("Event cannot be null.", ResultType.INVALID);
         }
 
         if (!event.getEventDate().isAfter(LocalDate.now())) {
-            result.addErrorMessage("Event must be in the future.");
+            result.addMessage("Event must be in the future.", ResultType.INVALID);
         }
 
         if (event.getNumTable() <= 0) {
-            result.addErrorMessage("Number of tables must be positive.");
+            result.addMessage("Number of tables must be positive.", ResultType.INVALID);
         }
 
         return result;
