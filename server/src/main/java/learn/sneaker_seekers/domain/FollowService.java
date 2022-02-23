@@ -42,6 +42,14 @@ public class FollowService {
             result.addErrorMessage("Follow cannot be null.");
         }
 
+        if (follow.getFollowerId() == 0) {
+            result.addMessage("Follower ID cannot be null", ResultType.INVALID);
+        }
+
+        if (follow.getVendorId() == 0) {
+            result.addMessage("Vendor ID cannot be null", ResultType.INVALID);
+        }
+
         return result;
     }
 }

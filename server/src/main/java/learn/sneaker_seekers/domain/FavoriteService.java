@@ -34,9 +34,10 @@ public class FavoriteService {
     }
 
     public boolean deleteByFavoriteId(int favoriteId) throws DataAccessException {
-        if (favoriteId< 0){
+        if (favoriteId <= 0){
             return false;
         }
+
         return repository.deleteByFavoriteId(favoriteId);
     }
 
@@ -45,6 +46,14 @@ public class FavoriteService {
 
         if (favorite == null) {
             result.addErrorMessage("Favorite cannot be null.");
+        }
+
+        if (favorite.getStyleId() == 0) {
+            result.addMessage("Style cannot be null", ResultType.INVALID);
+        }
+
+        if (favorite.getAppUserId() == 0) {
+            result.addMessage("App User cannot be null", ResultType.INVALID);
         }
 
         return result;

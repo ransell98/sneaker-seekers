@@ -34,7 +34,7 @@ class BrandJdbcTemplateRepositoryTest {
     @Test
     void shouldAdd() throws DataAccessException {
         Brand brand = new Brand();
-        brand.setBrandName("Jordan");
+        brand.setBrandName("Puma");
 
         Brand actual = repository.add(brand);
         brand.setBrandId(3);

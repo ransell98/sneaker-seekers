@@ -37,11 +37,11 @@ public class BrandService {
         Result result = new Result();
 
         if (brand == null) {
-            result.addErrorMessage("Brand cannot be null.");
+            result.addMessage("Brand cannot be null.", ResultType.INVALID);
         }
 
         if (brand.getBrandName() == null) {
-            result.addErrorMessage("Brand name cannot be null.");
+            result.addMessage("Brand name cannot be null.", ResultType.INVALID);
         }
 
         return result;
