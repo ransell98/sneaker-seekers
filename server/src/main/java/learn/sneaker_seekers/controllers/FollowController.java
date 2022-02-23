@@ -20,7 +20,7 @@ public class FollowController {
     public FollowController(FollowService service) { this.service = service; }
 
     @GetMapping("/{id}")
-    public ResponseEntity<List<Follow>> findByFollwerId(@PathVariable int id) throws DataAccessException {
+    public ResponseEntity<List<Follow>> findByFollowerId(@PathVariable int id) throws DataAccessException {
         List<Follow> follows = service.findByFollowerId(id);
         if (follows == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
