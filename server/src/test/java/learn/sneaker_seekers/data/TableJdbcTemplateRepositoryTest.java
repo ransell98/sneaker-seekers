@@ -51,4 +51,10 @@ class TableJdbcTemplateRepositoryTest {
         assertEquals(NEXT_ID, actual.getTableId());
     }
 
+    @Test
+    void shouldUpdateExistings() throws DataAccessException {
+
+    }
+
+
 }
