@@ -1,4 +1,4 @@
-import { Button, Card, Col, Image, Row } from "react-bootstrap";
+import { Button, Card, Col, Row } from "react-bootstrap";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
@@ -26,30 +26,50 @@ function SneakerStyleCard({ style }) {
                         pb-3"
         >
             <Row>
-                <Col xs={12} md={{span: 4, order: 2}}>
+                <Col xs={12} md={{span: 3, order: 2}}>
                     <Card.Img src={style.image}/>
                 </Col>
                 <Col>
-                    <h2>
+                    <h3>
                         {style.style_name}
-                    </h2>
+                    </h3>
                     <Row>
                         <Col xs={12} md={5}>
                             {renderAddToFavoritesButton()}
-                            <h4>
-                                Brand:{" "}
+                            <div>
+                                <strong>
+                                    Brand:{" "}
+                                </strong>
                                 <span className="text-nowrap">
                                     {style.brand.brand_name}
                                 </span>
-                            </h4>
-                            <h4>
-                                Release Year: {style.release_year}
-                            </h4>
+                            </div>
+                            <div>
+                                <strong>
+                                    Release Date:{" "}
+                                </strong>
+                                {style.release_date}
+                            </div>
+                            <div>
+                                <strong>
+                                    Colorway:{" "}
+                                </strong>
+                                {style.colorway}
+                            </div>
                         </Col>
                         <Col>
-                            <Card.Text>
-                                {style.description}
+                            <strong>
+                                Description:
+                            </strong>
+                            {style.description
+                            ?<Card.Text
+                                dangerouslySetInnerHTML={{ __html: style.description}}
+                            />
+                            : <Card.Text className="font-italic">
+                                No description found.
                             </Card.Text>
+                            }
+                            
                         </Col>
                     </Row>
                 </Col>
