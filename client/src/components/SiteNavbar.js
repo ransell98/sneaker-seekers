@@ -21,7 +21,7 @@ function SiteNavbar() {
 
     return(
         <Navbar bg="black" variant="dark" expand="md" expanded={expanded}>
-            <Container>
+            <Container fluid className="mx-4 mx-lg-5">
                 <LinkContainer to="/home">
                     <Navbar.Brand>
                         <img

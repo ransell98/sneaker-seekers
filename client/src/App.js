@@ -16,6 +16,7 @@ import Register from "./components/Register";
 import Favorites from "./components/Favorites";
 import Followed from "./components/Followed";
 import AccountSettings from "./components/AccountSettings";
+import DeleteAccount from "./components/DeleteAccount";
 
 const ROUTES = [
   {"url": "/home",
@@ -36,6 +37,8 @@ const ROUTES = [
   "component": <Followed/>},
   {"url": "/account",
   "component": <AccountSettings/>},
+  {"url": "/account/delete",
+  "component": <DeleteAccount/>},
   {"url": "/",
   "component": <Navigate replace to="/home"/>},
 ]
