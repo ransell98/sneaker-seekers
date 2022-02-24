@@ -1,4 +1,4 @@
-@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbmVha2VyLXNlZWtlcnMiLCJzdWIiOiJ1c2VyIiwiaWQiOjEsImF1dGhvcml0aWVzIjoiIiwiZXhwIjoxNjQ1NzI1ODQxfQ.q3JmENxkVi823vxMllY2xgQDf0FlP_EueB56Ve-Oums
+@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbmVha2VyLXNlZWtlcnMiLCJzdWIiOiJyeWFuIiwiaWQiOjEsImF1dGhvcml0aWVzIjoiIiwiZXhwIjoxNjQ1NzM1MTI1fQ.GEqkwrXODK2fY4XAnGrPXlkwVp_0dri2RUmN-_nrdsc
 @host = http://localhost:8080
 
 ### GET ALL USERS
@@ -14,7 +14,6 @@ Authorization: Bearer {{jwt}}
 ### GET USER BY USERNAME (RYAN)
 
 GET {{host}}/user/ryan HTTP/1.1
-Authorization: Bearer {{jwt}}
 
 ### CREATE USER
 
@@ -33,8 +32,8 @@ POST {{host}}/authenticate HTTP/1.1
 Content-Type: application/json
 
 {
-    "username": "user",
-    "password": "ehCX7MexUCb&T7"
+    "username": "ryan",
+    "password": "P@ssw0rd"
 }
 
 ### GET ALL BRANDS
