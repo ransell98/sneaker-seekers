@@ -1,6 +1,8 @@
 package learn.sneaker_seekers.data;
 
+import learn.sneaker_seekers.models.AppUser;
 import learn.sneaker_seekers.models.Favorite;
+import learn.sneaker_seekers.models.Style;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +38,15 @@ class FavoriteJdbcTemplateRepositoryTest {
     @Test
     void shouldAdd() throws DataAccessException {
         Favorite favorite = new Favorite();
-        favorite.setStyleId(1);
-        favorite.setAppUserId(1);
+
+        Style style = new Style();
+        style.setStyleId(2);
+        favorite.setStyle(style);
+
+        AppUser appUser = new AppUser();
+        appUser.setId(1);
+        favorite.setAppUser(appUser);
+
         Favorite actual = repository.add(favorite);
         assertNotNull(actual);
         assertEquals(NEXT_ID, actual.getFavoriteId());

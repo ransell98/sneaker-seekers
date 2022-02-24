@@ -1,5 +1,6 @@
 package learn.sneaker_seekers.data;
 
+import learn.sneaker_seekers.models.Brand;
 import learn.sneaker_seekers.models.Style;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -16,7 +17,11 @@ public class StyleMapper implements RowMapper<Style> {
         style.setStyleName(rs.getString("style_name"));
         style.setDescription(rs.getString("description"));
         style.setReleaseYear(rs.getInt("release_year"));
-        style.setBrandId(rs.getInt("brand_id"));
+
+        int brandId = rs.getInt("brand_id");
+        Brand brand = new Brand();
+        brand.setBrandId(brandId);
+
         style.setStyleImage(rs.getString("style_image"));
 
         return style;

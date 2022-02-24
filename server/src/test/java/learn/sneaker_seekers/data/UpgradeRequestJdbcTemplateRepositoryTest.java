@@ -1,5 +1,6 @@
 package learn.sneaker_seekers.data;
 
+import learn.sneaker_seekers.models.AppUser;
 import learn.sneaker_seekers.models.UpgradeRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,7 +37,10 @@ class UpgradeRequestJdbcTemplateRepositoryTest {
     @Test
     void shouldAdd() throws DataAccessException {
         UpgradeRequest upgradeRequest = new UpgradeRequest();
-        upgradeRequest.setAppUserId(2);
+
+        AppUser appUser = new AppUser();
+        appUser.setId(2);
+        upgradeRequest.setAppUserId(appUser);
 
         UpgradeRequest actual = repository.add(upgradeRequest);
         assertNotNull(actual);

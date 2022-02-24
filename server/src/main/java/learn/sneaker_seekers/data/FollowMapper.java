@@ -1,6 +1,8 @@
 package learn.sneaker_seekers.data;
 
+import learn.sneaker_seekers.models.AppUser;
 import learn.sneaker_seekers.models.Follow;
+import learn.sneaker_seekers.models.Location;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -13,8 +15,13 @@ public class FollowMapper implements RowMapper<Follow> {
 
         Follow follow = new Follow();
 
-        follow.setFollowerId(rs.getInt("follower_id"));
-        follow.setVendorId(rs.getInt("vendor_id"));
+        int followerId = rs.getInt("follower_id");
+        AppUser followerUser = new AppUser();
+        followerUser.setId(followerId);
+
+        int vendorId = rs.getInt("vendor_id");
+        AppUser vendorUser = new AppUser();
+        vendorUser.setId(vendorId);
 
         return follow;
 

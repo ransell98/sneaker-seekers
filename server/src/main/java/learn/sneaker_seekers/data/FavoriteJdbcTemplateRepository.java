@@ -1,6 +1,7 @@
 package learn.sneaker_seekers.data;
 
 import learn.sneaker_seekers.models.Favorite;
+import learn.sneaker_seekers.models.Style;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -40,8 +41,8 @@ public class FavoriteJdbcTemplateRepository implements FavoriteRepository {
         int rowsAffected = jdbcTemplate.update(conn -> {
             PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, favorite.getFavoriteId());
-            statement.setInt(2, favorite.getStyleId());
-            statement.setInt(3, favorite.getAppUserId());
+            statement.setInt(2, favorite.getStyle().getStyleId());
+            statement.setInt(3, favorite.getAppUser().getId());
             return statement;
         }, keyHolder);
 

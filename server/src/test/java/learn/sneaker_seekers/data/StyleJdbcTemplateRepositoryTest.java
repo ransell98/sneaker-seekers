@@ -1,5 +1,6 @@
 package learn.sneaker_seekers.data;
 
+import learn.sneaker_seekers.models.Brand;
 import learn.sneaker_seekers.models.Style;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,7 +39,10 @@ class StyleJdbcTemplateRepositoryTest {
         style.setDescription("Yellow and white low-top Nike dunks");
         style.setReleaseYear(2020);
         style.setStyleImage(null);
-        style.setBrandId(1);
+
+        Brand brand = new Brand();
+        brand.setBrandId(1);
+        style.setBrandId(brand);
 
         Style actual = repository.add(style);
         assertNotNull(actual);

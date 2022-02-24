@@ -1,6 +1,9 @@
 package learn.sneaker_seekers.data;
 
+import learn.sneaker_seekers.models.AppUser;
 import learn.sneaker_seekers.models.Favorite;
+import learn.sneaker_seekers.models.Location;
+import learn.sneaker_seekers.models.Style;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -13,8 +16,13 @@ public class FavoriteMapper implements RowMapper<Favorite> {
         Favorite favorite = new Favorite();
 
         favorite.setFavoriteId(rs.getInt("favorite_id"));
-        favorite.setStyleId(rs.getInt("style_id"));
-        favorite.setAppUserId(rs.getInt("app_user_id"));
+        int styleId = rs.getInt("style_id");
+        Style style = new Style();
+        style.setStyleId(styleId);
+
+        int appUserId = rs.getInt("app_user_id");
+        AppUser appUser = new AppUser();
+        appUser.setId(appUserId);
 
         return favorite;
     }

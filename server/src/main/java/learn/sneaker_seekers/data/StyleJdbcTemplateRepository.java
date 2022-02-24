@@ -39,7 +39,7 @@ public class StyleJdbcTemplateRepository implements StyleRepository{
             ps.setString(2, style.getDescription());
             ps.setInt(3, style.getReleaseYear());
             ps.setString(4, style.getStyleImage());
-            ps.setInt(5, style.getBrandId());
+            ps.setInt(5, style.getBrandId().getBrandId());
             return ps;
         }, keyHolder);
 

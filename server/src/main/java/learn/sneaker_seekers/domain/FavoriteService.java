@@ -49,11 +49,11 @@ public class FavoriteService {
             return result;
         }
 
-        if (favorite.getStyleId() == 0) {
+        if (favorite.getStyle().getStyleId() == 0) {
             result.addMessage("Style cannot be null", ResultType.INVALID);
         }
 
-        if (favorite.getAppUserId() == 0) {
+        if (favorite.getAppUser().getId() == 0) {
             result.addMessage("App User cannot be null", ResultType.INVALID);
         }
 

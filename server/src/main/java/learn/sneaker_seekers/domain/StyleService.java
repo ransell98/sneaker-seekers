@@ -43,7 +43,7 @@ public class StyleService {
             result.addMessage("Release year is required.", ResultType.INVALID);
         }
 
-        if (style.getBrandId() < 0) {
+        if (style.getBrandId().getBrandId() < 0) {
             result.addMessage("Brand is required.", ResultType.INVALID);
         }
 

@@ -1,5 +1,6 @@
 package learn.sneaker_seekers.data;
 
+import learn.sneaker_seekers.models.AppUser;
 import learn.sneaker_seekers.models.UpgradeRequest;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -13,7 +14,9 @@ public class UpgradeRequestMapper implements RowMapper<UpgradeRequest> {
         UpgradeRequest upgradeRequest = new UpgradeRequest();
 
         upgradeRequest.setUpgradeRequestId(rs.getInt("upgrade_request_id"));
-        upgradeRequest.setAppUserId(rs.getInt("app_user_id"));
+        int appUserId = rs.getInt("app_user_id");
+        AppUser appUser = new AppUser();
+        appUser.setId(appUserId);
 
         return upgradeRequest;
     }

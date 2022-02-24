@@ -3,14 +3,14 @@ package learn.sneaker_seekers.models;
 public class Style {
     private int styleId; // TODO: change to string & not autoincremented
     private String styleName;
-    private int brandId; // TODO: change to Brand model
+    private Brand brandId;
     private String description;
     private int releaseYear; // TODO: change to LocalDate
     private String styleImage;
 
     public Style(){}
 
-    public Style(int styleId, String styleName, int brandId, String description, int releaseYear, String styleImage){
+    public Style(int styleId, String styleName, Brand brandId, String description, int releaseYear, String styleImage){
         this.styleId = styleId;
         this.styleName = styleName;
         this.brandId = brandId;
@@ -35,11 +35,11 @@ public class Style {
         this.styleName = styleName;
     }
 
-    public int getBrandId() {
+    public Brand getBrandId() {
         return brandId;
     }
 
-    public void setBrandId(int brandId) {
+    public void setBrandId(Brand brandId) {
         this.brandId = brandId;
     }
 

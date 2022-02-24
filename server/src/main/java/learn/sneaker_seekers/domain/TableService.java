@@ -24,7 +24,7 @@ public class TableService {
             return result;
         }
 
-        if (table.getEventId() != 0) {
+        if (table.getEventId().getEventId() != 0) {
             result.addErrorMessage("Table ID must not be set for add.");
             return result;
         }
@@ -55,7 +55,7 @@ public class TableService {
             result.addErrorMessage("Table cannot be null.");
         }
 
-        if (table.getTableNumber() > repository.getMaxTables(table.getEventId())) {
+        if (table.getTableNumber() > repository.getMaxTables(table.getEventId().getEventId())) {
             result.addErrorMessage("Table number cannot be greater than event's max tables.");
         }
 

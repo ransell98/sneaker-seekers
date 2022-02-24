@@ -2,13 +2,13 @@ package learn.sneaker_seekers.domain;
 
 
 import learn.sneaker_seekers.data.StyleRepository;
+import learn.sneaker_seekers.models.Brand;
 import learn.sneaker_seekers.models.Style;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import javax.swing.text.StyledDocument;
 
 import static org.mockito.Mockito.*;
 
@@ -58,7 +58,10 @@ class StyleServiceTest {
         style.setDescription("");
         style.setReleaseYear(0);
         style.setStyleImage(null);
-        style.setBrandId(0);
+
+        Brand brand = new Brand();
+        brand.setBrandId(0);
+        style.setBrandId(brand);
 
         Result<Style> result = service.add(style);
         assertEquals(ResultType.INVALID, result.getStatus());
@@ -72,7 +75,10 @@ class StyleServiceTest {
         style.setDescription("Yellow and white low-top Nike dunks");
         style.setReleaseYear(2020);
         style.setStyleImage(null);
-        style.setBrandId(1);
+
+        Brand brand = new Brand();
+        brand.setBrandId(1);
+        style.setBrandId(brand);
 
         return style;
     }

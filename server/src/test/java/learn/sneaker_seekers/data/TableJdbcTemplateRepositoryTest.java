@@ -1,5 +1,7 @@
 package learn.sneaker_seekers.data;
 
+import learn.sneaker_seekers.models.AppUser;
+import learn.sneaker_seekers.models.Event;
 import learn.sneaker_seekers.models.Table;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -43,24 +45,46 @@ class TableJdbcTemplateRepositoryTest {
         Table table = new Table();
         table.setBooked(true);
         table.setTableNumber(18);
-        table.setEventId(3);
-        table.setAppUserId(1);
+
+        Event event = new Event();
+        event.setEventId(3);
+        table.setEventId(event);
+
+        AppUser appUser = new AppUser();
+        appUser.setId(1);
+        table.setAppUserId(appUser);
 
         Table actual = repository.add(table);
         assertNotNull(actual);
         assertEquals(NEXT_ID, actual.getTableId());
     }
 
+    @Test
+    void shouldUpdate() throws DataAccessException {
+        Table table = makeTable();
+        table.setTableId(2);
+        assertTrue(repository.update(table));
+    }
 
     Table makeTable() {
         Table table = new Table();
         table.setBooked(true);
         table.setTableNumber(18);
-        table.setEventId(3);
-        table.setAppUserId(1);
+
+        Event event = new Event();
+        event.setEventId(3);
+        table.setEventId(event);
+
+        AppUser appUser = new AppUser();
+        appUser.setId(1);
+        table.setAppUserId(appUser);
 
         return table;
     }
+
+
+
+
 
 
 }

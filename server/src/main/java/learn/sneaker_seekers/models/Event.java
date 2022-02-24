@@ -7,16 +7,16 @@ public class Event {
     private LocalDate eventDate;
     private int numTable;
     private String eventImage;
-    private int locationId;
+    private Location location;
 
     public Event() {}
 
-    public Event(int eventId, LocalDate eventDate, int numTable, String eventImage, int locationId){
+    public Event(int eventId, LocalDate eventDate, int numTable, String eventImage, Location location){
         this.eventId = eventId;
         this.eventDate = eventDate;
         this.numTable = numTable;
         this.eventImage = eventImage;
-        this.locationId = locationId;
+        this.location = location;
     }
 
     public int getEventId() {
@@ -51,11 +51,11 @@ public class Event {
         this.eventImage = eventImage;
     }
 
-    public int getLocationId() {
-        return locationId;
+    public Location getLocation() {
+        return location;
     }
 
-    public void setLocationId(int locationId) {
-        this.locationId = locationId;
+    public void setLocation(Location location) {
+        this.location = location;
     }
 }

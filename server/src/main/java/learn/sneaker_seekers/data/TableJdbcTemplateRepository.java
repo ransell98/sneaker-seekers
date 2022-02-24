@@ -42,8 +42,8 @@ public class TableJdbcTemplateRepository implements TableRepository {
             statement.setInt(1, table.getTableId());
             statement.setBoolean(2, table.isBooked());
             statement.setInt(3, table.getTableNumber());
-            statement.setInt(4, table.getEventId());
-            statement.setInt(5, table.getAppUserId());
+            statement.setInt(4, table.getEventId().getEventId());
+            statement.setInt(5, table.getAppUserId().getId());
             return statement;
         }, keyHolder);
 
@@ -61,17 +61,19 @@ public class TableJdbcTemplateRepository implements TableRepository {
     public boolean update(Table table) throws DataAccessException {
 
         final String sql = "update vendor_table set "
+                + "vendor_table_id = ?, "
                 + "is_booked = ?, "
-                + "table_number ?, "
+                + "table_number = ?, "
                 + "event_id = ?, "
                 + "app_user_id = ? "
                 + "where vendor_table_id = ?;";
 
         int rowsAffected = jdbcTemplate.update(sql,
+                table.getTableId(),
                 table.isBooked(),
                 table.getTableNumber(),
-                table.getEventId(),
-                table.getAppUserId(),
+                table.getEventId().getEventId(),
+                table.getAppUserId().getId(),
                 table.getTableId());
 
         return rowsAffected > 0;

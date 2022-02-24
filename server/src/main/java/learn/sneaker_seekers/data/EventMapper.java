@@ -1,6 +1,7 @@
 package learn.sneaker_seekers.data;
 
 import learn.sneaker_seekers.models.Event;
+import learn.sneaker_seekers.models.Location;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -18,7 +19,10 @@ public class EventMapper implements RowMapper<Event> {
         event.setEventDate(LocalDate.parse(eventDateString));
         event.setNumTable(rs.getInt("num_table"));
         event.setEventImage(rs.getString("event_image"));
-        event.setLocationId(rs.getInt("location_id"));
+
+        int locationId = rs.getInt("location_id");
+        Location location = new Location();
+        location.setLocationId(locationId);
 
         return event;
     }

@@ -42,7 +42,7 @@ public class ListingJdbcTemplateRepository implements ListingRepository{
             statement.setInt(2, listing.getListingPrice().intValue());
             statement.setInt(3, listing.getQuantity());
             statement.setInt(4, listing.getStyleId());
-            statement.setInt(5, listing.getTableId());
+            statement.setInt(5, listing.getTableId().getTableId());
             statement.setInt(6, listing.getListingCondition().getConditionId());
             return statement;
         }, keyHolder);

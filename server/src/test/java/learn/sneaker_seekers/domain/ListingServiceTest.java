@@ -4,6 +4,7 @@ import learn.sneaker_seekers.data.DataAccessException;
 import learn.sneaker_seekers.data.ListingRepository;
 import learn.sneaker_seekers.models.Condition;
 import learn.sneaker_seekers.models.Listing;
+import learn.sneaker_seekers.models.Table;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -75,7 +76,10 @@ class ListingServiceTest {
         listing.setListingPrice(BigDecimal.valueOf(500));
         listing.setQuantity(15);
         listing.setStyleId(2);
-        listing.setTableId(1);
+
+        Table table = new Table();
+        table.setTableId(1);
+        listing.setTableId(table);
 
         Condition condition = new Condition();
         condition.setConditionId(3);

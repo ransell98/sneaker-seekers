@@ -1,7 +1,9 @@
 package learn.sneaker_seekers.domain;
 
+import learn.sneaker_seekers.App;
 import learn.sneaker_seekers.data.DataAccessException;
 import learn.sneaker_seekers.data.FollowRepository;
+import learn.sneaker_seekers.models.AppUser;
 import learn.sneaker_seekers.models.Brand;
 import learn.sneaker_seekers.models.Favorite;
 import learn.sneaker_seekers.models.Follow;
@@ -54,8 +56,14 @@ class FollowServiceTest {
     @Test
     void shouldNotAddInvalid() throws DataAccessException {
         Follow follow = new Follow();
-        follow.setFollowerId(0);
-        follow.setVendorId(0);
+
+        AppUser follower = new AppUser();
+        follower.setId(0);
+        follow.setFollowerId(follower);
+
+        AppUser vendor = new AppUser();
+        vendor.setId(0);
+        follow.setVendorId(vendor);
 
         Result<Favorite> actual = service.add(follow);
         assertEquals(ResultType.INVALID, actual.getStatus());
@@ -83,8 +91,15 @@ class FollowServiceTest {
 
     Follow makeFollow() {
         Follow follow = new Follow();
-        follow.setFollowerId(2);
-        follow.setVendorId(1);
+
+        AppUser follower = new AppUser();
+        follower.setId(2);
+        follow.setFollowerId(follower);
+
+
+        AppUser vendor = new AppUser();
+        vendor.setId(1);
+        follow.setVendorId(vendor);
         return follow;
     }
 }

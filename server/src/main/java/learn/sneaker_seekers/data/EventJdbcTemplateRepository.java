@@ -53,7 +53,7 @@ public class EventJdbcTemplateRepository implements EventRepository {
             statement.setString(2, event.getEventDate().toString());
             statement.setInt(3, event.getNumTable());
             statement.setString(4, event.getEventImage());
-            statement.setInt(5, event.getLocationId());
+            statement.setInt(5, event.getLocation().getLocationId());
             return statement;
         }, keyHolder);
 

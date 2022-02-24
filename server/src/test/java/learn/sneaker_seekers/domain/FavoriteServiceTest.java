@@ -3,8 +3,10 @@ package learn.sneaker_seekers.domain;
 
 import learn.sneaker_seekers.data.DataAccessException;
 import learn.sneaker_seekers.data.FavoriteRepository;
+import learn.sneaker_seekers.models.AppUser;
 import learn.sneaker_seekers.models.Brand;
 import learn.sneaker_seekers.models.Favorite;
+import learn.sneaker_seekers.models.Style;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -56,8 +58,14 @@ class FavoriteServiceTest {
     @Test
     void shouldNotAddInvalid() throws DataAccessException {
         Favorite favorite = new Favorite();
-        favorite.setStyleId(0);
-        favorite.setAppUserId(0);
+
+        Style style = new Style();
+        style.setStyleId(0);
+        favorite.setStyle(style);
+
+        AppUser appUser = new AppUser();
+        appUser.setId(0);
+        favorite.setAppUser(appUser);
 
         Result<Favorite> actual = service.add(favorite);
         assertEquals(ResultType.INVALID, actual.getStatus());
@@ -85,8 +93,15 @@ class FavoriteServiceTest {
 
     Favorite makeFavorite() {
         Favorite favorite = new Favorite();
-        favorite.setStyleId(2);
-        favorite.setAppUserId(2);
+
+        Style style = new Style();
+        style.setStyleId(2);
+        favorite.setStyle(style);
+
+        AppUser appUser = new AppUser();
+        appUser.setId(2);
+        favorite.setAppUser(appUser);
+
         return favorite;
     }
 

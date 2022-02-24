@@ -8,11 +8,11 @@ public class Listing {
     private BigDecimal listingPrice;
     private Condition listingCondition;
     private int quantity;
-    private int tableId;
+    private Table tableId;
 
     public Listing(){}
 
-    public Listing(int listingId, int styleId, BigDecimal listingPrice, Condition listingCondition, int quantity, int tableId){
+    public Listing(int listingId, int styleId, BigDecimal listingPrice, Condition listingCondition, int quantity, Table tableId){
         this.listingId = listingId;
         this.styleId = styleId;
         this.listingPrice = listingPrice;
@@ -61,11 +61,11 @@ public class Listing {
         this.quantity = quantity;
     }
 
-    public int getTableId() {
+    public Table getTableId() {
         return tableId;
     }
 
-    public void setTableId(int tableId) {
+    public void setTableId(Table tableId) {
         this.tableId = tableId;
     }
 }

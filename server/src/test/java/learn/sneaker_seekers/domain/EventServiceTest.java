@@ -3,6 +3,7 @@ package learn.sneaker_seekers.domain;
 import learn.sneaker_seekers.data.DataAccessException;
 import learn.sneaker_seekers.data.EventRepository;
 import learn.sneaker_seekers.models.Event;
+import learn.sneaker_seekers.models.Location;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -82,7 +83,11 @@ class EventServiceTest {
         event.setEventDate(LocalDate.of(2024, 05, 15));
         event.setNumTable(50);
         event.setEventImage(null);
-        event.setLocationId(3);
+
+        Location location = new Location();
+        location.setLocationId(3);
+
+        event.setLocation(location);
         return event;
     }
 
