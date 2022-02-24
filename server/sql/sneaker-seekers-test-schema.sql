@@ -5,7 +5,11 @@ use sneaker_seekers_test;
 create table app_user (
     app_user_id int primary key auto_increment,
     username varchar(50) not null unique,
-    password_hash varchar(2048) not null
+    password_hash varchar(2048) not null,
+    profile_picture varchar(1000) null,
+    first_name varchar(100) null,
+    last_name varchar(100) null,
+    email varchar(100) null
 );
 
 create table app_role (
@@ -35,6 +39,7 @@ create table location (
 
 create table `event` (
 	event_id int primary key auto_increment,
+    event_name varchar(150) not null,
     event_date date not null, 
     num_table int not null,
     event_image varchar(300) null, 
@@ -64,10 +69,11 @@ create table brand (
 );
 
 create table style (
-	style_id int primary key auto_increment, 
+	style_id varchar(500) not null unique, 
     style_name varchar(100) not null, 
     `description` varchar(3600) not null,
-    release_year int not null, 
+    release_year date not null, 
+    colorway varchar(100) not null, 
     style_image varchar(300) null, 
     brand_id int not null, 
     constraint fk_style_brand_id
@@ -84,7 +90,7 @@ create table listing (
 	listing_id int primary key auto_increment, 
     listing_price int not null, 
     quantity int not null, 
-    style_id int not null, 
+    style_id varchar(500) not null, 
     vendor_table_id int not null, 
     condition_id int not null,
     constraint listing_style_id 
@@ -111,7 +117,7 @@ create table follow (
 
 create table favorite (
 	favorite_id int primary key auto_increment, 
-    style_id int not null, 
+    style_id varchar(500) not null, 
     app_user_id int not null, 
     constraint favorite_style_id 
 		foreign key (style_id)
@@ -160,10 +166,10 @@ begin
     delete from app_user; 
     alter table app_user auto_increment = 1; 
     
-    insert into app_user (username, password_hash)
+    insert into app_user (username, password_hash, profile_picture, first_name, last_name, email)
 		values
-        ('dn7149ns', 'Great!password'),
-        ('nx9187tx', 'Somethingpassword?');
+        ('dn7149ns', 'Great!password', null, null, null, null),
+        ('nx9187tx', 'Somethingpassword?', null, null, null, null);
     
     insert into app_role (`name`) 
 		values 
@@ -182,11 +188,11 @@ begin
         ('Los Angeles Convention Center', '1201 S Figueroa St', 'Los Angeles, CA'),
         ('Austin Convention Center', '500 E Cesar Chavez St', 'Austin, TX');
         
-	insert into `event` (event_date, num_table, location_id)
+	insert into `event` (event_name, event_date, num_table, event_image, location_id)
 		values
-        ('2022-06-10', 45, 2),
-        ('2022-10-21', 30, 1),
-        ('2023-03-25', 35, 3);
+        ('Convention 1', '2022-06-10', 45, null, 2),
+        ('Convention 2', '2022-10-21', 30, null, 1),
+        ('Convention 3', '2023-03-25', 35, null, 3);
         
 	insert into vendor_table (is_booked, table_number, event_id, app_user_id)
 		values 
@@ -198,10 +204,10 @@ begin
         ('Nike'),
         ('Addidas');
     
-    insert into style (style_name, `description`, release_year, brand_id)
+    insert into style (style_id, style_name, `description`, release_year, colorway, style_image, brand_id)
 		values 
-        ('Panda Dunks', 'Black and white low-top dunks', 2019, 1),
-        ('Nature Pale Coral Dunks', 'Peachy pink and white low-top dunks', 2020, 1);
+        ('1', 'Panda Dunks', 'Black and white low-top dunks', '2019-01-02', 'black/white', null, 1),
+        ('2', 'Nature Pale Coral Dunks', 'Peachy pink and white low-top dunks', '2020-03-17', 'peach/white', null, 1);
         
 	insert into `condition` (condition_name)
 		values 
@@ -214,8 +220,8 @@ begin
 	
     insert into listing (listing_price, quantity, style_id, vendor_table_id, condition_id)
 		values 
-        (450, 15, 1, 1, 2),
-        (400, 12, 2, 2, 2);
+        (450, 15, '1', 1, 2),
+        (400, 12, '2', 2, 2);
         
 	insert into follow (follower_id, vendor_id)
 		values 
@@ -223,7 +229,7 @@ begin
         (2, 1);
         
 	insert into favorite (style_id, app_user_id)
-		values (1, 2);
+		values ('1', 2);
         
 	insert into upgrade_request (app_user_id)
 		values (1);
