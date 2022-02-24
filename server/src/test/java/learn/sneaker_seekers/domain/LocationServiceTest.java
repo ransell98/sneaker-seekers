@@ -43,6 +43,14 @@ class LocationServiceTest {
     }
 
     @Test
+    void shouldNotFindFalseId() {
+        Location expected = service.findByLocationId(189);
+        when(repository.findByLocationId(189)).thenReturn(expected);
+        Location actual = service.findByLocationId(189);
+        assertEquals(expected, actual);
+    }
+
+    @Test
     void shouldAdd() throws DataAccessException {
         Location location = makeLocation();
         Location mockLocation = makeLocation();
@@ -50,6 +58,13 @@ class LocationServiceTest {
         Result<Location> actual = service.add(location);
         assertEquals(ResultType.SUCCESS, actual.getStatus());
         assertEquals(mockLocation, actual.getPayload());
+    }
+
+    @Test
+    void shouldNotAddNull() throws DataAccessException {
+        Result<Location> result = service.add(null);
+        assertEquals(ResultType.INVALID, result.getStatus());
+        assertNull(result.getPayload());
     }
 
     Location makeLocation() {

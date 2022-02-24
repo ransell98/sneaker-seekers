@@ -61,19 +61,18 @@ public class TableJdbcTemplateRepository implements TableRepository {
     public boolean update(Table table) throws DataAccessException {
 
         final String sql = "update vendor_table set "
-                + "vendor_table_id = ?, "
                 + "is_booked = ?, "
-                + "table_number ? "
+                + "table_number ?, "
                 + "event_id = ?, "
-                + "app_user_id = ?, "
+                + "app_user_id = ? "
                 + "where vendor_table_id = ?;";
 
         int rowsAffected = jdbcTemplate.update(sql,
-                table.getTableId(),
                 table.isBooked(),
                 table.getTableNumber(),
                 table.getEventId(),
-                table.getAppUserId());
+                table.getAppUserId(),
+                table.getTableId());
 
         return rowsAffected > 0;
 

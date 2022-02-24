@@ -35,11 +35,12 @@ public class FollowService {
         return repository.deleteByFollowerIdAndVendorId(followerId, vendorId);
     }
 
-    private Result validate(Follow follow) {
-        Result result = new Result();
+    private Result<Follow> validate(Follow follow) {
+        Result<Follow> result = new Result();
 
         if (follow == null) {
-            result.addErrorMessage("Follow cannot be null.");
+            result.addMessage("Follow cannot be null.", ResultType.INVALID);
+            return result;
         }
 
         if (follow.getFollowerId() == 0) {

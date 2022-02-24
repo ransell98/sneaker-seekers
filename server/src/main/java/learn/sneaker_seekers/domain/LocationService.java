@@ -35,11 +35,24 @@ public class LocationService {
         return result;
     }
 
-    private Result validate(Location location) {
-        Result result = new Result();
+    private Result<Location> validate(Location location) {
+        Result<Location> result = new Result();
 
         if (location == null) {
-            result.addErrorMessage("Location cannot be null.");
+            result.addMessage("Location cannot be null.", ResultType.INVALID);
+            return result;
+        }
+
+        if (Validations.isNullOrBlank(location.getLocationName())) {
+            result.addMessage("Location name is required.", ResultType.INVALID);
+        }
+
+        if (Validations.isNullOrBlank(location.getLocationAddress())) {
+            result.addMessage("Location address is required.", ResultType.INVALID);
+        }
+
+        if (Validations.isNullOrBlank(location.getLocationCity())) {
+            result.addMessage("Location of city is required.", ResultType.INVALID);
         }
 
         return result;

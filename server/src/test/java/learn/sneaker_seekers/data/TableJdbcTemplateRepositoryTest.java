@@ -51,9 +51,15 @@ class TableJdbcTemplateRepositoryTest {
         assertEquals(NEXT_ID, actual.getTableId());
     }
 
-    @Test
-    void shouldUpdateExistings() throws DataAccessException {
 
+    Table makeTable() {
+        Table table = new Table();
+        table.setBooked(true);
+        table.setTableNumber(18);
+        table.setEventId(3);
+        table.setAppUserId(1);
+
+        return table;
     }
 
 

@@ -41,7 +41,11 @@ class ListingJdbcTemplateRepositoryTest {
         listing.setQuantity(15);
         listing.setStyleId(2);
         listing.setTableId(1);
-        listing.setListingCondition(listing.getListingCondition());
+
+        Condition condition = new Condition();
+        condition.setConditionId(3);
+
+        listing.setListingCondition(condition);
 
         Listing actual = repository.add(listing);
         assertNotNull(actual);

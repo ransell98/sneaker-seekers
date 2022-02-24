@@ -38,11 +38,12 @@ public class ListingService {
         return repository.deleteByListingId(listingId);
     }
 
-    private Result validate(Listing listing) {
-        Result result = new Result();
+    private Result<Listing> validate(Listing listing) {
+        Result<Listing> result = new Result();
 
         if (listing == null) {
             result.addMessage("Listing cannot be null.", ResultType.INVALID);
+            return result;
         }
 
         return result;

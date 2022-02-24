@@ -34,11 +34,12 @@ public class EventService {
         return result;
     }
 
-    private Result validate(Event event) {
-        Result result = new Result();
+    private Result<Event> validate(Event event) {
+        Result<Event> result = new Result();
 
         if (event == null) {
             result.addMessage("Event cannot be null.", ResultType.INVALID);
+            return result;
         }
 
         if (!event.getEventDate().isAfter(LocalDate.now())) {

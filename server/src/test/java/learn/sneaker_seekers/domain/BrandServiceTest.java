@@ -4,8 +4,6 @@ import learn.sneaker_seekers.data.BrandRepository;
 import learn.sneaker_seekers.data.DataAccessException;
 import learn.sneaker_seekers.models.Brand;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestTemplate;
-import org.mockito.stubbing.OngoingStubbing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -51,6 +49,13 @@ class BrandServiceTest {
         Result<Brand> actual = service.add(brand);
         assertEquals(ResultType.SUCCESS, actual.getStatus());
         assertEquals(mockBrand, actual.getPayload());
+    }
+
+    @Test
+    void shouldNotAddNull() throws DataAccessException {
+        Result<Brand> result = service.add(null);
+        assertEquals(ResultType.INVALID, result.getStatus());
+        assertNull(result.getPayload());
     }
 
     Brand makeBrand() {

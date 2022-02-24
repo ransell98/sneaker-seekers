@@ -43,11 +43,12 @@ public class UpgradeRequestService {
         return repository.deleteByUpgradeRequestId(upgradeRequestId);
     }
 
-    private Result validate(UpgradeRequest upgradeRequest) {
-        Result result = new Result();
+    private Result<UpgradeRequest> validate(UpgradeRequest upgradeRequest) {
+        Result<UpgradeRequest> result = new Result();
 
         if (upgradeRequest == null) {
-            result.addErrorMessage("Upgrade Request cannot be null.");
+            result.addMessage("Upgrade Request cannot be null.", ResultType.INVALID);
+            return result;
         }
 
         return result;

@@ -40,7 +40,7 @@ class UpgradeRequestJdbcTemplateRepositoryTest {
 
         UpgradeRequest actual = repository.add(upgradeRequest);
         assertNotNull(actual);
-        assertEquals(NEXT_ID, actual);
+        assertEquals(NEXT_ID, actual.getAppUserId());
     }
 
     @Test

@@ -33,15 +33,16 @@ public class BrandService {
         return result;
     }
 
-    private Result validate(Brand brand) {
-        Result result = new Result();
+    private Result<Brand> validate(Brand brand) {
+        Result<Brand> result = new Result();
 
         if (brand == null) {
             result.addMessage("Brand cannot be null.", ResultType.INVALID);
+            return result;
         }
 
-        if (brand.getBrandName() == null) {
-            result.addMessage("Brand name cannot be null.", ResultType.INVALID);
+        if (Validations.isNullOrBlank(brand.getBrandName())) {
+            result.addMessage("Brand name is required.", ResultType.INVALID);
         }
 
         return result;

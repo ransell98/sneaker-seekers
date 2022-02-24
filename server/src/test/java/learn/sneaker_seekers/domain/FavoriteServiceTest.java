@@ -64,6 +64,13 @@ class FavoriteServiceTest {
     }
 
     @Test
+    void shouldNotAddNull() throws DataAccessException {
+        Result<Favorite> result = service.add(null);
+        assertEquals(ResultType.INVALID, result.getStatus());
+        assertNull(result.getPayload());
+    }
+
+    @Test
     void shouldDeleteById() throws DataAccessException {
         when(repository.deleteByFavoriteId(1)).thenReturn(true);
         boolean success = service.deleteByFavoriteId(1);

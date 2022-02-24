@@ -1,9 +1,6 @@
 package learn.sneaker_seekers.domain;
 
-import learn.sneaker_seekers.data.DataAccessException;
-import learn.sneaker_seekers.data.EventRepository;
 import learn.sneaker_seekers.data.StyleRepository;
-import learn.sneaker_seekers.models.Listing;
 import learn.sneaker_seekers.models.Style;
 import org.springframework.stereotype.Service;
 
@@ -26,11 +23,28 @@ public class StyleService {
         return result;
     }
 
-    private Result validate(Style style) {
-        Result result = new Result();
+    private Result<Style> validate(Style style) {
+        Result<Style> result = new Result();
 
         if (style == null) {
-            result.addErrorMessage("Style cannot be null.");
+            result.addMessage("Style cannot be null.", ResultType.INVALID);
+            return result;
+        }
+
+        if (Validations.isNullOrBlank(style.getStyleName())) {
+            result.addMessage("Style name is required.", ResultType.INVALID);
+        }
+
+        if (Validations.isNullOrBlank(style.getDescription())) {
+            result.addMessage("Description of style is required.", ResultType.INVALID);
+        }
+
+        if (style.getReleaseYear() <= 0) {
+            result.addMessage("Release year is required.", ResultType.INVALID);
+        }
+
+        if (style.getBrandId() < 0) {
+            result.addMessage("Brand is required.", ResultType.INVALID);
         }
 
         return result;

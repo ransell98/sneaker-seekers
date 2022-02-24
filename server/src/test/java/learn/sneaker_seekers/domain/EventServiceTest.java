@@ -1,16 +1,13 @@
 package learn.sneaker_seekers.domain;
 
-import learn.sneaker_seekers.data.BrandRepository;
 import learn.sneaker_seekers.data.DataAccessException;
 import learn.sneaker_seekers.data.EventRepository;
-import learn.sneaker_seekers.models.Brand;
 import learn.sneaker_seekers.models.Event;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import javax.validation.constraints.Null;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -60,6 +57,13 @@ class EventServiceTest {
         Result<Event> actual = service.add(event);
         assertEquals(ResultType.SUCCESS, actual.getStatus());
         assertEquals(mockEvent, actual.getPayload());
+    }
+
+    @Test
+    void shouldNotAddNull() throws DataAccessException {
+        Result<Event> result = service.add(null);
+        assertEquals(ResultType.INVALID, result.getStatus());
+        assertNull(result.getPayload());
     }
 
     @Test

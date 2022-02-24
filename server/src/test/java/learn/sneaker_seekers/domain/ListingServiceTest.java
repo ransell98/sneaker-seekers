@@ -1,6 +1,8 @@
 package learn.sneaker_seekers.domain;
 
+import learn.sneaker_seekers.data.DataAccessException;
 import learn.sneaker_seekers.data.ListingRepository;
+import learn.sneaker_seekers.models.Condition;
 import learn.sneaker_seekers.models.Listing;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,48 @@ class ListingServiceTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    void shouldAdd() throws DataAccessException {
+        Listing listing = makeListing();
+        Listing mockListing = makeListing();
+        when(repository.add(listing)).thenReturn(mockListing);
 
+        Result<Listing> actual = service.add(listing);
+        assertEquals(ResultType.SUCCESS, actual.getStatus());
+        assertEquals(mockListing, actual.getPayload());
+    }
+
+    @Test
+    void shouldNotAddNull() throws DataAccessException {
+        Result<Listing> result = service.add(null);
+        assertEquals(ResultType.INVALID, result.getStatus());
+        assertNull(result.getPayload());
+    }
+
+    @Test
+    void shouldDelete() throws DataAccessException {
+        when(repository.deleteByListingId(2)).thenReturn(true);
+        assertTrue(service.deleteByListingId(2));
+    }
+
+    @Test
+    void shouldNotDeleteNonExisting() throws DataAccessException {
+        when(repository.deleteByListingId(32)).thenReturn(false);
+        assertFalse(service.deleteByListingId(32));
+    }
+
+    Listing makeListing() {
+        Listing listing = new Listing();
+        listing.setListingPrice(BigDecimal.valueOf(500));
+        listing.setQuantity(15);
+        listing.setStyleId(2);
+        listing.setTableId(1);
+
+        Condition condition = new Condition();
+        condition.setConditionId(3);
+        listing.setListingCondition(condition);
+
+        return listing;
+    }
 
 }

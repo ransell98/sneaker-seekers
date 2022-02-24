@@ -41,11 +41,12 @@ public class FavoriteService {
         return repository.deleteByFavoriteId(favoriteId);
     }
 
-    private Result validate(Favorite favorite){
-        Result result = new Result();
+    private Result<Favorite> validate(Favorite favorite){
+        Result<Favorite> result = new Result();
 
         if (favorite == null) {
-            result.addErrorMessage("Favorite cannot be null.");
+            result.addMessage("Favorite cannot be null.", ResultType.INVALID);
+            return result;
         }
 
         if (favorite.getStyleId() == 0) {

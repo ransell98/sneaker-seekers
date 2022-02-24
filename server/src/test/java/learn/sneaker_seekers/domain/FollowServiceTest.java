@@ -1,12 +1,10 @@
 package learn.sneaker_seekers.domain;
 
 import learn.sneaker_seekers.data.DataAccessException;
-import learn.sneaker_seekers.data.FavoriteRepository;
 import learn.sneaker_seekers.data.FollowRepository;
 import learn.sneaker_seekers.models.Brand;
 import learn.sneaker_seekers.models.Favorite;
 import learn.sneaker_seekers.models.Follow;
-import net.bytebuddy.description.annotation.AnnotationDescription;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -61,6 +59,13 @@ class FollowServiceTest {
 
         Result<Favorite> actual = service.add(follow);
         assertEquals(ResultType.INVALID, actual.getStatus());
+    }
+
+    @Test
+    void shouldNotAddNull() throws DataAccessException {
+        Result<Follow> result = service.add(null);
+        assertEquals(ResultType.INVALID, result.getStatus());
+        assertNull(result.getPayload());
     }
 
     @Test
