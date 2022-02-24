@@ -1,0 +1,8 @@
+###
+
+POST https://xw7sbct9v6-1.algolianet.com/1/indexes/products/query?x-algolia-application-id=XW7SBCT9V6&x-algolia-api-key=6b5e76b49705eb9f51a06d3c82f7acee HTTP/1.1
+
+{"params":"query=Foam&facets=*&filters=product_category:sneakers&hitsPerPage=10"}
+
+###
+

@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Col, Form, Row } from "react-bootstrap";
+import _ from "lodash";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
@@ -7,66 +8,106 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import "../styles/Sneakers.css";
 
 import Page from "./Page";
-import SneakerStyleCard from "./SneakerStyleCard";
 import Loading from "./Loading";
-
-//testing only
-const STYLES = [
-    {
-        "style_id": 1,
-        "style_name": "Air Jordan",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Orci nulla pellentesque dignissim enim sit amet venenatis urna cursus. Lectus quam id leo in vitae turpis.",
-        "brand": {
-            "brand_id": 1,
-            "brand_name": "Nike"
-        },
-        "release_year": 1985,
-        "image": "https://upload.wikimedia.org/wikipedia/commons/d/dc/74892143_f94145facb.jpg"
-    },
-    {
-        "style_id": 2,
-        "style_name": "Clown Shoes",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nibh sit amet commodo nulla facilisi nullam vehicula ipsum. Massa tincidunt dui ut ornare lectus sit.",
-        "brand": {
-            "brand_id": 2,
-            "brand_name": "Barnem & Bailey"
-        },
-        "release_year": 1886,
-        "image": "https://madhattermagicshop.com/magicshop/images/model24b.jpg"
-    },
-    {
-        "style_id": 3,
-        "style_name": "New Balance 993 Aimé Leon Dore",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Condimentum lacinia quis vel eros donec. Risus viverra adipiscing at in tellus integer feugiat.",
-        "brand": {
-            "brand_id": 3,
-            "brand_name": "New Balance"
-        },
-        "release_year": 2021,
-        "image": "https://images.stockx.com/images/New-Balance-993-Aime-Leon-Dore-Taupe.jpg"
-    },
-]
+import ErrorCard from "./ErrorCard";
+import SneakerStyleCard from "./SneakerStyleCard";
 
 function SearchSneakers() {
     const [query, setQuery] = useState("");
-    const [style, setStyle] = useState();
+    const [styles, setStyles] = useState([]);
+
     const [isLoading, setIsLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
 
     useEffect(() => {
-        document.getElementById("formSearchBar").focus();
+        const searchBar = document.getElementById("formSearchBar");
+        searchBar.focus();
     }, []);
-
-    useEffect(() => {
-        fetchStyle();
-    }, [query]);
-
-    function fetchStyle() {
+    
+    function handleChange (event) {
         setIsLoading(true);
-        setTimeout(() => {
-            const index = Math.floor(Math.random() * STYLES.length);
-            setStyle(STYLES[index]);
+        setQuery(event.target.value);
+        debounce(event.target.value);
+        if (!event.target.value) {
+            setErrorMessage("");
             setIsLoading(false);
-        }, 300);
+        }
+    }
+
+    const debounce = useCallback(
+        _.debounce((_searchVal) => {
+            fetchStyles(_searchVal);
+        }, 500),
+        []
+    );
+
+    function fetchStyles(queryToFetch) {
+        const count = 10;
+        if (queryToFetch) {
+            const url = `https://xw7sbct9v6-1.algolianet.com/1/indexes/products/query?x-algolia-application-id=XW7SBCT9V6&x-algolia-api-key=6b5e76b49705eb9f51a06d3c82f7acee`;
+            const init = {
+                method: "POST",
+                headers: {
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36',
+                    "accept": "application/json",
+                    "accept-language": "en-US,en;q=0.9",
+                    "content-type": "application/x-www-form-urlencoded",
+                    "sec-fetch-dest": "empty",
+                    "sec-fetch-mode": "cors",
+                    "sec-fetch-site": "cross-site"
+                },
+                body: `{"params":"query=${queryToFetch}&facets=*&filters=product_category:sneakers&hitsPerPage=${count}"}`,
+                http2: true
+            }
+            fetch(url, init)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.hits) {
+                        setStyles(data.hits.map((hit) => {
+                            return (convertFetchedToStyleObject(hit));
+                        }));
+                    }
+                    setIsLoading(false);
+                })
+                .catch(exception => {
+                    setErrorMessage(exception.message);
+                    setIsLoading(false);
+                });
+        } else {
+            setIsLoading(false);
+        }
+    }
+
+    function convertFetchedToStyleObject(fetched) {
+        function getColorway(sourceColorway) {
+            const colorwayArray = sourceColorway.split("/");
+            if (colorwayArray.length === 3) {
+                if (colorwayArray[0] === colorwayArray[1]
+                    && colorwayArray[0] === colorwayArray[2]) {
+                        return colorwayArray[0];
+                    }
+            }
+            return sourceColorway;
+        }
+        const styleObject = {
+            "style_id": fetched.id,
+            "style_name": fetched.name,
+            "description": fetched.description,
+            //brand: need to link to existing brands
+            "brand": {
+                "brand_id": -1,
+                "brand_name": fetched.brand.replace(/^\w/, (c) => c.toUpperCase()),
+            },
+            "release_date": fetched.release_date,
+            "image": fetched.thumbnail_url,
+            "colorway": getColorway(fetched.colorway),
+        }
+        return styleObject;
     }
 
     function renderSearchBar() {
@@ -81,7 +122,7 @@ function SearchSneakers() {
                             <Form.Control
                                 type="text"
                                 placeholder="Search..."
-                                onChange={(event) => setQuery(event.target.value)}
+                                onChange={handleChange}
                                 value={query}
                             />
                         </Col>
@@ -97,17 +138,32 @@ function SearchSneakers() {
             {isLoading
             ? <Loading/>
             : <>
-                {query
-                ? <>
-                    {style
-                    ? <SneakerStyleCard style={style}/>
-                    : <p>
-                        No sneaker found.
-                    </p>
+                {errorMessage
+                ? <ErrorCard message={errorMessage}/>
+                : <>
+                    {query
+                    ? <>
+                        {styles && styles.length > 0
+                        ? <>
+                            {styles.map((style) => {
+                                return (
+                                    <SneakerStyleCard style={style} key={style.style_id}/>
+                                );
+                            })}
+                            <p className="mt-3 text-center">
+                                Showing {styles.length} result<span
+                                    className={styles.length === 1
+                                    ? "d-none"
+                                    : ""}
+                                >s</span>.
+                            </p>
+                        </>
+                        : <p className="mt-3 text-center">No sneakers found.</p>
+                        }
+                    </>
+                    : <></>
                     }
-                </>
-                : <></>
-                }
+                </>}
             </>
             }
         </Page>

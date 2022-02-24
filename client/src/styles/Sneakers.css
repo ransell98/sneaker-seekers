@@ -1,9 +1,22 @@
 .sneaker-style-card {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+.sneaker-style-card strong {
+    font-variant: small-caps;
+}
+.sneaker-style-card .card-text {
+    font-size: small;
+}
+.sneaker-style-card .font-italic {
+    font-style: italic;
+}
 .sneaker-style-card img {
-    max-height: 300px;
+    max-height: 150px;
     max-width: 100%;
+    height: auto;
+    width: auto;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 .sneaker-style-card .btn {
     border-radius: 30px;
