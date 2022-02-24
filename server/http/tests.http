@@ -1,37 +1,41 @@
+@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbmVha2VyLXNlZWtlcnMiLCJzdWIiOiJ1c2VyIiwiaWQiOjEsImF1dGhvcml0aWVzIjoiIiwiZXhwIjoxNjQ1NzI1ODQxfQ.q3JmENxkVi823vxMllY2xgQDf0FlP_EueB56Ve-Oums
 @host = http://localhost:8080
 
 ### GET ALL USERS
 
 GET {{host}}/user HTTP/1.1
+Authorization: Bearer {{jwt}}
 
 ### GET ALL ROLES
 
-### GET USER BY APP USER ID
+GET {{host}}/user/role HTTP/1.1
+Authorization: Bearer {{jwt}}
+
+### GET USER BY USERNAME (RYAN)
+
+GET {{host}}/user/ryan HTTP/1.1
+Authorization: Bearer {{jwt}}
 
 ### CREATE USER
-
-POST {{host}}/authenticate HTTP/1.1
-Content-Type: application/json
-
-{
-    "username": "admin",
-    "password": "password"
-}
-
-###
 
 POST {{host}}/user/create HTTP/1.1
 Content-Type: application/json
 
 {
-    "username": "admin",
-    "password": "password",
-    "confirmPassword": "password"
+    "username": "ryan",
+    "password": "P@ssw0rd",
+    "confirmPassword": "P@ssw0rd"
 }
 
-### UPDATE USER
+### AUTHENTICATE USER 
 
-### CHANGE PASSWORD 
+POST {{host}}/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "user",
+    "password": "ehCX7MexUCb&T7"
+}
 
 ### GET ALL BRANDS
 
@@ -42,6 +46,7 @@ GET {{host}}/sneakerseekers/brand HTTP/1.1
 POST {{host}}/sneakerseekers/brand HTTP/1.1
 Content-Type: application/json
 Accept: application/json
+Authorization: Bearer {{jwt}}
 
 {
     "brandId": 1,
@@ -61,6 +66,7 @@ GET {{host}}/sneakerseekers/event HTTP/1.1
 POST {{host}}/sneakerseekers/event HTTP/1.1
 Content-Type: application/json
 Accept: application/json
+Authorization: Bearer {{jwt}}
 
 {
     "eventId": 1,
@@ -73,12 +79,14 @@ Accept: application/json
 ### GET FAVORITE BY APP USER ID 1
 
 GET {{host}}/sneakerseekers/favorite/1 HTTP/1.1
+Authorization: Bearer {{jwt}}
 
 ### ADD FAVORITE
 
 POST {{host}}/sneakerseekers/favorite HTTP/1.1
 Content-Type: application/json
 Accept: application/json
+Authorization: Bearer {{jwt}}
 
 {
     "favoriteId": 1,
@@ -89,16 +97,19 @@ Accept: application/json
 ### DELETE FAVORITE BY ID
 
 DELETE {{host}}/sneakerseekers/favorite/1 HTTP/1.1
+Authorization: Bearer {{jwt}}
 
 ### GET FOLLOWS BY FOLLOWER ID 1
 
 GET {{host}}/sneakerseekers/follow/1
+Authorization: Bearer {{jwt}}
 
 ### ADD FOLLOW
 
 POST {{host}}/sneakerseekers/follow HTTP/1.1
 Content-Type: application/json
 Accept: application/json
+Authorization: Bearer {{jwt}}
 
 {
     "followerId": 1,
@@ -108,6 +119,7 @@ Accept: application/json
 ### DELETE FOLLOW BY FOLLOWER ID AND VENDOR ID
 
 DELETE {{host}}/sneakerseekers/follow/1/1 HTTP/1.1
+Authorization: Bearer {{jwt}}
 
 ### GET LISTINGS BY TABLE ID
 
@@ -118,6 +130,7 @@ GET {{host}}/sneakerseekers/listing/1
 POST {{host}}/sneakerseekers/listing HTTP/1.1
 Content-Type: application/json
 Accept: application/json
+Authorization: Bearer {{jwt}}
 
 {
     "listingId": 1,
@@ -130,6 +143,7 @@ Accept: application/json
 ### DELETE LISTING BY ID
 
 DELETE {{host}}/sneakerseekers/listing/1 HTTP/1.1
+Authorization: Bearer {{jwt}}
 
 ### GET ALL LOCATIONS
 
@@ -144,6 +158,7 @@ GET {{host}}/sneakerseekers/location/1
 POST {{host}}/sneakerseekers/location HTTP/1.1
 Content-Type: application/json
 Accept: application/json
+Authorization: Bearer {{jwt}}
 
 {
     "locationId": 1,
@@ -161,6 +176,7 @@ GET {{host}}/sneakerseekers/style/1
 POST {{host}}/sneakerseekers/style HTTP/1.1
 Content-Type: application/json
 Accept: application/json
+Authorization: Bearer {{jwt}}
 
 {
     "styleId": 1,
@@ -182,6 +198,7 @@ GET {{host}}/sneakerseekers/table/1
 POST {{host}}/sneakerseekers/table HTTP/1.1
 Content-Type: application/json
 Accept: application/json
+Authorization: Bearer {{jwt}}
 
 {
     "tableId": 1,
@@ -196,6 +213,7 @@ Accept: application/json
 PUT {{host}}/sneakerseekers/table/1 HTTP/1.1
 Content-Type: application/json
 Accept: application/json
+Authorization: Bearer {{jwt}}
 
 {
     "tableId": 1,
@@ -208,12 +226,14 @@ Accept: application/json
 ### GET ALL UPGRADE REQUESTS
 
 GET {{host}}/sneakerseekers/upgraderequest
+Authorization: Bearer {{jwt}}
 
 ### ADD UPGRADE REQUEST
 
 POST {{host}}/sneakerseekers/upgraderequest HTTP/1.1
 Content-Type: application/json
 Accept: application/json
+Authorization: Bearer {{jwt}}
 
 {
     "upgradeRequestId": 1,
@@ -223,4 +243,4 @@ Accept: application/json
 ### DELETE UPGRADE REQUEST BY ID
 
 DELETE {{host}}/sneakerseekers/upgraderequest/1 HTTP/1.1
-
+Authorization: Bearer {{jwt}}

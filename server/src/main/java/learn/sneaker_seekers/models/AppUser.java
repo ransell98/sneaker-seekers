@@ -26,6 +26,7 @@ public class AppUser implements UserDetails {
         this.id = id;
     }
 
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities.stream()
@@ -43,7 +44,7 @@ public class AppUser implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+        return password;
     }
 
     public void setPassword(String password) {
@@ -52,7 +53,7 @@ public class AppUser implements UserDetails {
 
     @Override
     public String getUsername() {
-        return null;
+        return username;
     }
 
     public void setUsername(String username) {
@@ -79,9 +80,16 @@ public class AppUser implements UserDetails {
         return !disabled;
     }
 
+    public boolean isDisabled() {
+        return disabled;
+    }
+
+    public void setDisabled(boolean disabled) {
+        this.disabled = disabled;
+    }
+
     public boolean hasAuthority(String authority) {
         return authorities.stream()
                 .anyMatch(a -> a.equals(authority));
     }
-
 }
