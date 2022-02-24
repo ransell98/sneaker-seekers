@@ -32,8 +32,8 @@ public class AppUserController {
         return service.findAllRoles();
     }
 
-    @GetMapping("/user/username")
-    public AppUser findByUsername(String username) {
+    @GetMapping("/user/{username}")
+    public AppUser findByUsername(@PathVariable String username) {
         return service.findByUserName(username);
     }
 

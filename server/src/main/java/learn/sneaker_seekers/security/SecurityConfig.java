@@ -28,6 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/health_check").permitAll()
                 .antMatchers(HttpMethod.POST, "/authenticate", "/encode", "/user/create").permitAll()
+                .antMatchers(HttpMethod.GET, "/user/{username}").permitAll()
                 .antMatchers(HttpMethod.POST, "/refresh_token").authenticated()
                 .antMatchers(HttpMethod.GET, "/sneakerseekers/brand").permitAll()
                 .antMatchers(HttpMethod.POST, "/sneakerseekers/brand").hasAnyAuthority("VENDOR", "ADMIN")
