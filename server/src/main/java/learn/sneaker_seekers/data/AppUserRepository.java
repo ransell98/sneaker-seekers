@@ -49,7 +49,7 @@ public class AppUserRepository {
     @Transactional
     public AppUser findByUsername(String username) {
         AppUser user = jdbcTemplate.query(
-                        "select app_user_id, username, password_hash from app_user where username = ?;",
+                        "select app_user_id, username, password_hash, profile_picture, first_name, last_name, email from app_user where username = ?;",
                         mapper,
                         username).stream()
                 .findFirst()

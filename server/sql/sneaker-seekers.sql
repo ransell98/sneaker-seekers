@@ -135,3 +135,19 @@ create table upgrade_request (
 		foreign key (app_user_id)
         references app_user(app_user_id)
 );
+
+insert into app_role (`name`) values
+    ('USER'),
+    ('VENDOR'),
+    ('ADMIN');
+
+-- ehCX7MexUCb&T7
+insert into app_user (username, password_hash) values
+    ('user', '$2a$10$OOzG0kG/hJ/2mHmq6nuPZ.0q71b3mm/sYthN93PgX6Q2XBDUNLu.K'),
+    ('vendor', '$2a$10$OOzG0kG/hJ/2mHmq6nuPZ.0q71b3mm/sYthN93PgX6Q2XBDUNLu.K'),
+    ('admin', '$2a$10$OOzG0kG/hJ/2mHmq6nuPZ.0q71b3mm/sYthN93PgX6Q2XBDUNLu.K');
+
+insert into app_user_role (app_user_id, app_role_id) values
+	(1, 1),
+    (2, 2),
+    (3, 3);

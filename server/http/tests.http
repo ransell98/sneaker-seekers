@@ -26,13 +26,33 @@ Content-Type: application/json
     "confirmPassword": "P@ssw0rd"
 }
 
-### AUTHENTICATE USER 
+### LOGIN USER 
 
 POST {{host}}/authenticate HTTP/1.1
 Content-Type: application/json
 
 {
     "username": "user",
+    "password": "ehCX7MexUCb&T7"
+}
+
+### VENDOR USER 
+
+POST {{host}}/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "vendor",
+    "password": "ehCX7MexUCb&T7"
+}
+
+### ADMIN USER 
+
+POST {{host}}/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "admin",
     "password": "ehCX7MexUCb&T7"
 }
 
