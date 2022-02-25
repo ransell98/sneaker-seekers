@@ -63,7 +63,7 @@ class StyleServiceTest {
 
         Brand brand = new Brand();
         brand.setBrandId(0);
-        style.setBrandId(brand);
+        style.setBrand(brand);
 
         Result<Style> result = service.add(style);
         assertEquals(ResultType.INVALID, result.getStatus());
@@ -80,7 +80,7 @@ class StyleServiceTest {
 
         Brand brand = new Brand();
         brand.setBrandId(1);
-        style.setBrandId(brand);
+        style.setBrand(brand);
 
         return style;
     }

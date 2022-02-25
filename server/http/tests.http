@@ -32,8 +32,8 @@ POST {{host}}/authenticate HTTP/1.1
 Content-Type: application/json
 
 {
-    "username": "ryan",
-    "password": "P@ssw0rd"
+    "username": "user",
+    "password": "ehCX7MexUCb&T7"
 }
 
 ### GET ALL BRANDS
@@ -92,6 +92,27 @@ Authorization: Bearer {{jwt}}
     "styleId": 1,
     "appUserId": 1
 }
+
+### ADD FAVORITE NEW
+
+POST {{host}}/sneakerseekers/favorite HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{jwt}}
+
+{
+    "styleId": 1,
+    "styleName": "Nike Rare Shoes That Aren't In Database",
+    "description": "These shoes do not exist in the database yet. They should be added to the styles table, and then to favorites.",
+    //brand: need to link to existing brands
+    "brand": {
+        "brandId": 1,
+        "brandName": "Nike",
+    },
+    "releaseDate": "2022-01-01",
+    "image": "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/7dc49569-2d66-47bd-8139-91f671b3f1e4/court-legacy-mens-shoe-Lswv5z.png",
+    "colorway": "Black/White/Tan"
+}
+
 
 ### DELETE FAVORITE BY ID
 

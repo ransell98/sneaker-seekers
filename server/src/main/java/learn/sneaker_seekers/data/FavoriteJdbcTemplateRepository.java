@@ -64,4 +64,22 @@ public class FavoriteJdbcTemplateRepository implements FavoriteRepository {
         return rowsAffected > 0;
 
     }
+
+    @Override
+    public boolean isStyleAdded(String styleId) throws DataAccessException {
+
+        final String sql = "select style_id, style_name, `description`, release_year, style_image, brand_id "
+                + "from style "
+                + "where style_id = " + styleId + ";";
+
+        Style style = jdbcTemplate.queryForObject(sql, new StyleMapper());
+
+        if (style != null){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
 }
