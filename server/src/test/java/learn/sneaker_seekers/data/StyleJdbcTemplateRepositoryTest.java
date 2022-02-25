@@ -46,7 +46,7 @@ class StyleJdbcTemplateRepositoryTest {
 
         Brand brand = new Brand();
         brand.setBrandId(1);
-        style.setBrandId(brand);
+        style.setBrand(brand);
 
         Style actual = repository.add(style);
         assertNotNull(actual);
