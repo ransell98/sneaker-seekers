@@ -32,7 +32,7 @@ public class StyleJdbcTemplateRepository implements StyleRepository{
     @Override
     public Style add(Style style) {
         final String sql = "insert into style (style_id, external_style_id, style_name, `description`, release_year, colorway, style_image, brand_id) "
-                + "values (?, ?, ?, ?, ?, ?, ?);";
+                + "values (?, ?, ?, ?, ?, ?, ?, ?);";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(con -> {
@@ -52,7 +52,7 @@ public class StyleJdbcTemplateRepository implements StyleRepository{
             return null;
         }
 
-        // this is not working
+
         style.setStyleId(keyHolder.getKey().intValue());
 
         return style;

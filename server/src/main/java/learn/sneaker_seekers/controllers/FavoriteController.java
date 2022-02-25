@@ -3,10 +3,13 @@ package learn.sneaker_seekers.controllers;
 import learn.sneaker_seekers.data.DataAccessException;
 import learn.sneaker_seekers.domain.FavoriteService;
 import learn.sneaker_seekers.domain.Result;
+import learn.sneaker_seekers.models.AppUser;
 import learn.sneaker_seekers.models.Event;
 import learn.sneaker_seekers.models.Favorite;
+import learn.sneaker_seekers.models.Style;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,7 +32,12 @@ public class FavoriteController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> add(@RequestBody Favorite favorite) throws DataAccessException {
+    public ResponseEntity<Object> add(@RequestBody Style style, @AuthenticationPrincipal AppUser user) throws DataAccessException {
+        Favorite favorite = new Favorite();
+        favorite.setStyle(style);
+        favorite.setAppUser(user);
+
+
         Result<Favorite> result = service.add(favorite);
         if (result.isSuccess()) {
             return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
