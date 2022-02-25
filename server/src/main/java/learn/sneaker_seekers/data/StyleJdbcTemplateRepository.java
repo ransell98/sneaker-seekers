@@ -52,7 +52,7 @@ public class StyleJdbcTemplateRepository implements StyleRepository{
         }
 
         // this is not working
-        style.setStyleId(keyHolder.getKey().toString());
+        style.setStyleId(keyHolder.getKey().);
 
         return style;
     }
