@@ -1,15 +1,5 @@
-@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbmVha2VyLXNlZWtlcnMiLCJzdWIiOiJyeWFuIiwiaWQiOjEsImF1dGhvcml0aWVzIjoiIiwiZXhwIjoxNjQ1NzM1MTI1fQ.GEqkwrXODK2fY4XAnGrPXlkwVp_0dri2RUmN-_nrdsc
+@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbmVha2VyLXNlZWtlcnMiLCJzdWIiOiJhZG1pbiIsImlkIjozLCJhdXRob3JpdGllcyI6IkFETUlOIiwiZXhwIjoxNjQ1ODE4MzEyfQ.-pzOTf71zWZeqgsdMoRo5HfNajBdVgBZzK6PfmifG-Y
 @host = http://localhost:8080
-
-### GET ALL USERS
-
-GET {{host}}/user HTTP/1.1
-Authorization: Bearer {{jwt}}
-
-### GET ALL ROLES
-
-GET {{host}}/user/role HTTP/1.1
-Authorization: Bearer {{jwt}}
 
 ### GET USER BY USERNAME (RYAN)
 
@@ -36,7 +26,7 @@ Content-Type: application/json
     "password": "ehCX7MexUCb&T7"
 }
 
-### VENDOR USER 
+### LOGIN VENDOR
 
 POST {{host}}/authenticate HTTP/1.1
 Content-Type: application/json
@@ -46,7 +36,7 @@ Content-Type: application/json
     "password": "ehCX7MexUCb&T7"
 }
 
-### ADMIN USER 
+### LOGIN ADMIN
 
 POST {{host}}/authenticate HTTP/1.1
 Content-Type: application/json
@@ -100,20 +90,8 @@ Authorization: Bearer {{jwt}}
 GET {{host}}/sneakerseekers/favorite/1 HTTP/1.1
 Authorization: Bearer {{jwt}}
 
+
 ### ADD FAVORITE
-
-POST {{host}}/sneakerseekers/favorite HTTP/1.1
-Content-Type: application/json
-Accept: application/json
-Authorization: Bearer {{jwt}}
-
-{
-    "favoriteId": 1,
-    "styleId": 1,
-    "appUserId": 1
-}
-
-### ADD FAVORITE NEW
 
 POST {{host}}/sneakerseekers/favorite HTTP/1.1
 Content-Type: application/json
@@ -122,15 +100,14 @@ Authorization: Bearer {{jwt}}
 {
     "styleId": 1,
     "styleName": "Nike Rare Shoes That Aren't In Database",
-    "description": "These shoes do not exist in the database yet. They should be added to the styles table, and then to favorites.",
-    //brand: need to link to existing brands
     "brand": {
         "brandId": 1,
-        "brandName": "Nike",
+        "brandName": "Nike"
     },
-    "releaseDate": "2022-01-01",
-    "image": "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/7dc49569-2d66-47bd-8139-91f671b3f1e4/court-legacy-mens-shoe-Lswv5z.png",
-    "colorway": "Black/White/Tan"
+    "description": "These shoes do not exist in the database yet. They should be added to the styles table, and then to favorites.",
+    "releaseYear": "2022-01-01",
+    "colorway": "Black/White/Tan",
+    "styleImage": "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/7dc49569-2d66-47bd-8139-91f671b3f1e4/court-legacy-mens-shoe-Lswv5z.png"
 }
 
 
@@ -219,13 +196,15 @@ Accept: application/json
 Authorization: Bearer {{jwt}}
 
 {
-    "styleId": 1,
+    "externalStyleId": "XX0000",
     "styleName": "Air Jordan 1 Retro High OG Patent Bred",
-    "brandId": 1,
+    "brand": {
+        "brandId": 1,
+    },
     "description": "Featuring a classic mix of hues, the Air Jordan 1 Retro High OG 'Patent Bred' also sports an elevated construction. Built entirely with patent leather, the shoe's upper appears in a familiar mix of black and Varsity Red, with perforations on the toe box offering breathability. Underfoot, a white Air midsole provides cushioning and contrast, giving way to a Varsity Red finish on the concentric rubber outsole, which is included for traction.",
-    "releaseYear": 2021,
+    "releaseYear": "2021-12-30",
+    "colorway": "black/white/varsity red",
     "styleImage": "https://cdn.flightclub.com/1250/TEMPLATE/272669/1.jpg"
-
 }
 
 
