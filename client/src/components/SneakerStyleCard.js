@@ -31,7 +31,7 @@ function SneakerStyleCard({ style }) {
                 </Col>
                 <Col>
                     <h3>
-                        {style.style_name}
+                        {style.styleName}
                     </h3>
                     <Row>
                         <Col xs={12} md={5}>
@@ -41,14 +41,14 @@ function SneakerStyleCard({ style }) {
                                     Brand:{" "}
                                 </strong>
                                 <span className="text-nowrap">
-                                    {style.brand.brand_name}
+                                    {style.brand.brandName}
                                 </span>
                             </div>
                             <div>
                                 <strong>
                                     Release Date:{" "}
                                 </strong>
-                                {style.release_date}
+                                {style.releaseDate}
                             </div>
                             <div>
                                 <strong>

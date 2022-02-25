@@ -12,4 +12,6 @@ public interface FavoriteRepository {
 
     boolean deleteByFavoriteId(int favoriteId) throws DataAccessException;
 
+    boolean isStyleAdded(String styleId) throws DataAccessException;
+
 }
