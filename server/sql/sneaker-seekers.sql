@@ -2,7 +2,6 @@ drop database if exists sneaker_seekers;
 create database sneaker_seekers; 
 use sneaker_seekers; 
 
-
 create table app_user (
     app_user_id int primary key auto_increment,
     username varchar(50) not null unique,
@@ -70,8 +69,8 @@ create table brand (
 );
 
 create table style (
-	
-	style_id varchar(500) not null unique, 
+	style_id int primary key auto_increment, 
+	external_style_id varchar(500) null unique, 
     style_name varchar(100) not null, 
     `description` varchar(3600) not null,
     release_year date not null, 
@@ -92,7 +91,7 @@ create table listing (
 	listing_id int primary key auto_increment, 
     listing_price int not null, 
     quantity int not null, 
-    style_id varchar(500) not null, 
+    style_id int not null, 
     vendor_table_id int not null, 
     condition_id int not null,
     constraint listing_style_id 
@@ -119,7 +118,7 @@ create table follow (
 
 create table favorite (
 	favorite_id int primary key auto_increment, 
-    style_id varchar(500) not null, 
+    style_id int not null, 
     app_user_id int not null, 
     constraint favorite_style_id 
 		foreign key (style_id)

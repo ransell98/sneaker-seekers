@@ -3,7 +3,8 @@ package learn.sneaker_seekers.models;
 import java.time.LocalDate;
 
 public class Style {
-    private String styleId;
+    private int styleId;
+    private String externalStyleId;
     private String styleName;
     private Brand brand;
     private String description;
@@ -13,8 +14,9 @@ public class Style {
 
     public Style(){}
 
-    public Style(String styleId, String styleName, Brand brand, String description, LocalDate releaseYear, String colorway, String styleImage){
+    public Style(int styleId, String externalStyleId, String styleName, Brand brand, String description, LocalDate releaseYear, String colorway, String styleImage){
         this.styleId = styleId;
+        this.externalStyleId = externalStyleId;
         this.styleName = styleName;
         this.brand = brand;
         this.description = description;
@@ -23,12 +25,20 @@ public class Style {
         this.styleImage = styleImage;
     }
 
-    public String getStyleId() {
+    public int getStyleId() {
         return styleId;
     }
 
-    public void setStyleId(String styleId) {
+    public void setStyleId(int styleId) {
         this.styleId = styleId;
+    }
+
+    public String getExternalStyleId() {
+        return externalStyleId;
+    }
+
+    public void setExternalStyleId(String externalStyleId) {
+        this.externalStyleId = externalStyleId;
     }
 
     public String getStyleName() {

@@ -49,7 +49,7 @@ public class FavoriteService {
             return result;
         }
 
-        if (Validations.isNullOrBlank(favorite.getStyle().getStyleId())) {
+        if (favorite.getStyle().getStyleId() < 0) {
             result.addMessage("Style cannot be null", ResultType.INVALID);
         }
 

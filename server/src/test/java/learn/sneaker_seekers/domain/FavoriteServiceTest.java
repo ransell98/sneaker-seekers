@@ -60,7 +60,7 @@ class FavoriteServiceTest {
         Favorite favorite = new Favorite();
 
         Style style = new Style();
-        style.setStyleId("0");
+        style.setStyleId(0);
         favorite.setStyle(style);
 
         AppUser appUser = new AppUser();
@@ -95,7 +95,7 @@ class FavoriteServiceTest {
         Favorite favorite = new Favorite();
 
         Style style = new Style();
-        style.setStyleId("2");
+        style.setStyleId(2);
         favorite.setStyle(style);
 
         AppUser appUser = new AppUser();

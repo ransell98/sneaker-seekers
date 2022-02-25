@@ -40,7 +40,7 @@ class FavoriteJdbcTemplateRepositoryTest {
         Favorite favorite = new Favorite();
 
         Style style = new Style();
-        style.setStyleId("2");
+        style.setStyleId(2);
         favorite.setStyle(style);
 
         AppUser appUser = new AppUser();

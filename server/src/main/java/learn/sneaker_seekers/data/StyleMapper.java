@@ -14,7 +14,8 @@ public class StyleMapper implements RowMapper<Style> {
     public Style mapRow(ResultSet rs, int rowNum) throws SQLException {
         Style style = new Style();
 
-        style.setStyleId(rs.getString("style_id"));
+        style.setStyleId(rs.getInt("style_id"));
+        style.setExternalStyleId(rs.getString("external_style_id"));
         style.setStyleName(rs.getString("style_name"));
         style.setDescription(rs.getString("description"));
         style.setReleaseYear(rs.getDate("release_year").toLocalDate());

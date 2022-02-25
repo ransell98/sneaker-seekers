@@ -73,6 +73,7 @@ class StyleServiceTest {
     Style makeStyle() {
         Style style = new Style();
 
+        style.setExternalStyleId(null);
         style.setStyleName("Yellow Strike");
         style.setDescription("Yellow and white low-top Nike dunks");
         style.setReleaseYear(LocalDate.of(2017, 07, 31));

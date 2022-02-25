@@ -69,7 +69,8 @@ create table brand (
 );
 
 create table style (
-	style_id varchar(500) not null unique, 
+	style_id int primary key auto_increment, 
+	external_style_id varchar(500) null unique, 
     style_name varchar(100) not null, 
     `description` varchar(3600) not null,
     release_year date not null, 
@@ -90,7 +91,7 @@ create table listing (
 	listing_id int primary key auto_increment, 
     listing_price int not null, 
     quantity int not null, 
-    style_id varchar(500) not null, 
+    style_id int not null, 
     vendor_table_id int not null, 
     condition_id int not null,
     constraint listing_style_id 
@@ -117,7 +118,7 @@ create table follow (
 
 create table favorite (
 	favorite_id int primary key auto_increment, 
-    style_id varchar(500) not null, 
+    style_id int not null, 
     app_user_id int not null, 
     constraint favorite_style_id 
 		foreign key (style_id)
@@ -204,10 +205,10 @@ begin
         ('Nike'),
         ('Addidas');
     
-    insert into style (style_id, style_name, `description`, release_year, colorway, style_image, brand_id)
+    insert into style (style_id, external_style_id, style_name, `description`, release_year, colorway, style_image, brand_id)
 		values 
-        ('1', 'Panda Dunks', 'Black and white low-top dunks', '2019-01-02', 'black/white', null, 1),
-        ('2', 'Nature Pale Coral Dunks', 'Peachy pink and white low-top dunks', '2020-03-17', 'peach/white', null, 1);
+        ('1', null, 'Panda Dunks', 'Black and white low-top dunks', '2019-01-02', 'black/white', null, 1),
+        ('2', null, 'Nature Pale Coral Dunks', 'Peachy pink and white low-top dunks', '2020-03-17', 'peach/white', null, 1);
         
 	insert into `condition` (condition_name)
 		values 
@@ -220,8 +221,8 @@ begin
 	
     insert into listing (listing_price, quantity, style_id, vendor_table_id, condition_id)
 		values 
-        (450, 15, '1', 1, 2),
-        (400, 12, '2', 2, 2);
+        (450, 15, 1, 1, 2),
+        (400, 12, 2, 2, 2);
         
 	insert into follow (follower_id, vendor_id)
 		values 
@@ -229,7 +230,7 @@ begin
         (2, 1);
         
 	insert into favorite (style_id, app_user_id)
-		values ('1', 2);
+		values (1, 2);
         
 	insert into upgrade_request (app_user_id)
 		values (1);

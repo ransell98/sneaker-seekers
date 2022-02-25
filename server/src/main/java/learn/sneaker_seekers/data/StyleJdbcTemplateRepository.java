@@ -21,7 +21,7 @@ public class StyleJdbcTemplateRepository implements StyleRepository{
     @Override
     public Style findByStyleId(int styleId) {
 
-        final String sql = "select style_id, style_name, `description`, release_year, colorway, style_image, brand_id "
+        final String sql = "select style_id, external_style_id, style_name, `description`, release_year, colorway, style_image, brand_id "
                 + "from style "
                 + "where style_id = " + styleId + ";";
 
@@ -31,19 +31,20 @@ public class StyleJdbcTemplateRepository implements StyleRepository{
 
     @Override
     public Style add(Style style) {
-        final String sql = "insert into style (style_id, style_name, `description`, release_year, colorway, style_image, brand_id) "
+        final String sql = "insert into style (style_id, external_style_id, style_name, `description`, release_year, colorway, style_image, brand_id) "
                 + "values (?, ?, ?, ?, ?, ?, ?);";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(con -> {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, style.getStyleId());
-            ps.setString(2, style.getStyleName());
-            ps.setString(3, style.getDescription());
-            ps.setString(4, style.getReleaseYear().toString());
-            ps.setString(5, style.getColorway());
-            ps.setString(6, style.getStyleImage());
-            ps.setInt(7, style.getBrand().getBrandId());
+            ps.setInt(1, style.getStyleId());
+            ps.setString(2, style.getExternalStyleId());
+            ps.setString(3, style.getStyleName());
+            ps.setString(4, style.getDescription());
+            ps.setString(5, style.getReleaseYear().toString());
+            ps.setString(6, style.getColorway());
+            ps.setString(7, style.getStyleImage());
+            ps.setInt(8, style.getBrand().getBrandId());
             return ps;
         }, keyHolder);
 
@@ -52,7 +53,7 @@ public class StyleJdbcTemplateRepository implements StyleRepository{
         }
 
         // this is not working
-        style.setStyleId(keyHolder.getKey().);
+        style.setStyleId(keyHolder.getKey().intValue());
 
         return style;
     }

@@ -41,7 +41,7 @@ public class FavoriteJdbcTemplateRepository implements FavoriteRepository {
         int rowsAffected = jdbcTemplate.update(conn -> {
             PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, favorite.getFavoriteId());
-            statement.setString(2, favorite.getStyle().getStyleId());
+            statement.setInt(2, favorite.getStyle().getStyleId());
             statement.setInt(3, favorite.getAppUser().getId());
             return statement;
         }, keyHolder);

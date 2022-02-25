@@ -30,14 +30,15 @@ class StyleJdbcTemplateRepositoryTest {
     @Test
     void shouldFindByStyleId() {
         Style style = repository.findByStyleId(1);
-        assertEquals("1", style.getStyleId());
+        assertEquals(1, style.getStyleId());
         assertEquals("Panda Dunks", style.getStyleName());
     }
 
     @Test
     void shouldAdd() {
         Style style = new Style();
-        style.setStyleId("3");
+        style.setStyleId(3);
+        style.setExternalStyleId(null);
         style.setStyleName("Yellow Strike");
         style.setDescription("Yellow and white low-top Nike dunks");
         style.setReleaseYear(LocalDate.of(2020, 01, 01));
