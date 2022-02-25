@@ -11,14 +11,14 @@ import AuthContext from "../contexts/AuthContext";
 import Page from "./Page";
 
 function AccountSettings() {
-    const context = useContext(AuthContext);
+    const authContext = useContext(AuthContext);
     const navigate = useNavigate();    
 
     useEffect(() => {
-        if (!context.username) {
+        if (!authContext.credentials) {
             redirect();
         }
-    }, [context]);
+    }, [authContext]);
 
     function redirect() {
         navigate("/login");

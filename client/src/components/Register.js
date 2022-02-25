@@ -8,9 +8,11 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import '../styles/LoginAndRegister.css';
 
 import AuthContext from "../contexts/AuthContext";
+import { createUser } from "../services/user-api";
 
 import Page from "./Page";
 import Loading from "./Loading";
+import ErrorCard from "./ErrorCard";
 
 function Register() {
     const [user, setUser] = useState({
@@ -20,14 +22,15 @@ function Register() {
     });
     const [isVendor, setIsVendor] = useState(false);
 
-    const [showErrorMessage, setShowErrorMessage] = useState(false);
+    const [passwordMatchError, setPasswordMatchError] = useState(false);
     const [confirmPasswordClass, setConfirmPasswordClass] = useState("form-control");
     const [isConfirmPasswordDirty, setIsConfirmPasswordDirty] = useState(false);
     
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
     
-    const context = useContext(AuthContext);
+    const authContext = useContext(AuthContext);
     const navigate = useNavigate();
 
     function toggleIsPasswordVisible() {
@@ -37,10 +40,10 @@ function Register() {
     useEffect(() => {
         if (isConfirmPasswordDirty) {
             if (user.password === user.confirmPassword) {
-                setShowErrorMessage(false);
+                setPasswordMatchError(false);
                 setConfirmPasswordClass("is-valid");
             } else {
-                setShowErrorMessage(true);
+                setPasswordMatchError(true);
                 setConfirmPasswordClass("is-invalid");
             }
         }
@@ -68,10 +71,18 @@ function Register() {
     function onSubmit(event) {
         event.preventDefault();
         setIsLoading(true);
-        setTimeout(() => {
-            context.setUsername(user.username);
-            navigate("/");
-        }, 1000);
+        createUser(user)
+            .then(() => {
+                navigate("/login");
+            })
+            .catch(error => {
+                setIsLoading(false);
+                if (error.status === 400) {
+                    setErrorMessage(error.messages[0]);
+                } else {
+                    setErrorMessage(error.toString());
+                }
+            })
     }
 
     function renderRegisterForm() {
@@ -117,8 +128,8 @@ function Register() {
                             <FontAwesomeIcon
                                 icon={
                                     isPasswordVisible
-                                    ? faEyeSlash
-                                    : faEye
+                                    ? faEye
+                                    : faEyeSlash
                                 }
                                 onClick={toggleIsPasswordVisible}
                             />
@@ -151,7 +162,7 @@ function Register() {
                 </Form.Group>
                 <Form.Text
                     className="passwords-error-message"
-                    hidden={showErrorMessage && isConfirmPasswordDirty
+                    hidden={passwordMatchError && isConfirmPasswordDirty
                         ? false
                         : true}
                 >
@@ -181,7 +192,7 @@ function Register() {
 
     function renderRegisterCard() {
         return(
-            <Card className="card-register mt-2 mt-md-5 mb-5">
+            <Card className="card-register mt-2 mt-md-5 mb-3">
                 <Card.Body>
                     <h3>
                         Get Started Today for Free
@@ -216,6 +227,9 @@ function Register() {
             </Row>
             {isLoading
             ? <Loading/>
+            : <></>}
+            {errorMessage
+            ? <ErrorCard message={errorMessage}/>
             : <></>}
         </Page>
     );
