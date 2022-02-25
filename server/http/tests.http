@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 @jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbmVha2VyLXNlZWtlcnMiLCJzdWIiOiJhZG1pbiIsImlkIjozLCJhdXRob3JpdGllcyI6IkFETUlOIiwiZXhwIjoxNjQ1ODE4MzEyfQ.-pzOTf71zWZeqgsdMoRo5HfNajBdVgBZzK6PfmifG-Y
+=======
+@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbmVha2VyLXNlZWtlcnMiLCJzdWIiOiJhZG1pbiIsImlkIjozLCJhdXRob3JpdGllcyI6IkFETUlOIiwiZXhwIjoxNjQ1ODIwMzc3fQ.Yg7chqhp_59zkH1NMbG-Ijth1F4jC8aGMT4ZWf3op4I
+>>>>>>> 0bb23b354b72652076be7d534344943fe015d851
 @host = http://localhost:8080
 
 ### GET USER BY USERNAME (RYAN)
@@ -58,7 +62,6 @@ Accept: application/json
 Authorization: Bearer {{jwt}}
 
 {
-    "brandId": 1,
     "brandName": "Nike"
 }
 
@@ -78,11 +81,14 @@ Accept: application/json
 Authorization: Bearer {{jwt}}
 
 {
-    "eventId": 1,
+    "eventName": "Sneaker Seeker Convention 5",
     "eventDate": "2022-12-25",
     "numTable": 100,
     "eventImage": "https://www.gicc.com/wp-content/uploads/2017/03/home-slider1.png",
-    "locationId": 1
+    "location": {
+        "locationId": 1
+    }
+
 }
 
 ### GET FAVORITE BY APP USER ID 1
@@ -164,7 +170,7 @@ Authorization: Bearer {{jwt}}
 
 ### GET ALL LOCATIONS
 
-GET {{host}}/sneakerseekers/location
+GET {{host}}/sneakerseekers/location HTTP/1.1
 
 ### GET LOCATION BY ID
 
@@ -178,10 +184,9 @@ Accept: application/json
 Authorization: Bearer {{jwt}}
 
 {
-    "locationId": 1,
-    "locationName": "Georgia International Convention Center",
-    "locationAddress": "2000 Convention Center Concourse, College Park, GA 30337",
-    "locationCity": "Atlanta"
+    "locationName": "Minneapolis International Convention Center",
+    "locationAddress": "9000 Convention Center Concourse, College Park, GA 30337",
+    "locationCity": "Minneapolis"
 }
 
 ### GET STYLE BY ID

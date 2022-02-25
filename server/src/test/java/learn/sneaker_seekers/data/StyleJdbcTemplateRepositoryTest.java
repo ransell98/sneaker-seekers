@@ -37,6 +37,7 @@ class StyleJdbcTemplateRepositoryTest {
     @Test
     void shouldAdd() {
         Style style = new Style();
+
         style.setStyleId(3);
         style.setExternalStyleId(null);
         style.setStyleName("Yellow Strike");
