@@ -9,10 +9,10 @@ import '../styles/LoginAndRegister.css';
 
 import AuthContext from "../contexts/AuthContext";
 import { createUser } from "../services/user-api";
+import { login } from "../services/auth-api";
 
 import Page from "./Page";
 import Loading from "./Loading";
-import ErrorCard from "./ErrorCard";
 
 function Register() {
     const [user, setUser] = useState({
@@ -22,13 +22,11 @@ function Register() {
     });
     const [isVendor, setIsVendor] = useState(false);
 
-    const [passwordMatchError, setPasswordMatchError] = useState(false);
     const [confirmPasswordClass, setConfirmPasswordClass] = useState("form-control");
-    const [isConfirmPasswordDirty, setIsConfirmPasswordDirty] = useState(false);
     
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [errorMessage, setErrorMessage] = useState("");
+    const [errorMessages, setErrorMessages] = useState([]);
     
     const authContext = useContext(AuthContext);
     const navigate = useNavigate();
@@ -38,16 +36,42 @@ function Register() {
     }
 
     useEffect(() => {
-        if (isConfirmPasswordDirty) {
-            if (user.password === user.confirmPassword) {
-                setPasswordMatchError(false);
-                setConfirmPasswordClass("is-valid");
-            } else {
-                setPasswordMatchError(true);
+        const newErrorMessages = [];
+        if (user.confirmPassword.length > 0) {
+            setConfirmPasswordClass("is-valid");
+        } else {
+            setConfirmPasswordClass("");
+        }
+        if (user.password.length > 0) {
+            if (user.password.length < 8) {
+                newErrorMessages.push("Password must be at least 8 characters long.");
+                setConfirmPasswordClass("is-invalid");
+            }
+            let regex = /[A-Za-z]/;
+            if (!regex.test(user.password)) {
+                newErrorMessages.push("Password must contain a letter.");
+                setConfirmPasswordClass("is-invalid");
+            }
+            regex = /[0-9]/;
+            if (!regex.test(user.password)) {
+                newErrorMessages.push("Password must contain a number.");
+                setConfirmPasswordClass("is-invalid");
+            }
+            regex = /\W/;
+            if (!regex.test(user.password)) {
+                newErrorMessages.push("Password must contain a symbol.");
                 setConfirmPasswordClass("is-invalid");
             }
         }
-    }, [user.confirmPassword]);
+        if (user.password.length > 0
+        && user.confirmPassword.length > 0) {
+            if (user.password !== user.confirmPassword) {
+                newErrorMessages.push("Passwords must match.");
+                setConfirmPasswordClass("is-invalid");
+            }
+        }
+        setErrorMessages(newErrorMessages);
+    }, [user.password, user.confirmPassword]);
 
     function setUsername(event) {
         const clone = { ...user };
@@ -59,7 +83,6 @@ function Register() {
         const clone = { ...user };
         clone["password"] = event.target.value;
         setUser(clone);
-        setIsConfirmPasswordDirty(true);
     }
 
     function setConfirmPassword(event) {
@@ -68,19 +91,46 @@ function Register() {
         setUser(clone);
     }
 
+    function addErrorMessage(message) {
+        const clone = [ ...errorMessages ];
+        clone.push(message);
+        setErrorMessages(clone);
+    }
+
+    function clearErrorMessages() {
+        setErrorMessages([]);
+    }
+
     function onSubmit(event) {
         event.preventDefault();
         setIsLoading(true);
+        clearErrorMessages();
         createUser(user)
             .then(() => {
-                navigate("/login");
+                login(user)
+                    .then(principal => {
+                        authContext.login(principal);
+                        if (isVendor) {
+                            //create request to become vendor
+                        }
+                        navigate("/");
+                    })
+                    .catch(() => {
+                        setIsLoading(false);
+                        addErrorMessage("Login failed.");
+                    });
             })
             .catch(error => {
                 setIsLoading(false);
                 if (error.status === 400) {
-                    setErrorMessage(error.messages[0]);
+                    const messages = error.messages.map((message) => {
+                        return (
+                            message.replace(/^\w/, (c) => c.toUpperCase()) + "."
+                        );
+                    })
+                    setErrorMessages(messages);
                 } else {
-                    setErrorMessage(error.toString());
+                    addErrorMessage(error.toString());
                 }
             })
     }
@@ -160,14 +210,18 @@ function Register() {
                         </Col>
                     </Row>
                 </Form.Group>
-                <Form.Text
-                    className="passwords-error-message"
-                    hidden={passwordMatchError && isConfirmPasswordDirty
-                        ? false
-                        : true}
+                <Form.Group
+                    className="register-error-messages"
+                    hidden={errorMessages.length === 0}
                 >
-                    Passwords do not match.
-                </Form.Text>
+                    {errorMessages.map((message) => {
+                        return (
+                            <Form.Text key={message}>
+                                {message}<br/>
+                            </Form.Text>
+                        );
+                    })}
+                </Form.Group>
                 <Form.Group controlId="formVendorCheckbox" className="my-4">
                     <Form.Check 
                         label="I would like to be a vendor (must be approved by an admin)"
@@ -228,8 +282,12 @@ function Register() {
             {isLoading
             ? <Loading/>
             : <></>}
-            {errorMessage
-            ? <ErrorCard message={errorMessage}/>
+            {errorMessages
+            ? <>
+                {errorMessages.map(() => {
+                    return
+                })}
+            </>
             : <></>}
         </Page>
     );
