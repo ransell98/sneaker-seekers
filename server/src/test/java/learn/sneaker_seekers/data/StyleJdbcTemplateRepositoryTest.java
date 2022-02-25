@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
@@ -28,16 +30,18 @@ class StyleJdbcTemplateRepositoryTest {
     @Test
     void shouldFindByStyleId() {
         Style style = repository.findByStyleId(1);
-        assertEquals(1, style.getStyleId());
+        assertEquals("1", style.getStyleId());
         assertEquals("Panda Dunks", style.getStyleName());
     }
 
     @Test
     void shouldAdd() {
         Style style = new Style();
+        style.setStyleId("3");
         style.setStyleName("Yellow Strike");
         style.setDescription("Yellow and white low-top Nike dunks");
-        style.setReleaseYear(2020);
+        style.setReleaseYear(LocalDate.of(2020, 01, 01));
+        style.setColorway("yellow/white");
         style.setStyleImage(null);
 
         Brand brand = new Brand();

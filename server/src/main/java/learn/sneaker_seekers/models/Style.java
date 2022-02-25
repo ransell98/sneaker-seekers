@@ -1,29 +1,33 @@
 package learn.sneaker_seekers.models;
 
+import java.time.LocalDate;
+
 public class Style {
-    private int styleId; // TODO: change to string & not autoincremented
+    private String styleId;
     private String styleName;
-    private Brand brandId;
+    private Brand brand;
     private String description;
-    private int releaseYear; // TODO: change to LocalDate
+    private LocalDate releaseYear;
+    private String colorway;
     private String styleImage;
 
     public Style(){}
 
-    public Style(int styleId, String styleName, Brand brandId, String description, int releaseYear, String styleImage){
+    public Style(String styleId, String styleName, Brand brand, String description, LocalDate releaseYear, String colorway, String styleImage){
         this.styleId = styleId;
         this.styleName = styleName;
-        this.brandId = brandId;
+        this.brand = brand;
         this.description = description;
         this.releaseYear = releaseYear;
+        this.colorway = colorway;
         this.styleImage = styleImage;
     }
 
-    public int getStyleId() {
+    public String getStyleId() {
         return styleId;
     }
 
-    public void setStyleId(int styleId) {
+    public void setStyleId(String styleId) {
         this.styleId = styleId;
     }
 
@@ -35,12 +39,12 @@ public class Style {
         this.styleName = styleName;
     }
 
-    public Brand getBrandId() {
-        return brandId;
+    public Brand getBrand() {
+        return brand;
     }
 
-    public void setBrandId(Brand brandId) {
-        this.brandId = brandId;
+    public void setBrand(Brand brand) {
+        this.brand = brand;
     }
 
     public String getDescription() {
@@ -51,12 +55,20 @@ public class Style {
         this.description = description;
     }
 
-    public int getReleaseYear() {
+    public LocalDate getReleaseYear() {
         return releaseYear;
     }
 
-    public void setReleaseYear(int releaseYear) {
+    public void setReleaseYear(LocalDate releaseYear) {
         this.releaseYear = releaseYear;
+    }
+
+    public String getColorway() {
+        return colorway;
+    }
+
+    public void setColorway(String colorway) {
+        this.colorway = colorway;
     }
 
     public String getStyleImage() {

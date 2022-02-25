@@ -1,7 +1,6 @@
-import { useState, useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Card, Col, Form, Row } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
@@ -14,9 +13,11 @@ import Page from "./Page";
 import Loading from "./Loading";
 
 function Register() {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
+    const [user, setUser] = useState({
+        username: "",
+        password: "",
+        confirmPassword: ""
+    });
     const [isVendor, setIsVendor] = useState(false);
 
     const [showErrorMessage, setShowErrorMessage] = useState(false);
@@ -35,7 +36,7 @@ function Register() {
 
     useEffect(() => {
         if (isConfirmPasswordDirty) {
-            if (password === confirmPassword) {
+            if (user.password === user.confirmPassword) {
                 setShowErrorMessage(false);
                 setConfirmPasswordClass("is-valid");
             } else {
@@ -43,13 +44,32 @@ function Register() {
                 setConfirmPasswordClass("is-invalid");
             }
         }
-    }, [confirmPassword]);
+    }, [user.confirmPassword]);
+
+    function setUsername(event) {
+        const clone = { ...user };
+        clone["username"] = event.target.value;
+        setUser(clone);
+    }
+
+    function setPassword(event) {
+        const clone = { ...user };
+        clone["password"] = event.target.value;
+        setUser(clone);
+        setIsConfirmPasswordDirty(true);
+    }
+
+    function setConfirmPassword(event) {
+        const clone = { ...user };
+        clone["confirmPassword"] = event.target.value;
+        setUser(clone);
+    }
 
     function onSubmit(event) {
         event.preventDefault();
         setIsLoading(true);
         setTimeout(() => {
-            context.setUsername(username);
+            context.setUsername(user.username);
             navigate("/");
         }, 1000);
     }
@@ -64,12 +84,12 @@ function Register() {
                         </Col>
                         <Col xs={10} md={8}>
                             <Form.Control
-                                type="text"
-                                placeholder="Username"
-                                onChange={(event) => setUsername(event.target.value)}
-                                value={username}
                                 disabled={isLoading}
+                                onChange={setUsername}
+                                placeholder="Username"
                                 required
+                                type="text"
+                                value={user.username}
                             />
                         </Col>
                     </Row>
@@ -81,19 +101,16 @@ function Register() {
                         </Col>
                         <Col xs={10} md={8}>
                             <Form.Control
+                                disabled={isLoading}
+                                onChange={setPassword}
+                                placeholder="Password"
+                                required
                                 type={
                                     isPasswordVisible
                                     ? "text"
                                     : "password"
                                 }
-                                placeholder="Password"
-                                onChange={(event) => {
-                                    setPassword(event.target.value);
-                                    setIsConfirmPasswordDirty(true);
-                                }}
-                                value={password}
-                                disabled={isLoading}
-                                required
+                                value={user.password}
                             />
                         </Col>
                         <Col xs={1}>
@@ -117,17 +134,17 @@ function Register() {
                         </Col>
                         <Col xs={10} md={8}>
                             <Form.Control
+                                className={confirmPasswordClass}
+                                disabled={isLoading}
+                                onChange={setConfirmPassword}
+                                placeholder="Confirm Password"
                                 type={
                                     isPasswordVisible
                                     ? "text"
                                     : "password"
                                 }
-                                placeholder="Confirm Password"
-                                onChange={(event) => setConfirmPassword(event.target.value)}
-                                value={confirmPassword}
-                                className={confirmPasswordClass}
-                                disabled={isLoading}
                                 required
+                                value={user.confirmPassword}
                             />
                         </Col>
                     </Row>
@@ -142,20 +159,20 @@ function Register() {
                 </Form.Text>
                 <Form.Group controlId="formVendorCheckbox" className="my-4">
                     <Form.Check 
-                        type="checkbox" 
-                        label="I would like to be a vendor (request must be approved by an admin)"
+                        label="I would like to be a vendor (must be approved by an admin)"
                         onChange={(event) => setIsVendor(event.target.name)}
+                        type="checkbox" 
                         value={isVendor}
                     />
                 </Form.Group>
                 <Row>
                     <Button
-                        variant="primary"
-                        type="submit"
                         className="col-4 offset-4"
                         disabled={isLoading}
+                        type="submit"
+                        variant="primary"
                     >
-                        Sign In Now
+                        Register
                     </Button>
                 </Row>
             </Form>
@@ -164,7 +181,7 @@ function Register() {
 
     function renderRegisterCard() {
         return(
-            <Card className="card-register mt-2 mt-md-5">
+            <Card className="card-register mt-2 mt-md-5 mb-5">
                 <Card.Body>
                     <h3>
                         Get Started Today for Free
