@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbmVha2VyLXNlZWtlcnMiLCJzdWIiOiJhZG1pbiIsImlkIjozLCJhdXRob3JpdGllcyI6IkFETUlOIiwiZXhwIjoxNjQ1ODE4MzEyfQ.-pzOTf71zWZeqgsdMoRo5HfNajBdVgBZzK6PfmifG-Y
-=======
-@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbmVha2VyLXNlZWtlcnMiLCJzdWIiOiJhZG1pbiIsImlkIjozLCJhdXRob3JpdGllcyI6IkFETUlOIiwiZXhwIjoxNjQ1ODIwMzc3fQ.Yg7chqhp_59zkH1NMbG-Ijth1F4jC8aGMT4ZWf3op4I
->>>>>>> 0bb23b354b72652076be7d534344943fe015d851
+@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbmVha2VyLXNlZWtlcnMiLCJzdWIiOiJhZG1pbiIsImlkIjozLCJhdXRob3JpdGllcyI6IkFETUlOIiwiZXhwIjoxNjQ1ODI2NjI2fQ.k9dmA74TW1b1BNXE9paBhQWe9BJzwaWes3jIvw6RTJQ
 @host = http://localhost:8080
 
 ### GET USER BY USERNAME (RYAN)
@@ -81,14 +77,11 @@ Accept: application/json
 Authorization: Bearer {{jwt}}
 
 {
-    "eventName": "Sneaker Seeker Convention 5",
+    "eventId": 1,
     "eventDate": "2022-12-25",
     "numTable": 100,
     "eventImage": "https://www.gicc.com/wp-content/uploads/2017/03/home-slider1.png",
-    "location": {
-        "locationId": 1
-    }
-
+    "locationId": 1
 }
 
 ### GET FAVORITE BY APP USER ID 1
@@ -96,19 +89,26 @@ Authorization: Bearer {{jwt}}
 GET {{host}}/sneakerseekers/favorite/1 HTTP/1.1
 Authorization: Bearer {{jwt}}
 
-
-### ADD FAVORITE
+### ADD FAVORITE OF EXISTING STYLE
 
 POST {{host}}/sneakerseekers/favorite HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer {{jwt}}
 
 {
-    "styleId": 1,
+    "styleId": 1
+}
+
+### ADD FAVORITE OF NON-EXISTING STYLE
+
+POST {{host}}/sneakerseekers/favorite HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{jwt}}
+
+{
     "styleName": "Nike Rare Shoes That Aren't In Database",
     "brand": {
-        "brandId": 1,
-        "brandName": "Nike"
+        "brandId": 1
     },
     "description": "These shoes do not exist in the database yet. They should be added to the styles table, and then to favorites.",
     "releaseYear": "2022-01-01",
@@ -170,7 +170,7 @@ Authorization: Bearer {{jwt}}
 
 ### GET ALL LOCATIONS
 
-GET {{host}}/sneakerseekers/location HTTP/1.1
+GET {{host}}/sneakerseekers/location
 
 ### GET LOCATION BY ID
 
@@ -184,9 +184,10 @@ Accept: application/json
 Authorization: Bearer {{jwt}}
 
 {
-    "locationName": "Minneapolis International Convention Center",
-    "locationAddress": "9000 Convention Center Concourse, College Park, GA 30337",
-    "locationCity": "Minneapolis"
+    "locationId": 1,
+    "locationName": "Georgia International Convention Center",
+    "locationAddress": "2000 Convention Center Concourse, College Park, GA 30337",
+    "locationCity": "Atlanta"
 }
 
 ### GET STYLE BY ID
@@ -204,7 +205,7 @@ Authorization: Bearer {{jwt}}
     "externalStyleId": "XX0000",
     "styleName": "Air Jordan 1 Retro High OG Patent Bred",
     "brand": {
-        "brandId": 1,
+        "brandId": 1
     },
     "description": "Featuring a classic mix of hues, the Air Jordan 1 Retro High OG 'Patent Bred' also sports an elevated construction. Built entirely with patent leather, the shoe's upper appears in a familiar mix of black and Varsity Red, with perforations on the toe box offering breathability. Underfoot, a white Air midsole provides cushioning and contrast, giving way to a Varsity Red finish on the concentric rubber outsole, which is included for traction.",
     "releaseYear": "2021-12-30",
