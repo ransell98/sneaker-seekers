@@ -16,7 +16,7 @@ public class FavoriteMapper implements RowMapper<Favorite> {
         Favorite favorite = new Favorite();
 
         favorite.setFavoriteId(rs.getInt("favorite_id"));
-        Integer styleId = rs.getInt("style_id");
+        int styleId = rs.getInt("style_id");
         Style style = new Style();
         style.setStyleId(styleId);
 
