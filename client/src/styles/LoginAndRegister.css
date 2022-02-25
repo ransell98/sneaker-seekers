@@ -32,10 +32,13 @@
 .fa-eye:hover, .fa-eye-slash:hover {
     cursor: pointer;
 }
+.register-paragraph-column {
+    font-weight: bold;
+}
+.red-asterisk {
+    color: red;
+}
 .register-error-messages .form-text {
     color: red;
     font-style: italic !important;
-}
-.register-paragraph-column {
-    font-weight: bold;
 }

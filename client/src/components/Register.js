@@ -18,7 +18,10 @@ function Register() {
     const [user, setUser] = useState({
         username: "",
         password: "",
-        confirmPassword: ""
+        confirmPassword: "",
+        email: "",
+        firstName: "",
+        lastName: ""
     });
     const [isVendor, setIsVendor] = useState(false);
 
@@ -72,6 +75,12 @@ function Register() {
         }
         setErrorMessages(newErrorMessages);
     }, [user.password, user.confirmPassword]);
+
+    function onChange(event) {
+        const clone = { ...user };
+        clone[event.target.id] = event.target.value;
+        setUser(clone);
+    }
 
     function setUsername(event) {
         const clone = { ...user };
@@ -135,18 +144,27 @@ function Register() {
             })
     }
 
+    function renderRedAsterisk() {
+        return (
+            <span className="red-asterisk"> *</span>
+        );
+    }
+
     function renderRegisterForm() {
         return (
             <Form onSubmit={onSubmit}>
-                <Form.Group controlId="formUsername" className="mt-2 mb-4">
+                <Form.Group controlId="username" className="my-2">
                     <Row>
-                        <Col md={3}>
-                            <Form.Label>Username</Form.Label>
+                        <Col md={3} lg={4} xl={3}>
+                            <Form.Label>
+                                Username
+                                {renderRedAsterisk()}
+                            </Form.Label>
                         </Col>
-                        <Col xs={10} md={8}>
+                        <Col xs={10} md={8} lg={7} xl={8}>
                             <Form.Control
                                 disabled={isLoading}
-                                onChange={setUsername}
+                                onChange={onChange}
                                 placeholder="Username"
                                 required
                                 type="text"
@@ -155,15 +173,82 @@ function Register() {
                         </Col>
                     </Row>
                 </Form.Group>
-                <Form.Group controlId="formPassword" className="my-4">
+                <Form.Group controlId="email" className="my-2">
                     <Row>
-                        <Col md={3}>
-                            <Form.Label>Password</Form.Label>
+                        <Col md={3} lg={4} xl={3}>
+                            <Form.Label>
+                                Email Address
+                            </Form.Label>
                         </Col>
-                        <Col xs={10} md={8}>
+                        <Col xs={10} md={8} lg={7} xl={8}>
                             <Form.Control
                                 disabled={isLoading}
-                                onChange={setPassword}
+                                onChange={onChange}
+                                placeholder="Email Address"
+                                type="text"
+                                value={user.email}
+                            />
+                        </Col>
+                    </Row>
+                </Form.Group>
+                <Row>
+                    <Col xs={11}>
+                        <Row>
+                            <Col xs={10} md={6}>
+                                <Form.Group controlId="firstName" className="my-2">
+                                    <Row>
+                                        <Col md={4}>
+                                            <Form.Label>
+                                                First Name
+                                            </Form.Label>
+                                        </Col>
+                                        <Col>
+                                            <Form.Control
+                                                disabled={isLoading}
+                                                onChange={onChange}
+                                                placeholder="First Name"
+                                                type="text"
+                                                value={user.firstName}
+                                            />
+                                        </Col>
+                                    </Row>
+                                </Form.Group>
+                            </Col>
+                            <Col xs={10} md={6}>
+                                <Form.Group controlId="lastName" className="my-2">
+                                    <Row>
+                                        <Col md={4}>
+                                            <Form.Label>
+                                                Last Name
+                                            </Form.Label>
+                                        </Col>
+                                        <Col >
+                                            <Form.Control
+                                                disabled={isLoading}
+                                                onChange={onChange}
+                                                placeholder="Last Name"
+                                                type="text"
+                                                value={user.lastName}
+                                            />
+                                        </Col>
+                                    </Row>
+                                </Form.Group>
+                            </Col>
+                        </Row>
+                    </Col>
+                </Row>
+                <Form.Group controlId="password" className="my-2">
+                    <Row>
+                        <Col md={3} lg={4} xl={3}>
+                            <Form.Label>
+                                Password
+                                {renderRedAsterisk()}
+                            </Form.Label>
+                        </Col>
+                        <Col xs={10} md={8} lg={7} xl={8}>
+                            <Form.Control
+                                disabled={isLoading}
+                                onChange={onChange}
                                 placeholder="Password"
                                 required
                                 type={
@@ -186,18 +271,21 @@ function Register() {
                         </Col>
                     </Row>
                 </Form.Group>
-                <Form.Group controlId="formConfirmPassword" className="my-4">
+                <Form.Group controlId="confirmPassword" className="my-2">
                     <Row>
-                        <Col md={3}>
+                        <Col md={3} lg={4} xl={3}>
                             <Form.Label>
-                                <span className="text-nowrap">Confirm Password</span>
+                                <span className="text-nowrap">
+                                    Confirm Password
+                                    {renderRedAsterisk()}
+                                </span>
                             </Form.Label>
                         </Col>
-                        <Col xs={10} md={8}>
+                        <Col xs={10} md={8} lg={7} xl={8}>
                             <Form.Control
                                 className={confirmPasswordClass}
                                 disabled={isLoading}
-                                onChange={setConfirmPassword}
+                                onChange={onChange}
                                 placeholder="Confirm Password"
                                 type={
                                     isPasswordVisible
@@ -210,7 +298,7 @@ function Register() {
                         </Col>
                     </Row>
                 </Form.Group>
-                <Form.Group
+                <div
                     className="register-error-messages"
                     hidden={errorMessages.length === 0}
                 >
@@ -221,8 +309,8 @@ function Register() {
                             </Form.Text>
                         );
                     })}
-                </Form.Group>
-                <Form.Group controlId="formVendorCheckbox" className="my-4">
+                </div>
+                <Form.Group controlId="vendorCheckbox" className="my-2">
                     <Form.Check 
                         label="I would like to be a vendor (must be approved by an admin)"
                         onChange={(event) => setIsVendor(event.target.name)}
@@ -266,7 +354,7 @@ function Register() {
     return (
         <Page>
             <Row>
-                <Col lg={4} className="register-paragraph-column">
+                <Col lg={3} className="register-paragraph-column">
                     <h1 className="mt-3 mt-md-5">Register</h1>
                     <p className="mt-3 mt-md-5">
                         Create an account today to keep track of your favorite sneakers and followed vendors.
@@ -275,7 +363,7 @@ function Register() {
                         Become a vendor to book a table at a nearby event and start selling your sneakers.
                     </p>
                 </Col>
-                <Col xs={12} lg={{span: 7, offset: 1}}>
+                <Col xs={12} lg={{span: 9, offset: 0}}>
                     {renderRegisterCard()}
                 </Col>
             </Row>
