@@ -6,7 +6,11 @@ use sneaker_seekers;
 create table app_user (
     app_user_id int primary key auto_increment,
     username varchar(50) not null unique,
-    password_hash varchar(2048) not null
+    password_hash varchar(2048) not null,
+    profile_picture varchar(1000) null,
+    first_name varchar(100) null,
+    last_name varchar(100) null,
+    email varchar(100) null
 );
 
 create table app_role (
@@ -36,6 +40,7 @@ create table location (
 
 create table `event` (
 	event_id int primary key auto_increment,
+    event_name varchar(150) not null,
     event_date date not null, 
     num_table int not null,
     event_image varchar(300) null, 
@@ -65,10 +70,12 @@ create table brand (
 );
 
 create table style (
-	style_id int primary key auto_increment, 
+	
+	style_id varchar(500) not null unique, 
     style_name varchar(100) not null, 
     `description` varchar(3600) not null,
-    release_year int not null, 
+    release_year date not null, 
+    colorway varchar(100) not null, 
     style_image varchar(300) null, 
     brand_id int not null, 
     constraint fk_style_brand_id
@@ -85,7 +92,7 @@ create table listing (
 	listing_id int primary key auto_increment, 
     listing_price int not null, 
     quantity int not null, 
-    style_id int not null, 
+    style_id varchar(500) not null, 
     vendor_table_id int not null, 
     condition_id int not null,
     constraint listing_style_id 
@@ -112,7 +119,7 @@ create table follow (
 
 create table favorite (
 	favorite_id int primary key auto_increment, 
-    style_id int not null, 
+    style_id varchar(500) not null, 
     app_user_id int not null, 
     constraint favorite_style_id 
 		foreign key (style_id)
@@ -129,19 +136,3 @@ create table upgrade_request (
 		foreign key (app_user_id)
         references app_user(app_user_id)
 );
-
-insert into app_role (`name`) values
-    ('USER'),
-    ('VENDOR'),
-    ('ADMIN');
-
--- ehCX7MexUCb&T7
-insert into app_user (username, password_hash) values
-    ('user', '$2a$10$OOzG0kG/hJ/2mHmq6nuPZ.0q71b3mm/sYthN93PgX6Q2XBDUNLu.K'),
-    ('vendor', '$2a$10$OOzG0kG/hJ/2mHmq6nuPZ.0q71b3mm/sYthN93PgX6Q2XBDUNLu.K'),
-    ('admin', '$2a$10$OOzG0kG/hJ/2mHmq6nuPZ.0q71b3mm/sYthN93PgX6Q2XBDUNLu.K');
-
-insert into app_user_role (app_user_id, app_role_id) values
-	(1, 1),
-    (2, 2),
-    (3, 3);
