@@ -21,7 +21,7 @@ public class EventJdbcTemplateRepository implements EventRepository {
     @Override
     public List<Event> findAll() {
 
-        final String sql = "select event_id, event_date, num_table, location_id "
+        final String sql = "select event_id, event_name, event_date, num_table, event_image, location_id "
                 + "from `event`;";
 
         return jdbcTemplate.query(sql, new EventMapper());
@@ -31,7 +31,7 @@ public class EventJdbcTemplateRepository implements EventRepository {
     @Override
     public Event findByEventId(int eventId) {
 
-        final String sql = "select event_id, event_date, num_table, location_id "
+        final String sql = "select event_id, event_name, event_date, num_table, location_id "
                 + "from `event` "
                 + "where event_id = " + eventId + ";";
 
@@ -43,17 +43,18 @@ public class EventJdbcTemplateRepository implements EventRepository {
     public Event add(Event event) throws DataAccessException {
 
         final String sql = "insert into `event`"
-                + "(event_id, event_date, num_table, event_image, location_id) "
-                + "values (?, ?, ?, ?, ?);";
+                + "(event_id, event_name, event_date, num_table, event_image, location_id) "
+                + "values (?, ?, ?, ?, ?, ?);";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(conn -> {
             PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, event.getEventId());
-            statement.setString(2, event.getEventDate().toString());
-            statement.setInt(3, event.getNumTable());
-            statement.setString(4, event.getEventImage());
-            statement.setInt(5, event.getLocation().getLocationId());
+            statement.setString(2, event.getEventName());
+            statement.setString(3, event.getEventDate().toString());
+            statement.setInt(4, event.getNumTable());
+            statement.setString(5, event.getEventImage());
+            statement.setInt(6, event.getLocation().getLocationId());
             return statement;
         }, keyHolder);
 

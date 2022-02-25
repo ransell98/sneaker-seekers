@@ -37,6 +37,7 @@ class EventJdbcTemplateRepositoryTest {
     @Test
     void shouldAdd() throws DataAccessException {
         Event event = new Event();
+        event.setEventName("Convention 4");
         event.setEventDate(LocalDate.of(2022, 8, 15));
         event.setNumTable(20);
         event.setEventImage(null);

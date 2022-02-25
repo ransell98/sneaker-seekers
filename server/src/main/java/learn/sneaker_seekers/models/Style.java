@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class Style {
     private String styleId;
     private String styleName;
-    private Brand brandId;
+    private Brand brand;
     private String description;
     private LocalDate releaseYear;
     private String colorway;
@@ -13,10 +13,10 @@ public class Style {
 
     public Style(){}
 
-    public Style(String styleId, String styleName, Brand brandId, String description, LocalDate releaseYear, String colorway, String styleImage){
+    public Style(String styleId, String styleName, Brand brand, String description, LocalDate releaseYear, String colorway, String styleImage){
         this.styleId = styleId;
         this.styleName = styleName;
-        this.brandId = brandId;
+        this.brand = brand;
         this.description = description;
         this.releaseYear = releaseYear;
         this.colorway = colorway;
@@ -39,12 +39,12 @@ public class Style {
         this.styleName = styleName;
     }
 
-    public Brand getBrandId() {
-        return brandId;
+    public Brand getBrand() {
+        return brand;
     }
 
-    public void setBrandId(Brand brandId) {
-        this.brandId = brandId;
+    public void setBrand(Brand brand) {
+        this.brand = brand;
     }
 
     public String getDescription() {

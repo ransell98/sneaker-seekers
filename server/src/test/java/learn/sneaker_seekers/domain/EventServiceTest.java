@@ -80,6 +80,7 @@ class EventServiceTest {
 
     Event makeEvent() throws DataAccessException {
         Event event = new Event();
+        event.setEventName("Convention 4");
         event.setEventDate(LocalDate.of(2024, 05, 15));
         event.setNumTable(50);
         event.setEventImage(null);

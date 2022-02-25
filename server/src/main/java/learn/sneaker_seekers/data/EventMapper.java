@@ -15,6 +15,7 @@ public class EventMapper implements RowMapper<Event> {
         Event event = new Event();
 
         event.setEventId(rs.getInt("event_id"));
+        event.setEventName(rs.getString("event_name"));
         String eventDateString = rs.getString("event_date");
         event.setEventDate(LocalDate.parse(eventDateString));
         event.setNumTable(rs.getInt("num_table"));

@@ -29,11 +29,15 @@ public class AppUserRepository {
         appUser.setId(rs.getInt("app_user_id"));
         appUser.setUsername(rs.getString("username"));
         appUser.setPassword(rs.getString("password_hash"));
+        appUser.setProfilePicture(rs.getString("profile_picture"));
+        appUser.setFirstName(rs.getString("first_name"));
+        appUser.setLastName(rs.getString("last_name"));
+        appUser.setEmail(rs.getString("email"));
         return appUser;
     };
 
     public List<AppUser> findAll() {
-        return jdbcTemplate.query("select app_user_id, username, password_hash "
+        return jdbcTemplate.query("select app_user_id, username, password_hash, profile_picture, first_name, last_name, email "
                 + "from app_user;", mapper);
     }
 
@@ -60,13 +64,18 @@ public class AppUserRepository {
 
     public AppUser add(AppUser user) {
 
-        final String sql = "insert into app_user (username, password_hash) values (?,?);";
+        final String sql = "insert into app_user (username, password_hash, profile_picture, first_name, last_name, email) "
+                + "values (?, ?, ?, ?, ?, ?);";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(conn -> {
             PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, user.getUsername());
             statement.setString(2, user.getPassword());
+            statement.setString(3, user.getProfilePicture());
+            statement.setString(4, user.getFirstName());
+            statement.setString(5, user.getLastName());
+            statement.setString(6, user.getEmail());
             return statement;
         }, keyHolder);
 

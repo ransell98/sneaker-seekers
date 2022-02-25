@@ -39,11 +39,11 @@ public class StyleService {
             result.addMessage("Description of style is required.", ResultType.INVALID);
         }
 
-        if (style.getReleaseYear() <= 0) {
+        if (style.getReleaseYear() == null) {
             result.addMessage("Release year is required.", ResultType.INVALID);
         }
 
-        if (style.getBrandId().getBrandId() < 0) {
+        if (style.getBrand().getBrandId() < 0) {
             result.addMessage("Brand is required.", ResultType.INVALID);
         }
 

@@ -10,6 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 
+import java.time.LocalDate;
+
 import static org.mockito.Mockito.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -56,7 +58,7 @@ class StyleServiceTest {
         Style style = new Style();
         style.setStyleName("");
         style.setDescription("");
-        style.setReleaseYear(0);
+        style.setReleaseYear(null);
         style.setStyleImage(null);
 
         Brand brand = new Brand();
@@ -73,7 +75,7 @@ class StyleServiceTest {
 
         style.setStyleName("Yellow Strike");
         style.setDescription("Yellow and white low-top Nike dunks");
-        style.setReleaseYear(2020);
+        style.setReleaseYear(LocalDate.of(2017, 07, 31));
         style.setStyleImage(null);
 
         Brand brand = new Brand();
