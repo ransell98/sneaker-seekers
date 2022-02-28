@@ -1,19 +1,75 @@
+import { useState } from "react";
 import { Button, Card, Col, Row } from "react-bootstrap";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faHeart, faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 import "../styles/Sneakers.css";
 
 function SneakerInfo({ style }) {
+    const [ isFavoritesButtonLoading, setIsFavoritesButtonLoading ] = useState(false);
+    const [ isFavorite, setIsFavorite ] = useState(false);
+
+    function handleFavoritesButton() {
+        setIsFavoritesButtonLoading(true);
+        if (isFavorite) {
+            removeFromFavorites();
+        } else {
+            addToFavorites();
+        }
+    }
+
+    function addToFavorites() {
+        console.log("addToFavorites()");
+        return new Promise(() => {
+            delay(1000)
+            .then(() => {
+                setIsFavorite(true);
+            })
+            .then(() => {
+                setIsFavoritesButtonLoading(false);
+            })
+        })
+    }
+
+    function removeFromFavorites() {
+        console.log("removeFromFavorites()");
+        return new Promise(() => {
+            delay(1000)
+            .then(() => {
+                setIsFavorite(false);
+            })
+            .then(() => {
+                setIsFavoritesButtonLoading(false);
+            })
+        })
+    }
+    
+    //testing only
+    function delay(t, v) {
+        return new Promise(function(resolve) {
+            setTimeout(resolve.bind(null, v), t)
+        });
+    }
 
     function renderAddToFavoritesButton() {
         return (
             <Button
-                onClick={() => console.log("Favorite")}
+                onClick={handleFavoritesButton}
             >
                 Favorite
-                <FontAwesomeIcon icon={faHeart}/>
+                <FontAwesomeIcon
+                    icon={
+                        isFavoritesButtonLoading
+                        ? faSpinner
+                        : (
+                            isFavorite
+                            ? faCheck
+                            : faHeart
+                        )
+                    }
+                    pulse={isFavoritesButtonLoading}
+                />
             </Button>
         );
     }
