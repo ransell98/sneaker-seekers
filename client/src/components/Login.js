@@ -1,37 +1,61 @@
-import { useState, useContext, useEffect } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Card, Col, Form, Row } from "react-bootstrap";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowUpRightFromSquare, faEye, faEyeSlash, faLock, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faEyeSlash, faLock } from '@fortawesome/free-solid-svg-icons';
 
 import '../styles/LoginAndRegister.css';
 
 import AuthContext from "../contexts/AuthContext";
+import { login } from "../services/auth-api";
 
 import Page from "./Page";
 import Loading from "./Loading";
+import ErrorCard from "./ErrorCard";
 
 function Login() {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+    const [credentials, setCredentials] = useState({
+        username: "",
+        password: ""
+    });
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
     
-    const context = useContext(AuthContext);
+    
+    const authContext = useContext(AuthContext);
     const navigate = useNavigate();
 
     function toggleIsPasswordVisible() {
         setIsPasswordVisible(!isPasswordVisible);
     }
 
+    function setUsername(event) {
+        const clone = { ...credentials };
+        clone["username"] = event.target.value;
+        setCredentials(clone);
+    }
+
+    function setPassword(event) {
+        const clone = { ...credentials };
+        clone["password"] = event.target.value;
+        setCredentials(clone);
+    }
+
     function onSubmit(event) {
         event.preventDefault();
         setIsLoading(true);
-        setTimeout(() => {
-            context.setUsername(username);
-            navigate("/");
-        }, 1000);
+        setErrorMessage("");
+        login(credentials)
+            .then(principal => {
+                authContext.login(principal);
+                navigate("/");
+            })
+            .catch((error) => {
+                setIsLoading(false);
+                setErrorMessage("Login failed.");
+            });
     }
 
     function renderLoginForm() {
@@ -44,12 +68,12 @@ function Login() {
                         </Col>
                         <Col xs={10} md={8}>
                             <Form.Control
-                                type="text"
-                                placeholder="Username"
-                                onChange={(event) => setUsername(event.target.value)}
-                                value={username}
                                 disabled={isLoading}
+                                onChange={setUsername}
+                                placeholder="Username"
                                 required
+                                type="text"
+                                value={credentials.username}
                             />
                         </Col>
                     </Row>
@@ -61,24 +85,24 @@ function Login() {
                         </Col>
                         <Col xs={10} md={8}>
                             <Form.Control
+                                disabled={isLoading}
+                                onChange={setPassword}
+                                placeholder="Password"
+                                required
                                 type={
                                     isPasswordVisible
                                     ? "text"
                                     : "password"
                                 }
-                                placeholder="Password"
-                                onChange={(event) => setPassword(event.target.value)}
-                                value={password}
-                                disabled={isLoading}
-                                required
+                                value={credentials.password}
                             />
                         </Col>
                         <Col xs={1}>
                             <FontAwesomeIcon
                                 icon={
                                     isPasswordVisible
-                                    ? faEyeSlash
-                                    : faEye
+                                    ? faEye
+                                    : faEyeSlash
                                 }
                                 onClick={toggleIsPasswordVisible}
                             />
@@ -87,10 +111,10 @@ function Login() {
                 </Form.Group>
                 <Row>
                     <Button
-                        variant="primary"
-                        type="submit"
                         className="col-4 offset-4"
                         disabled={isLoading}
+                        type="submit"
+                        variant="primary"
                     >
                         Sign In Now
                     </Button>
@@ -125,6 +149,9 @@ function Login() {
             </Row>
             {isLoading
             ? <Loading/>
+            : <></>}
+            {errorMessage
+            ? <ErrorCard message={errorMessage}/>
             : <></>}
         </Page>
     );

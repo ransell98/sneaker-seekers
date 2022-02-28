@@ -26,16 +26,16 @@ const USERS = [
 function Followed() {
     const [isLoading, setIsLoading] = useState(true);
     const [followedUsers, setFollowedUsers] = useState([]);
-    const context = useContext(AuthContext);
+    const authContext = useContext(AuthContext);
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (context.username) {
+        if (authContext.credentials) {
             fetchFollowedUsers();
         } else {
             redirect();
         }
-    }, [context]);
+    }, [authContext]);
 
     function fetchFollowedUsers() {
         return new Promise(() => {
@@ -62,7 +62,7 @@ function Followed() {
 
     function renderUserCard(user) {
         return (
-            <Card>
+            <Card key={user.username}>
                 <Card.Header>{user.username}</Card.Header>
             </Card>
         );

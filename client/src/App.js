@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import './styles/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import AuthContext from "./contexts/AuthContext";
+import { logout, refresh } from "./services/auth-api";
 
 import SiteNavbar from "./components/SiteNavbar";
 import Home from "./components/Home";
@@ -19,35 +20,50 @@ import AccountSettings from "./components/AccountSettings";
 import DeleteAccount from "./components/DeleteAccount";
 
 const ROUTES = [
-  {"url": "/home",
+  {"uri": "/home",
   "component": <Home/>},
-  {"url": "/events/:id",
+  {"uri": "/events/:id",
   "component": <Event/>},
-  {"url": "/events",
+  {"uri": "/events",
   "component": <Events/>},
-  {"url": "/search",
+  {"uri": "/search",
   "component": <SearchSneakers/>},
-  {"url": "/login",
+  {"uri": "/login",
   "component": <Login/>},
-  {"url": "/register",
+  {"uri": "/register",
   "component": <Register/>},
-  {"url": "/favorites",
+  {"uri": "/favorites",
   "component": <Favorites/>},
-  {"url": "/followed",
+  {"uri": "/followed",
   "component": <Followed/>},
-  {"url": "/account",
+  {"uri": "/account",
   "component": <AccountSettings/>},
-  {"url": "/account/delete",
+  {"uri": "/account/delete",
   "component": <DeleteAccount/>},
-  {"url": "/",
+  {"uri": "/",
   "component": <Navigate replace to="/home"/>},
 ]
 
 function App() {
-  const [username, setUsername] = useState();
+  const [credentials, setCredentials] = useState();
+
+  useEffect(() => {
+    refresh()
+      .then(principal => setCredentials(principal))
+      .catch(() => setCredentials());
+  }, []);
+  
+  const auth = {
+    credentials,
+    login: (principal) => setCredentials(principal),
+    logout: () => {
+      logout().finally(() => setCredentials());
+    }
+  };
+
   return (
     <div className="App">
-      <AuthContext.Provider value={{ username, setUsername }}>
+      <AuthContext.Provider value={auth}>
         <BrowserRouter>
           <SiteNavbar/>
           <Routes>
@@ -55,9 +71,9 @@ function App() {
               ROUTES.map((page) => {
                 return (
                   <Route
-                    path={page.url} 
+                    path={page.uri} 
                     element={page.component}
-                    key={page.url}
+                    key={page.uri}
                   />
                 );
               })

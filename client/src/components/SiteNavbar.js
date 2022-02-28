@@ -10,13 +10,13 @@ import '../styles/Navbar.css';
 import AuthContext from "../contexts/AuthContext";
 
 function SiteNavbar() {
-    const context = useContext(AuthContext);
+    const authContext = useContext(AuthContext);
 
     const [expanded, setExpanded] = useState(false);
 
     function handleLogout() {
         setExpanded(false);
-        context.setUsername(null);
+        authContext.logout();
     }
 
     return(
@@ -63,7 +63,7 @@ function SiteNavbar() {
                         </Nav.Item>
                     </Nav>
                     <Nav className="ms-auto">
-                        {context.username
+                        {authContext.credentials
                         ? <>
                             <NavDropdown 
                                 title={

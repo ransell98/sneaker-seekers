@@ -3,6 +3,7 @@ package learn.sneaker_seekers.domain;
 import learn.sneaker_seekers.data.DataAccessException;
 import learn.sneaker_seekers.data.FavoriteRepository;
 import learn.sneaker_seekers.models.Favorite;
+import learn.sneaker_seekers.models.Style;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,7 +12,12 @@ import java.util.List;
 public class FavoriteService {
     private final FavoriteRepository repository;
 
-    public FavoriteService(FavoriteRepository repository) { this.repository = repository; }
+    private final StyleService service;
+
+    public FavoriteService(FavoriteRepository repository, StyleService service) {
+        this.repository = repository;
+        this.service = service;
+    }
 
     public List<Favorite> findByAppUserId(int appUserId) {
         return repository.findByAppUserId(appUserId);
@@ -22,6 +28,29 @@ public class FavoriteService {
         if (!result.isSuccess()) {
             return result;
         }
+
+        // if style id is 0, create style
+        if (favorite.getStyle().getStyleId() == 0) {
+            Style style = new Style(
+                    0,
+                    null,
+                    favorite.getStyle().getStyleName(),
+                    favorite.getStyle().getBrand(),
+                    favorite.getStyle().getDescription(),
+                    favorite.getStyle().getReleaseYear(),
+                    favorite.getStyle().getColorway(),
+                    favorite.getStyle().getStyleImage());
+
+            service.add(style);
+        } else {
+            Style style = service.findByStyleId(favorite.getStyle().getStyleId());
+            favorite.setStyle(style);
+            favorite = repository.add(favorite);
+            result.setPayload(favorite);
+            return result;
+        }
+        // if not, use style service to get style
+        // if exists, add style
 
         if (favorite.getFavoriteId() != 0) {
             result.addErrorMessage("Favorite ID must not be set for add.");

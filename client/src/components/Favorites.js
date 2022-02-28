@@ -47,16 +47,16 @@ const STYLES = [
 function Favorites() {
     const [isLoading, setIsLoading] = useState(true);
     const [styles, setStyles] = useState([]);
-    const context = useContext(AuthContext);
+    const authContext = useContext(AuthContext);
     const navigate = useNavigate();
     
     useEffect(() => {
-        if (context.username) {
+        if (authContext.credentials) {
             fetchStyles();
         } else {
             redirect();
         }
-    }, [context]);
+    }, [authContext]);
 
     function fetchStyles() {
         return new Promise(() => {
