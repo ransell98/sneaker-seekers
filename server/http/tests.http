@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbmVha2VyLXNlZWtlcnMiLCJzdWIiOiJhZG1pbiIsImlkIjozLCJhdXRob3JpdGllcyI6IkFETUlOIiwiZXhwIjoxNjQ1ODE4MzEyfQ.-pzOTf71zWZeqgsdMoRo5HfNajBdVgBZzK6PfmifG-Y
-=======
-@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbmVha2VyLXNlZWtlcnMiLCJzdWIiOiJhZG1pbiIsImlkIjozLCJhdXRob3JpdGllcyI6IkFETUlOIiwiZXhwIjoxNjQ1ODIwMzc3fQ.Yg7chqhp_59zkH1NMbG-Ijth1F4jC8aGMT4ZWf3op4I
->>>>>>> 0bb23b354b72652076be7d534344943fe015d851
+@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbmVha2VyLXNlZWtlcnMiLCJzdWIiOiJhZG1pbiIsImlkIjozLCJhdXRob3JpdGllcyI6IkFETUlOIiwiZXhwIjoxNjQ2MDc5NTQ3fQ.dPwMdIfVpaQctiNwKh4DtnyRt4bfjbKOgj7azFyruPE
 @host = http://localhost:8080
 
 ### GET USER BY USERNAME (RYAN)
@@ -93,7 +89,7 @@ Authorization: Bearer {{jwt}}
 
 ### GET FAVORITE BY APP USER ID 1
 
-GET {{host}}/sneakerseekers/favorite/1 HTTP/1.1
+GET {{host}}/sneakerseekers/favorite HTTP/1.1
 Authorization: Bearer {{jwt}}
 
 
@@ -117,14 +113,28 @@ Authorization: Bearer {{jwt}}
 }
 
 
+### ADD FAVORITE WITHOUT ALL INFO
+POST {{host}}/sneakerseekers/favorite HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{jwt}}
+
+{
+    "style": {
+        "styleId": 2
+    },
+    "appUser": {
+        "appUserId": 1
+    }
+}
+
 ### DELETE FAVORITE BY ID
 
 DELETE {{host}}/sneakerseekers/favorite/1 HTTP/1.1
 Authorization: Bearer {{jwt}}
 
-### GET FOLLOWS BY FOLLOWER ID 1
+### GET FOLLOWS FOR LOGGED IN USER
 
-GET {{host}}/sneakerseekers/follow/1
+GET {{host}}/sneakerseekers/follow
 Authorization: Bearer {{jwt}}
 
 ### ADD FOLLOW
@@ -135,8 +145,7 @@ Accept: application/json
 Authorization: Bearer {{jwt}}
 
 {
-    "followerId": 1,
-    "vendorId": 1
+    "id": 1
 }
 
 ### DELETE FOLLOW BY FOLLOWER ID AND VENDOR ID
@@ -191,7 +200,7 @@ Authorization: Bearer {{jwt}}
 
 ### GET STYLE BY ID
 
-GET {{host}}/sneakerseekers/style/1
+GET {{host}}/sneakerseekers/style/2
 
 ### ADD STYLE
 
