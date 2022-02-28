@@ -23,6 +23,10 @@ function SearchSneakers() {
         const searchBar = document.getElementById("formSearchBar");
         searchBar.focus();
     }, []);
+
+    function noDefaultSubmit (event) {
+        event.preventDefault();
+    }
     
     function handleChange (event) {
         setIsLoading(true);
@@ -112,7 +116,7 @@ function SearchSneakers() {
 
     function renderSearchBar() {
         return (
-            <Form className="mt-4">
+            <Form className="mt-4" onSubmit={noDefaultSubmit}>
                 <Form.Group controlId="formSearchBar">
                     <Row>
                         <Form.Label column className="text-end">
