@@ -1,0 +1,12 @@
+
+.favorite-button, .follow-unfollow-button {
+    text-align: start;
+    border-radius: 30px;
+    width: 130px;
+}
+.favorite-button .col-8, .follow-unfollow-button .col-8 {
+    width: 90px;
+}
+.favorite-button svg, .follow-unfollow-button svg {
+    margin: 0em;
+}

@@ -2,14 +2,14 @@ import { useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBookmark as faBookmarkOutline } from '@fortawesome/free-regular-svg-icons';
-import { faBookmark, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as faHeartOutline } from '@fortawesome/free-regular-svg-icons';
+import { faHeart, faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 import "../styles/FollowFavoriteButton.css";
 
-function FollowUnfollowButton({ appUser }) {
+function FavoriteButton({ style }) {
     const [ isLoading, setIsLoading ] = useState(false);
-    const [ isFollowed, setIsFollowed ] = useState(false);
+    const [ isFavorite, setIsFavorite ] = useState(false);
     const [ isHover, setIsHover ] = useState(false);
 
     function handleMouseEnter() {
@@ -22,19 +22,19 @@ function FollowUnfollowButton({ appUser }) {
 
     function handleClick() {
         setIsLoading(true);
-        if (isFollowed) {
-            removeFollow();
+        if (isFavorite) {
+            removeFavorite();
         } else {
-            addFollow();
+            addFavorite();
         }
     }
 
-    function addFollow() {
-        console.log("addFollow()");
+    function addFavorite() {
+        console.log("addFavorite()");
         return new Promise(() => {
             delay(1000)
             .then(() => {
-                setIsFollowed(true);
+                setIsFavorite(true);
             })
             .then(() => {
                 setIsLoading(false);
@@ -42,12 +42,12 @@ function FollowUnfollowButton({ appUser }) {
         });
     }
 
-    function removeFollow() {
-        console.log("removeFollow()");
+    function removeFavorite() {
+        console.log("removeFavorite()");
         return new Promise(() => {
             delay(1000)
             .then(() => {
-                setIsFollowed(false);
+                setIsFavorite(false);
             })
             .then(() => {
                 setIsLoading(false);
@@ -65,7 +65,7 @@ function FollowUnfollowButton({ appUser }) {
     return (
         <Button
             disabled={isLoading}
-            className="follow-unfollow-button"
+            className="favorite-button"
             onClick={handleClick}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
@@ -75,15 +75,7 @@ function FollowUnfollowButton({ appUser }) {
                     {
                         isLoading
                         ? "Loading"
-                        : (
-                            isFollowed
-                            ? (
-                                isHover
-                                ? "Unfollow"
-                                : "Followed"
-                            )
-                            : "Follow"
-                        )
+                        : "Favorite"
                     }
                 </Col>
                 <Col xs={2}>
@@ -92,16 +84,16 @@ function FollowUnfollowButton({ appUser }) {
                             isLoading
                             ? faSpinner
                             : (
-                                isFollowed
+                                isFavorite
                                 ? (
                                     isHover
-                                    ? faBookmarkOutline
-                                    : faBookmark
+                                    ? faHeartOutline
+                                    : faHeart
                                 )
                                 : (
                                     isHover
-                                    ? faBookmark
-                                    : faBookmarkOutline
+                                    ? faHeart
+                                    : faHeartOutline
                                 )
                             )
                         }
@@ -113,4 +105,4 @@ function FollowUnfollowButton({ appUser }) {
     );
 }
 
-export default FollowUnfollowButton;
+export default FavoriteButton;
