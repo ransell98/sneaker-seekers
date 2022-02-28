@@ -1,23 +1,87 @@
 import { Link } from "react-router-dom";
-import { Card, Col, Row } from "react-bootstrap";
+import { Accordion, Card, Col, Image, Row } from "react-bootstrap";
 
 import "../styles/TableCard.css";
 
+import SneakerInfo from "./SneakerInfo";
+
+import { DEFAULT_PROFILE_PICTURE } from "./User";
+
 function TableCard({ table }) {
+
+    function renderProfilePicture(appUser) {
+        let profilePicture = DEFAULT_PROFILE_PICTURE;
+        if (appUser.profilePicture) {
+            profilePicture = appUser.profilePicture;
+        }
+        return (
+            <Image 
+                roundedCircle
+                src={profilePicture}
+                height={30}
+            />
+        );
+    }
+    
+    function renderListingsAccordion(listings) {
+        return (
+            <>
+                {listings && listings.length > 0
+                ? <Accordion>
+                    {listings.map((listing) => {
+                        return (
+                            <Accordion.Item
+                                eventKey={listing.listingId}
+                                key={listing.listingId}
+                            >
+                                <Accordion.Header>
+                                    <Row className="w-100">
+                                        <Col xs={12} md={5}>
+                                            {listing.style.styleName}
+                                        </Col>
+                                        <Col xs={12} md={4}>
+                                            Condition: {listing.listingCondition.conditionName}
+                                        </Col>
+                                        <Col xs={12} md={3}>
+                                            Quantity: {listing.quantity}
+                                        </Col>
+                                    </Row>
+                                </Accordion.Header>
+                                <Accordion.Body>
+                                    <SneakerInfo style={listing.style}/>
+                                </Accordion.Body>
+                            </Accordion.Item>
+                        );
+                    })}
+                </Accordion>
+                : <i>No listings found.</i>}
+            </>
+        );
+    }
+    
     return (
         <Card bg="light" className="table-card">
             <Row>
                 <Col>
-                    <Card.Header>
-                        Table {table.table_id}
+                    <Card.Header className="pt-2 pb-1">
+                        <Row>
+                            <Col>
+                                <Link to={`/users/${table.appUser.id}`}>
+                                    {renderProfilePicture(table.appUser)}
+                                </Link>
+                                {" "}
+                                <Link to={`/users/${table.appUser.id}`}>
+                                    {table.appUser.username}
+                                </Link>
+                            </Col>
+                            <Col className="text-end">
+                                Table {table.table_id}
+                            </Col>
+                        </Row>
+                        
                     </Card.Header>
                     <Card.Body>
-                        <Card.Text>
-                            Vendor:{" "}
-                            <Link to={`/users/${table.app_user.id}`}>
-                                {table.app_user.username}
-                            </Link>
-                        </Card.Text>
+                        {renderListingsAccordion(table.listings)}
                     </Card.Body>
                 </Col>
             </Row>

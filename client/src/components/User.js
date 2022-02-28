@@ -8,10 +8,10 @@ import Page from "./Page";
 import Loading from "./Loading";
 import ErrorCard from "./ErrorCard";
 
-const DEFAULT_PROFILE_PICTURE = "https://icon-library.com/images/no-profile-picture-icon/no-profile-picture-icon-15.jpg";
+export const DEFAULT_PROFILE_PICTURE = "https://icon-library.com/images/no-profile-picture-icon/no-profile-picture-icon-15.jpg";
 
 //testing only
-const USERS = [
+export const USERS = [
     {
         "id": 1,
         "username": "alice_in_chains",
@@ -38,8 +38,8 @@ const USERS = [
 ]
 
 function User() {
-    const { id: userId } = useParams();
-    const [ user, setUser ] = useState();
+    const { id: appUserId } = useParams();
+    const [ appUser, setAppUser ] = useState();
 
     const [ isLoading, setIsLoading ] = useState(true);
 
@@ -53,11 +53,11 @@ function User() {
             .then(() => {
                 let thisUser = null;
                 for (let i = 0; i < USERS.length; i++) {
-                    if (USERS[i].id == userId) {
+                    if (USERS[i].id == appUserId) {
                         thisUser = USERS[i];
                     }
                 }
-                setUser(thisUser);
+                setAppUser(thisUser);
             })
             .then(() => {
                 setIsLoading(false);
@@ -75,8 +75,8 @@ function User() {
 
     function renderProfilePicture() {
         let profilePicture = DEFAULT_PROFILE_PICTURE;
-        if (user.profilePicture) {
-            profilePicture = user.profilePicture;
+        if (appUser.profilePicture) {
+            profilePicture = appUser.profilePicture;
         }
         return (
             <Image 
@@ -85,7 +85,7 @@ function User() {
                 height={200}
                 className="mt-5"
             />
-        );
+        );  
     }
 
     return (
@@ -93,12 +93,12 @@ function User() {
             {isLoading
             ? <Loading className="mt-5"/>
             : <>
-                {user
+                {appUser
                 ? <>
                     {renderProfilePicture()}
-                    <h1>{user.username}</h1>
-                    <p>{user.firstName} {user.lastName}</p>
-                    <p>{user.email}</p>
+                    <h1>{appUser.username}</h1>
+                    <p>{appUser.firstName} {appUser.lastName}</p>
+                    <p>{appUser.email}</p>
                 </>
                 : <ErrorCard message="User not found."/>}
             </>}

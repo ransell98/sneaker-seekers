@@ -10,36 +10,36 @@ import Loading from "./Loading";
 //testing only
 const STYLES = [
     {
-        "style_id": 1,
-        "style_name": "Air Jordan",
+        "styleId": 1,
+        "styleName": "Air Jordan",
         "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Orci nulla pellentesque dignissim enim sit amet venenatis urna cursus. Lectus quam id leo in vitae turpis.",
         "brand": {
-            "brand_id": 1,
-            "brand_name": "Nike"
+            "brandId": 1,
+            "brandName": "Nike"
         },
-        "release_year": 1985,
+        "releaseDate": 1985,
         "image": "https://upload.wikimedia.org/wikipedia/commons/d/dc/74892143_f94145facb.jpg"
     },
     {
-        "style_id": 2,
-        "style_name": "Clown Shoes",
+        "styleId": 2,
+        "styleName": "Clown Shoes",
         "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nibh sit amet commodo nulla facilisi nullam vehicula ipsum. Massa tincidunt dui ut ornare lectus sit.",
         "brand": {
-            "brand_id": 2,
-            "brand_name": "Barnem & Bailey"
+            "brandId": 2,
+            "brandName": "Barnem & Bailey"
         },
-        "release_year": 1886,
+        "releaseDate": 1886,
         "image": "https://madhattermagicshop.com/magicshop/images/model24b.jpg"
     },
     {
-        "style_id": 3,
-        "style_name": "New Balance 993 Aimé Leon Dore",
+        "styleId": 3,
+        "styleName": "New Balance 993 Aimé Leon Dore",
         "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Condimentum lacinia quis vel eros donec. Risus viverra adipiscing at in tellus integer feugiat.",
         "brand": {
-            "brand_id": 3,
-            "brand_name": "New Balance"
+            "brandId": 3,
+            "brandName": "New Balance"
         },
-        "release_year": 2021,
+        "releaseDate": 2021,
         "image": "https://images.stockx.com/images/New-Balance-993-Aime-Leon-Dore-Taupe.jpg"
     },
 ]
@@ -88,7 +88,8 @@ function Favorites() {
                     return (
                         <SneakerStyleCard 
                             style={s}
-                            key={s.style_id}
+                            key={s.styleId}
+                            className="mt-4 ms-lg-5"
                         />
                     );
                 })}
