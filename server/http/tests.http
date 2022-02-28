@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 @jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbmVha2VyLXNlZWtlcnMiLCJzdWIiOiJhZG1pbiIsImlkIjozLCJhdXRob3JpdGllcyI6IkFETUlOIiwiZXhwIjoxNjQ2MDc5NTQ3fQ.dPwMdIfVpaQctiNwKh4DtnyRt4bfjbKOgj7azFyruPE
+=======
+@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbmVha2VyLXNlZWtlcnMiLCJzdWIiOiJhZG1pbiIsImlkIjozLCJhdXRob3JpdGllcyI6IkFETUlOIiwiZXhwIjoxNjQ2MDcyMTk4fQ.zh1bu1aTz_YFmCgYZUD6aWHzUkZCyDWb6VDNIVxTMoA
+>>>>>>> eb5b611642e8822bdf3b1aec77b44b7907a218b5
 @host = http://localhost:8080
 
 ### GET USER BY USERNAME (RYAN)
@@ -100,16 +104,9 @@ Content-Type: application/json
 Authorization: Bearer {{jwt}}
 
 {
-    "styleId": 1,
-    "styleName": "Nike Rare Shoes That Aren't In Database",
-    "brand": {
-        "brandId": 1,
-        "brandName": "Nike"
-    },
-    "description": "These shoes do not exist in the database yet. They should be added to the styles table, and then to favorites.",
-    "releaseYear": "2022-01-01",
-    "colorway": "Black/White/Tan",
-    "styleImage": "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/7dc49569-2d66-47bd-8139-91f671b3f1e4/court-legacy-mens-shoe-Lswv5z.png"
+    "styleId": 1
+
+    
 }
 
 
