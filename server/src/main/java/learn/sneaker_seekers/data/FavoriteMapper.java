@@ -17,12 +17,20 @@ public class FavoriteMapper implements RowMapper<Favorite> {
 
         favorite.setFavoriteId(rs.getInt("favorite_id"));
 
+        int appUserId = rs.getInt("app_user_id");
+        AppUser user = new AppUser();
+        user.setId(appUserId);
+
         StyleMapper styleMapper = new StyleMapper();
         favorite.setStyle(styleMapper.mapRow(rs, rowNum));
 
+        /*
         AppUserMapper appUserMapper = new AppUserMapper();
         favorite.setAppUser(appUserMapper.mapRow(rs, rowNum));
 
+
+
+         */
         return favorite;
     }
 

@@ -21,8 +21,10 @@ public class FollowJdbcTemplateRepository implements FollowRepository {
     @Override
     public List<Follow> findByFollowerId(int followerId) {
 
-        final String sql = "select follower_id, vendor_id "
-                + "from follow "
+        final String sql = "select f.follower_id, f.vendor_id, a.app_user_id, a.username, a.profile_picture, a.first_name, "
+                + "a.last_name, a.email "
+                + "from follow f "
+                + "inner join app_user a on f.vendor_id = a.app_user_id "
                 + "where follower_id = " + followerId + ";";
 
         return jdbcTemplate.query(sql, new FollowMapper());

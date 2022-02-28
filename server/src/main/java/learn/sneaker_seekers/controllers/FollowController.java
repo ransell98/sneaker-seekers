@@ -3,10 +3,12 @@ package learn.sneaker_seekers.controllers;
 import learn.sneaker_seekers.data.DataAccessException;
 import learn.sneaker_seekers.domain.FollowService;
 import learn.sneaker_seekers.domain.Result;
+import learn.sneaker_seekers.models.AppUser;
 import learn.sneaker_seekers.models.Favorite;
 import learn.sneaker_seekers.models.Follow;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,9 +21,9 @@ public class FollowController {
 
     public FollowController(FollowService service) { this.service = service; }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<List<Follow>> findByFollowerId(@PathVariable int id) throws DataAccessException {
-        List<Follow> follows = service.findByFollowerId(id);
+    @GetMapping
+    public ResponseEntity<List<Follow>> findByFollowerId(@AuthenticationPrincipal AppUser follower) throws DataAccessException {
+        List<Follow> follows = service.findByFollowerId(follower.getId());
         if (follows == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -29,7 +31,11 @@ public class FollowController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> add(@RequestBody Follow follow) throws DataAccessException {
+    public ResponseEntity<Object> add(@RequestBody AppUser vendor, @AuthenticationPrincipal AppUser follower) throws DataAccessException {
+        Follow follow = new Follow();
+        follow.setFollowerId(follower);
+        follow.setVendorId(vendor);
+
         Result<Follow> result = service.add(follow);
         if (result.isSuccess()) {
             return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
