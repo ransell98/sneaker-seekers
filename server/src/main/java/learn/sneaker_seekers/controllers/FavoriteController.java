@@ -22,6 +22,15 @@ public class FavoriteController {
 
     public FavoriteController(FavoriteService service) { this.service = service; }
 
+    @GetMapping
+    public ResponseEntity<List<Favorite>> findAll() {
+        List<Favorite> favorites = service.findAll();
+        if (favorites == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(favorites);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<List<Favorite>> findByAppUserId(@PathVariable int id) throws DataAccessException {
         List<Favorite> favorites = service.findByAppUserId(id);

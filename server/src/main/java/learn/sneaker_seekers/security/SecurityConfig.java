@@ -35,6 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/sneakerseekers/condition").permitAll()
                 .antMatchers(HttpMethod.GET, "/sneakerseekers/event").permitAll()
                 .antMatchers(HttpMethod.POST, "/sneakerseekers/event").hasAnyAuthority("ADMIN")
+                .antMatchers(HttpMethod.GET, "/sneakerseekers/favorite").hasAnyAuthority("USER", "VENDOR", "ADMIN")
                 .antMatchers(HttpMethod.GET, "/sneakerseekers/favorite/{id}").hasAnyAuthority("USER", "VENDOR", "ADMIN")
                 .antMatchers(HttpMethod.POST, "/sneakerseekers/favorite").hasAnyAuthority("USER", "VENDOR", "ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/sneakerseekers/favorite/{id}").hasAnyAuthority("USER", "VENDOR", "ADMIN")
