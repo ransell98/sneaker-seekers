@@ -21,7 +21,7 @@ public class EventJdbcTemplateRepository implements EventRepository {
     @Override
     public List<Event> findAll() {
 
-        final String sql = "select e.event_id, e.event_name, e.event_date, e.num_table, e.event_image, l.location_id "
+        final String sql = "select e.event_id, e.event_name, e.event_date, e.num_table, e.event_image, l.location_id, l.location_name, l.location_address, l.location_address, l.location_city  "
                 + "from `event` e "
                 + "inner join location l on e.location_id = l.location_id";
 

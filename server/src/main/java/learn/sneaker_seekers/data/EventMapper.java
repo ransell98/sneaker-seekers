@@ -24,6 +24,10 @@ public class EventMapper implements RowMapper<Event> {
         LocationMapper locationMapper = new LocationMapper();
         event.setLocation(locationMapper.mapRow(rs, rowNum));
 
+        /*Location location = new Location();
+        location.setLocationId(rs.getInt("location_id"));
+        event.setLocation(location);*/
+
         return event;
     }
 
