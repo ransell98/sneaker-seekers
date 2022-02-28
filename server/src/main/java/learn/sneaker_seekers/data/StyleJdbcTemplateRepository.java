@@ -7,6 +7,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import javax.xml.crypto.Data;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.time.LocalDate;
@@ -19,7 +20,7 @@ public class StyleJdbcTemplateRepository implements StyleRepository{
     public StyleJdbcTemplateRepository(JdbcTemplate jdbcTemplate) { this.jdbcTemplate = jdbcTemplate; }
 
     @Override
-    public Style findByStyleId(int styleId) {
+    public Style findByStyleId(int styleId) throws DataAccessException {
 
         final String sql = "select style_id, external_style_id, style_name, `description`, release_year, colorway, style_image, brand_id "
                 + "from style "

@@ -1,4 +1,4 @@
-@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbmVha2VyLXNlZWtlcnMiLCJzdWIiOiJhZG1pbiIsImlkIjozLCJhdXRob3JpdGllcyI6IkFETUlOIiwiZXhwIjoxNjQ2MDY0NDI1fQ.Ik3M9B_Ki_EzkWTu_odYkeluFtUMaQUcRC7h6gnakP0
+@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbmVha2VyLXNlZWtlcnMiLCJzdWIiOiJhZG1pbiIsImlkIjozLCJhdXRob3JpdGllcyI6IkFETUlOIiwiZXhwIjoxNjQ2MDY2MDAzfQ.SXLnTr8qxrjbDJqsZQfmiwWZiwdiYYpG-DXmdFzBEO8
 @host = http://localhost:8080
 
 ### GET USER BY USERNAME (RYAN)
@@ -192,7 +192,7 @@ Authorization: Bearer {{jwt}}
 
 ### GET STYLE BY ID
 
-GET {{host}}/sneakerseekers/style/1
+GET {{host}}/sneakerseekers/style/2
 
 ### ADD STYLE
 
@@ -205,7 +205,7 @@ Authorization: Bearer {{jwt}}
     "externalStyleId": "XX0000",
     "styleName": "Air Jordan 1 Retro High OG Patent Bred",
     "brand": {
-        "brandId": 1,
+        "brandId": 1
     },
     "description": "Featuring a classic mix of hues, the Air Jordan 1 Retro High OG 'Patent Bred' also sports an elevated construction. Built entirely with patent leather, the shoe's upper appears in a familiar mix of black and Varsity Red, with perforations on the toe box offering breathability. Underfoot, a white Air midsole provides cushioning and contrast, giving way to a Varsity Red finish on the concentric rubber outsole, which is included for traction.",
     "releaseYear": "2021-12-30",

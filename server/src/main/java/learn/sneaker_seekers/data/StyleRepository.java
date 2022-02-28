@@ -4,7 +4,7 @@ import learn.sneaker_seekers.models.Style;
 
 public interface StyleRepository {
 
-    Style findByStyleId(int styleId);
+    Style findByStyleId(int styleId) throws DataAccessException;
 
     Style add(Style style);
 

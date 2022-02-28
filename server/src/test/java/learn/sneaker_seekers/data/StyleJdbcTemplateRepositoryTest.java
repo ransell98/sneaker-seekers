@@ -28,7 +28,7 @@ class StyleJdbcTemplateRepositoryTest {
     }
 
     @Test
-    void shouldFindByStyleId() {
+    void shouldFindByStyleId() throws DataAccessException {
         Style style = repository.findByStyleId(1);
         assertEquals(1, style.getStyleId());
         assertEquals("Panda Dunks", style.getStyleName());
