@@ -14,9 +14,9 @@ public class UpgradeRequestMapper implements RowMapper<UpgradeRequest> {
         UpgradeRequest upgradeRequest = new UpgradeRequest();
 
         upgradeRequest.setUpgradeRequestId(rs.getInt("upgrade_request_id"));
-        int appUserId = rs.getInt("app_user_id");
-        AppUser appUser = new AppUser();
-        appUser.setId(appUserId);
+
+        AppUserMapper appUserMapper = new AppUserMapper();
+        upgradeRequest.setAppUserId(appUserMapper.mapRow(rs, rowNum));
 
         return upgradeRequest;
     }

@@ -21,9 +21,8 @@ public class StyleMapper implements RowMapper<Style> {
         style.setReleaseYear(rs.getDate("release_year").toLocalDate());
         style.setColorway(rs.getString("colorway"));
 
-        int brandId = rs.getInt("brand_id");
-        Brand brand = new Brand();
-        brand.setBrandId(brandId);
+        BrandMapper brandMapper = new BrandMapper();
+        style.setBrand(brandMapper.mapRow(rs, rowNum));
 
         style.setStyleImage(rs.getString("style_image"));
 

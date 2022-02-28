@@ -24,21 +24,9 @@ public class AppUserRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    private final RowMapper<AppUser> mapper = (rs, i) -> {
-        AppUser appUser = new AppUser();
-        appUser.setId(rs.getInt("app_user_id"));
-        appUser.setUsername(rs.getString("username"));
-        appUser.setPassword(rs.getString("password_hash"));
-        appUser.setProfilePicture(rs.getString("profile_picture"));
-        appUser.setFirstName(rs.getString("first_name"));
-        appUser.setLastName(rs.getString("last_name"));
-        appUser.setEmail(rs.getString("email"));
-        return appUser;
-    };
-
     public List<AppUser> findAll() {
         return jdbcTemplate.query("select app_user_id, username, password_hash, profile_picture, first_name, last_name, email "
-                + "from app_user;", mapper);
+                + "from app_user;", new AppUserMapper());
     }
 
     public List<String> findAllRoles() {
@@ -50,7 +38,7 @@ public class AppUserRepository {
     public AppUser findByUsername(String username) {
         AppUser user = jdbcTemplate.query(
                         "select app_user_id, username, password_hash, profile_picture, first_name, last_name, email from app_user where username = ?;",
-                        mapper,
+                        new AppUserMapper(),
                         username).stream()
                 .findFirst()
                 .orElse(null);

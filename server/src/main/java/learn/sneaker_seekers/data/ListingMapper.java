@@ -20,9 +20,8 @@ public class ListingMapper implements RowMapper<Listing> {
         listing.setQuantity(rs.getInt("quantity"));
         listing.setStyleId(rs.getInt("style_id"));
 
-        int tableId = rs.getInt("vendor_table_id");
-        Table table = new Table();
-        table.setTableId(tableId);
+        TableMapper tableMapper = new TableMapper();
+        listing.setTableId(tableMapper.mapRow(rs, rowNum));
 
         int conditionId = rs.getInt("condition_id");
         Condition condition = new Condition();

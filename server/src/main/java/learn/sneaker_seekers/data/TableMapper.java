@@ -16,13 +16,11 @@ public class TableMapper implements RowMapper<Table> {
 
         table.setTableId(rs.getInt("vendor_table_id"));
 
-        int eventId = rs.getInt("event_id");
-        Event event = new Event();
-        event.setEventId(eventId);
+        EventMapper eventMapper = new EventMapper();
+        table.setEventId(eventMapper.mapRow(rs, rowNum));
 
-        int appUserId = rs.getInt("app_user_id");
-        AppUser appUser = new AppUser();
-        appUser.setId(appUserId);
+        AppUserMapper appUserMapper = new AppUserMapper();
+        table.setAppUserId(appUserMapper.mapRow(rs, rowNum));
 
         table.setBooked(rs.getBoolean("is_booked"));
         table.setTableNumber(rs.getInt("table_number"));

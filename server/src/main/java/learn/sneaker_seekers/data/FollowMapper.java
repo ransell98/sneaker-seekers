@@ -18,10 +18,12 @@ public class FollowMapper implements RowMapper<Follow> {
         int followerId = rs.getInt("follower_id");
         AppUser followerUser = new AppUser();
         followerUser.setId(followerId);
+        follow.setFollowerId(followerUser);
 
         int vendorId = rs.getInt("vendor_id");
         AppUser vendorUser = new AppUser();
         vendorUser.setId(vendorId);
+        follow.setVendorId(vendorUser);
 
         return follow;
 

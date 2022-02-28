@@ -20,8 +20,9 @@ public class UpgradeRequestJdbcTemplateRepository implements UpgradeRequestRepos
     @Override
     public List<UpgradeRequest> findAll() {
 
-        final String sql = "select upgrade_request_id, app_user_id "
-                + "from upgrade_request;";
+        final String sql = "select u.upgrade_request_id, a.app_user_id "
+                + "from upgrade_request u "
+                + "inner join app_user a on u.app_user_id = a.app_user_id;";
 
         return jdbcTemplate.query(sql, new UpgradeRequestMapper());
 
