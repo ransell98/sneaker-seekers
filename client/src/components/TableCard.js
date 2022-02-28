@@ -75,7 +75,7 @@ function TableCard({ table }) {
                                 </Link>
                             </Col>
                             <Col className="text-end">
-                                Table {table.table_id}
+                                Table {table.tableId}
                             </Col>
                         </Row>
                         
