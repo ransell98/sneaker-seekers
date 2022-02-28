@@ -61,6 +61,4 @@ public class StyleJdbcTemplateRepository implements StyleRepository{
         return style;
     }
 
-
-
 }

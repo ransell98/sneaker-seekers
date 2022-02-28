@@ -1,4 +1,4 @@
-@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbmVha2VyLXNlZWtlcnMiLCJzdWIiOiJhZG1pbiIsImlkIjozLCJhdXRob3JpdGllcyI6IkFETUlOIiwiZXhwIjoxNjQ2MDcyMTk4fQ.zh1bu1aTz_YFmCgYZUD6aWHzUkZCyDWb6VDNIVxTMoA
+@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbmVha2VyLXNlZWtlcnMiLCJzdWIiOiJhZG1pbiIsImlkIjozLCJhdXRob3JpdGllcyI6IkFETUlOIiwiZXhwIjoxNjQ2MDgyMDg2fQ.83Tvuv337P-mqFN3tu_h0pFTq02KKMG7_FOf-oGGgag
 @host = http://localhost:8080
 
 ### GET USER BY USERNAME (RYAN)
@@ -101,8 +101,6 @@ Authorization: Bearer {{jwt}}
 
 {
     "styleId": 1
-
-    
 }
 
 
@@ -214,9 +212,12 @@ Accept: application/json
 Authorization: Bearer {{jwt}}
 
 {
-    "tableId": 1,
-    "eventId": 1,
-    "appUserId": 1,
+    "event": {
+        "eventId": 1
+    },
+    "appUser": {
+        "appUserId": 1
+    },
     "isBooked": true,
     "tableNumber": 1
 }
