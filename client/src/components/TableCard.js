@@ -4,6 +4,7 @@ import { Accordion, Card, Col, Image, Row } from "react-bootstrap";
 import "../styles/TableCard.css";
 
 import SneakerInfo from "./SneakerInfo";
+import FollowUnfollowButton from "./FollowUnfollowButton";
 
 import { DEFAULT_PROFILE_PICTURE } from "./User";
 
@@ -63,7 +64,7 @@ function TableCard({ table }) {
         <Card bg="light" className="table-card">
             <Row>
                 <Col>
-                    <Card.Header className="pt-2 pb-1">
+                    <Card.Header className="py-1">
                         <Row>
                             <Col>
                                 <Link to={`/users/${table.appUser.id}`}>
@@ -73,12 +74,13 @@ function TableCard({ table }) {
                                 <Link to={`/users/${table.appUser.id}`}>
                                     {table.appUser.username}
                                 </Link>
+                                {" "}
+                                <FollowUnfollowButton appUser={table.appUser}/>
                             </Col>
-                            <Col className="text-end">
+                            <Col xs={3} className="text-end pt-2">
                                 Table {table.tableId}
                             </Col>
                         </Row>
-                        
                     </Card.Header>
                     <Card.Body>
                         {renderListingsAccordion(table.listings)}

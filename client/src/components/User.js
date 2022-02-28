@@ -7,6 +7,7 @@ import "../styles/User.css";
 import Page from "./Page";
 import Loading from "./Loading";
 import ErrorCard from "./ErrorCard";
+import FollowUnfollowButton from "./FollowUnfollowButton";
 
 export const DEFAULT_PROFILE_PICTURE = "https://icon-library.com/images/no-profile-picture-icon/no-profile-picture-icon-15.jpg";
 
@@ -97,8 +98,18 @@ function User() {
                 ? <>
                     {renderProfilePicture()}
                     <h1>{appUser.username}</h1>
-                    <p>{appUser.firstName} {appUser.lastName}</p>
-                    <p>{appUser.email}</p>
+                    <FollowUnfollowButton appUser={appUser}/>
+                    <p/>
+                    {appUser.firstName || appUser.lastName
+                    ? <p>
+                        Full Name: {appUser.firstName} {appUser.lastName}
+                    </p>
+                    : <></>}
+                    {appUser.email
+                    ? <p>
+                        Email: {appUser.email}
+                    </p>
+                    : <></>}
                 </>
                 : <ErrorCard message="User not found."/>}
             </>}

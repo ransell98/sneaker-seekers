@@ -6,22 +6,10 @@ import AuthContext from "../contexts/AuthContext";
 
 import Page from "./Page";
 import Loading from "./Loading";
+import UserCard from "./UserCard";
 
 //testing only
-const USERS = [
-    {
-        "id": 1,
-        "username": "alice_in_chains",
-    },
-    {
-        "id": 2,
-        "username": "BobTheSlob99",
-    },
-    {
-        "id": 3,
-        "username": "xmascarol63",
-    },
-]
+import { USERS } from "./User";
 
 function Followed() {
     const [isLoading, setIsLoading] = useState(true);
@@ -60,22 +48,12 @@ function Followed() {
         });
     }
 
-    function renderUserCard(user) {
-        return (
-            <Card key={user.username}>
-                <Card.Header>{user.username}</Card.Header>
-            </Card>
-        );
-    }
-
     function renderFollowedUsers() {
         return (
             <div className="mb-4">
                 {followedUsers.map((user) => {
                     return (
-                        <>
-                            {renderUserCard(user)}
-                        </>
+                        <UserCard appUser={user} key={user.id}/>
                     );
                 })}
             </div>
