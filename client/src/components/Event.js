@@ -18,7 +18,7 @@ const TABLES = [
     "status": "Booked",
     "event_id": 1,
     "app_user": {
-        "app_user_id": 1,
+        "id": 1,
         "username": "alice_in_chains"
     },
     "listings": [
@@ -28,7 +28,7 @@ const TABLES = [
     "status": "Booked",
     "event_id": 1,
     "app_user": {
-        "app_user_id": 2,
+        "id": 2,
         "username": "BobTheSlob99"
     },
     "listings": [
@@ -38,7 +38,7 @@ const TABLES = [
     "status": "Booked",
     "event_id": 1,
     "app_user": {
-        "app_user_id": 3,
+        "id": 3,
         "username": "xmascarol63"
     },
     "listings": [

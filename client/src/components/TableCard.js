@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Card, Col, Row } from "react-bootstrap";
 
 import "../styles/TableCard.css";
@@ -12,7 +13,10 @@ function TableCard({ table }) {
                     </Card.Header>
                     <Card.Body>
                         <Card.Text>
-                            Vendor: {table.app_user.username}
+                            Vendor:{" "}
+                            <Link to={`/users/${table.app_user.id}`}>
+                                {table.app_user.username}
+                            </Link>
                         </Card.Text>
                     </Card.Body>
                 </Col>

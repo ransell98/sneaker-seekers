@@ -12,6 +12,7 @@ import Home from "./components/Home";
 import Events from "./components/Events";
 import Event from "./components/Event";
 import SearchSneakers from "./components/SearchSneakers";
+import User from "./components/User";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Favorites from "./components/Favorites";
@@ -28,6 +29,8 @@ const ROUTES = [
   "component": <Events/>},
   {"uri": "/search",
   "component": <SearchSneakers/>},
+  {"uri": "/users/:id",
+  "component": <User/>},
   {"uri": "/login",
   "component": <Login/>},
   {"uri": "/register",
