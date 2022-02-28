@@ -20,6 +20,16 @@ public class FavoriteJdbcTemplateRepository implements FavoriteRepository {
 
 
     @Override
+    public List<Favorite> findAll() {
+
+        final String sql = "select favorite_id, style_id, app_user_id "
+                + "from favorite;";
+
+        return jdbcTemplate.query(sql, new FavoriteMapper());
+
+    }
+
+    @Override
     public List<Favorite> findByAppUserId(int appUserId) {
 
         final String sql = "select favorite_id, style_id, app_user_id "

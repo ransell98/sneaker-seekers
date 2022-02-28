@@ -19,6 +19,8 @@ public class FavoriteService {
         this.service = service;
     }
 
+    public List<Favorite> findAll() { return repository.findAll(); }
+
     public List<Favorite> findByAppUserId(int appUserId) {
         return repository.findByAppUserId(appUserId);
     }
