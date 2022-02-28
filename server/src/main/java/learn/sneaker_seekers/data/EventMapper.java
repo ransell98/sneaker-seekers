@@ -21,9 +21,8 @@ public class EventMapper implements RowMapper<Event> {
         event.setNumTable(rs.getInt("num_table"));
         event.setEventImage(rs.getString("event_image"));
 
-        int locationId = rs.getInt("location_id");
-        Location location = new Location();
-        location.setLocationId(locationId);
+        LocationMapper locationMapper = new LocationMapper();
+        event.setLocation(locationMapper.mapRow(rs, rowNum));
 
         return event;
     }

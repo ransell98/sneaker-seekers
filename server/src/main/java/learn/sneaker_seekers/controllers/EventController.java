@@ -5,6 +5,7 @@ import learn.sneaker_seekers.domain.EventService;
 import learn.sneaker_seekers.domain.Result;
 import learn.sneaker_seekers.models.Condition;
 import learn.sneaker_seekers.models.Event;
+import learn.sneaker_seekers.models.Location;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +35,7 @@ public class EventController {
     @PostMapping
     public ResponseEntity<Object> add(@RequestBody Event event) throws DataAccessException {
         Result<Event> result = service.add(event);
+
         if (result.isSuccess()) {
             return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
         }
