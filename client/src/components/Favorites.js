@@ -2,10 +2,12 @@ import { useContext, useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 
 import AuthContext from "../contexts/AuthContext";
+import { getAllFavorites } from "../services/favorite-api";
 
 import Page from "./Page";
 import SneakerStyleCard from "./SneakerStyleCard";
 import Loading from "./Loading";
+import ErrorCard from "./ErrorCard";
 
 //testing only
 const STYLES = [
@@ -46,6 +48,7 @@ const STYLES = [
 
 function Favorites() {
     const [isLoading, setIsLoading] = useState(true);
+    const [errorMessage, setErrorMessage] = useState("");
     const [styles, setStyles] = useState([]);
     const authContext = useContext(AuthContext);
     const navigate = useNavigate();
@@ -59,7 +62,7 @@ function Favorites() {
     }, [authContext]);
 
     function fetchStyles() {
-        return new Promise(() => {
+        /*return new Promise(() => {
             delay(1000)
             .then(() => {
                 setStyles(STYLES);
@@ -67,6 +70,15 @@ function Favorites() {
             .then(() => {
                 setIsLoading(false);
             });
+        })*/
+        getAllFavorites()
+        .then((result) => {
+            console.log(result);
+        })
+        .catch((error) => {
+            console.log(error);
+            setErrorMessage(error);
+            setIsLoading(false);
         })
     }
 
@@ -75,11 +87,11 @@ function Favorites() {
     }
 
     //testing only
-    function delay(t, v) {
+    /*function delay(t, v) {
         return new Promise(function(resolve) {
             setTimeout(resolve.bind(null, v), t)
         });
-    }
+    }*/
 
     function renderStyles() {
         return (
@@ -103,11 +115,15 @@ function Favorites() {
             {isLoading
             ? <Loading/>
             : <>
-                {styles && styles.length > 0
-                ? <>
-                    {renderStyles()}
-                </>
-                : <p>You have no favorite styles!</p>}
+                {errorMessage
+                ? <ErrorCard message={errorMessage}/>
+                : <>
+                    {styles && styles.length > 0
+                    ? <>
+                        {renderStyles()}
+                    </>
+                    : <p>You have no favorite styles!</p>}
+                </>}
             </>}
         </Page>
     );
