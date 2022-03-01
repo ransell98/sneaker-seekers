@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import { Col, Dropdown, Row } from "react-bootstrap";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSortAlphaAsc, faSortAlphaDesc,  faSortNumericAsc, faSortNumericDesc } from '@fortawesome/free-solid-svg-icons';
+
+import PreviousPageContext from "../contexts/PreviousPageContext";
 
 import Page from "./Page";
 import EventCard from "./EventCard";
@@ -63,10 +65,13 @@ export const EVENTS = [
 ]
 
 function Events() {
+    const previousPageContext = useContext(PreviousPageContext);
+
     const [isLoading, setIsLoading] = useState(true);
     const [sortByIndex, setSortByIndex] = useState(0);
 
     useEffect(() => {
+        previousPageContext.setPreviousPage(`/events`);
         setTimeout(() => {
             setIsLoading(false);
         }, 1000);

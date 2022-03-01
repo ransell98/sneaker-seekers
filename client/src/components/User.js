@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Image } from "react-bootstrap";
 
 import "../styles/User.css";
+
+import PreviousPageContext from "../contexts/PreviousPageContext";
 
 import Page from "./Page";
 import Loading from "./Loading";
@@ -40,11 +42,14 @@ export const USERS = [
 
 function User() {
     const { id: appUserId } = useParams();
+    const previousPageContext = useContext(PreviousPageContext);
+
     const [ appUser, setAppUser ] = useState();
 
     const [ isLoading, setIsLoading ] = useState(true);
 
     useEffect(() => {
+        previousPageContext.setPreviousPage(`/users/${appUserId}`);
         fetchUser();
     }, []);
 
