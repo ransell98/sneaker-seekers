@@ -21,9 +21,15 @@ public class TableJdbcTemplateRepository implements TableRepository {
     @Override
     public List<Table> findByEventId(int eventId) {
 
-        final String sql = "select vendor_table_id, event_id, app_user_id, is_booked, table_number "
-                + "from vendor_table "
-                + "where event_id = " + eventId + ";";
+        final String sql = "select v.vendor_table_id, v.is_booked, v.table_number, e.event_id, "
+                + "e.event_name, e.event_date, e.num_table, e.event_image, l.location_id, "
+                + "l.location_name, l.location_address, l.location_city, a.app_user_id, "
+                + "a.username, a.profile_picture, a.first_name, a.last_name, a.email "
+                + "from vendor_table v "
+                + "inner join app_user a on v.app_user_id = a.app_user_id "
+                + "inner join `event` e on v.event_id = e.event_id "
+                + "inner join location l on e.location_id = l.location_id "
+                + "where e.event_id = " + eventId + ";";
 
         return jdbcTemplate.query(sql, new TableMapper());
 
@@ -79,14 +85,25 @@ public class TableJdbcTemplateRepository implements TableRepository {
         return rowsAffected > 0;
 
     }
-
+/*
     @Override
     public int getMaxTables(int eventId) throws DataAccessException {
-        final String sql = "select event_id, event_date, num_table, location_id "
+        final String sql = "select event_id, event_name, event_date, num_table, event_image, location_id "
                 + "from `event` "
                 + "where event_id = " + eventId + ";";
 
         return jdbcTemplate.queryForObject(sql, new EventMapper()).getNumTable();
 
+    }*/
+
+    @Override
+    public int getMaxTables(int eventId) throws DataAccessException {
+        final String sql = "select num_table "
+                + "from `event` "
+                + "where event_id = " + eventId + ";";
+
+        Integer result = jdbcTemplate.queryForObject(sql, Integer.class);
+
+        return result != null ? result : 0;
     }
 }

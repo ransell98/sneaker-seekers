@@ -20,9 +20,15 @@ public class ListingJdbcTemplateRepository implements ListingRepository{
     @Override
     public List<Listing> findByTableId(int tableId) {
 
-        final String sql = "select listing_id, listing_price, quantity, style_id, vendor_table_id, condition_id "
-                + "from listing "
-                + "where vendor_table_id = " + tableId + ";";
+        final String sql = "select l.listing_id, l.listing_price, l.quantity, s.style_id, s.external_style_id, "
+                + "s.style_name, s.`description`, s.release_year, s.colorway, s.style_image, "
+                + "b.brand_id, b.brand_name, v.vendor_table_id, v.table_number, c.condition_id "
+                + "from listing l "
+                + "inner join style s on l.style_id = s.style_id "
+                + "inner join brand b on s.brand_id = b.brand_id "
+                + "inner join vendor_table v on l.vendor_table_id = v.vendor_table_id "
+                + "inner join `condition` c on l.condition_id = c.condition_id "
+                + "where v.vendor_table_id = " + tableId + ";";
 
         return jdbcTemplate.query(sql, new ListingMapper());
 
@@ -41,8 +47,8 @@ public class ListingJdbcTemplateRepository implements ListingRepository{
             statement.setInt(1, listing.getListingId());
             statement.setInt(2, listing.getListingPrice().intValue());
             statement.setInt(3, listing.getQuantity());
-            statement.setInt(4, listing.getStyleId());
-            statement.setInt(5, listing.getTableId().getTableId());
+            statement.setInt(4, listing.getStyle().getStyleId());
+            statement.setInt(5, listing.getTable().getTableId());
             statement.setInt(6, listing.getListingCondition().getConditionId());
             return statement;
         }, keyHolder);

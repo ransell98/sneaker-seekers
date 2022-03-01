@@ -13,6 +13,8 @@ public class StyleService {
 
     public Style findByStyleId(int styleId) throws DataAccessException { return repository.findByStyleId(styleId); }
 
+    public Style findByExternalStyleId(String externalStyleId) { return repository.findByExternalStyleId(externalStyleId); }
+
     public Result add(Style style) {
         Result result = validate(style);
         if (!result.isSuccess()) {

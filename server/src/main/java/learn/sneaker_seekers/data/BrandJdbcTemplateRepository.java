@@ -1,6 +1,7 @@
 package learn.sneaker_seekers.data;
 
 import learn.sneaker_seekers.models.Brand;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -25,6 +26,26 @@ public class BrandJdbcTemplateRepository implements BrandRepository{
 
         return jdbcTemplate.query(sql, new BrandMapper());
 
+    }
+
+    @Override
+    public Brand findByBrandName(String brandName) throws DataAccessException {
+        final String sql = "select brand_id, brand_name "
+                + "from brand "
+                + "where brand_name = \"" + brandName + "\";";
+
+        try {
+            Brand brand = jdbcTemplate.queryForObject(sql, new BrandMapper());
+            return brand;
+        } catch (EmptyResultDataAccessException e){
+            return null;
+        }
+
+
+        /*
+        Integer result = jdbcTemplate.queryForObject(sql, Integer.class);
+return result != null ? result : 0;
+         */
     }
 
     @Override

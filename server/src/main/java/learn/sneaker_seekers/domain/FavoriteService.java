@@ -33,17 +33,10 @@ public class FavoriteService {
 
         // if style id is 0, create style
         if (favorite.getStyle().getStyleId() == 0) {
-            Style style = new Style(
-                    0,
-                    null,
-                    favorite.getStyle().getStyleName(),
-                    favorite.getStyle().getBrand(),
-                    favorite.getStyle().getDescription(),
-                    favorite.getStyle().getReleaseYear(),
-                    favorite.getStyle().getColorway(),
-                    favorite.getStyle().getStyleImage());
+            Result addResult = service.add(favorite.getStyle());
+            Style style = (Style) addResult.getPayload();
+            favorite.setStyle(style);
 
-            service.add(style);
         } else {
             Style style = service.findByStyleId(favorite.getStyle().getStyleId());
             favorite.setStyle(style);
@@ -89,5 +82,9 @@ public class FavoriteService {
         }
 
         return result;
+    }
+
+    public boolean isStyleAdded(String externalStyleId) throws DataAccessException {
+        return repository.isStyleAdded(externalStyleId);
     }
 }

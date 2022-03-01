@@ -17,6 +17,8 @@ public class BrandService {
         return repository.findAll();
     }
 
+    public Brand findByBrandName(String brandName) throws DataAccessException { return repository.findByBrandName(brandName); }
+
     public Result add(Brand brand) throws DataAccessException {
         Result result = validate(brand);
         if (!result.isSuccess()) {

@@ -2,6 +2,7 @@ package learn.sneaker_seekers.data;
 
 import learn.sneaker_seekers.models.Condition;
 import learn.sneaker_seekers.models.Listing;
+import learn.sneaker_seekers.models.Style;
 import learn.sneaker_seekers.models.Table;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -40,11 +41,13 @@ class ListingJdbcTemplateRepositoryTest {
         Listing listing = new Listing();
         listing.setListingPrice(BigDecimal.valueOf(500));
         listing.setQuantity(15);
-        listing.setStyleId(2);
+        Style style = new Style();
+        style.setStyleId(2);
+        listing.setStyle(style);
 
         Table table = new Table();
         table.setTableId(1);
-        listing.setTableId(table);
+        listing.setTable(table);
 
         Condition condition = new Condition();
         condition.setConditionId(3);

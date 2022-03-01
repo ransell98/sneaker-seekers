@@ -6,6 +6,9 @@ public interface StyleRepository {
 
     Style findByStyleId(int styleId) throws DataAccessException;
 
+    Style findByExternalStyleId(String externalStyleId);
+
     Style add(Style style);
+
 
 }

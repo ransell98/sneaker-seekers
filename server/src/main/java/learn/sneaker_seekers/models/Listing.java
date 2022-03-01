@@ -4,21 +4,21 @@ import java.math.BigDecimal;
 
 public class Listing {
     private int listingId;
-    private int styleId;
+    private Style style;
     private BigDecimal listingPrice;
     private Condition listingCondition;
     private int quantity;
-    private Table tableId;
+    private Table table;
 
     public Listing(){}
 
-    public Listing(int listingId, int styleId, BigDecimal listingPrice, Condition listingCondition, int quantity, Table tableId){
+    public Listing(int listingId, Style style, BigDecimal listingPrice, Condition listingCondition, int quantity, Table table){
         this.listingId = listingId;
-        this.styleId = styleId;
+        this.style = style;
         this.listingPrice = listingPrice;
         this.listingCondition = listingCondition;
         this.quantity = quantity;
-        this.tableId = tableId;
+        this.table = table;
     }
 
     public int getListingId() {
@@ -29,12 +29,12 @@ public class Listing {
         this.listingId = listingId;
     }
 
-    public int getStyleId() {
-        return styleId;
+    public Style getStyle() {
+        return style;
     }
 
-    public void setStyleId(int styleId) {
-        this.styleId = styleId;
+    public void setStyle(Style style) {
+        this.style = style;
     }
 
     public BigDecimal getListingPrice() {
@@ -61,11 +61,11 @@ public class Listing {
         this.quantity = quantity;
     }
 
-    public Table getTableId() {
-        return tableId;
+    public Table getTable() {
+        return table;
     }
 
-    public void setTableId(Table tableId) {
-        this.tableId = tableId;
+    public void setTable(Table table) {
+        this.table = table;
     }
 }
