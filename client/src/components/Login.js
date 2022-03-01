@@ -8,6 +8,7 @@ import { faEye, faEyeSlash, faLock } from '@fortawesome/free-solid-svg-icons';
 import '../styles/LoginAndRegister.css';
 
 import AuthContext from "../contexts/AuthContext";
+import PreviousPageContext from "../contexts/PreviousPageContext";
 import { login } from "../services/auth-api";
 
 import Page from "./Page";
@@ -15,6 +16,10 @@ import Loading from "./Loading";
 import ErrorCard from "./ErrorCard";
 
 function Login() {
+    const authContext = useContext(AuthContext);
+    const previousPageContext = useContext(PreviousPageContext);
+    const navigate = useNavigate();
+
     const [credentials, setCredentials] = useState({
         username: "",
         password: ""
@@ -22,10 +27,6 @@ function Login() {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
-    
-    
-    const authContext = useContext(AuthContext);
-    const navigate = useNavigate();
 
     function toggleIsPasswordVisible() {
         setIsPasswordVisible(!isPasswordVisible);
@@ -50,7 +51,7 @@ function Login() {
         login(credentials)
             .then(principal => {
                 authContext.login(principal);
-                navigate("/");
+                navigate(previousPageContext.previousPage);
             })
             .catch((error) => {
                 setIsLoading(false);

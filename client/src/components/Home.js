@@ -1,11 +1,21 @@
+import { useContext, useEffect } from "react";
+
 import Page from "./Page";
 
-import { Button, Card, Col, Form, Row } from "react-bootstrap";
+import { Card, Col, Row } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
 import '../styles/Home.css';
 
+import PreviousPageContext from "../contexts/PreviousPageContext";
+
 function Home() {
+    const previousPageContext = useContext(PreviousPageContext);
+
+    useEffect(() => {
+        previousPageContext.setPreviousPage(`/`);
+    }, []);
+
     return (
         <Page>
             <h1 className="mt-3 mt-md-5">Welcome to Sneaker Seekers</h1>

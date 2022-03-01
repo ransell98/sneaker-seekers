@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Button, Image } from "react-bootstrap";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
+
+import PreviousPageContext from "../contexts/PreviousPageContext";
 
 import Page from "./Page";
 import Loading from "./Loading";
@@ -137,12 +139,15 @@ const TABLES = [
 
 function Event() {
     const { id: eventId } = useParams();
+    const previousPageContext = useContext(PreviousPageContext);
+
     const [thisEvent, setThisEvent] = useState();
     const [isEventLoading, setIsEventLoading] = useState(true);
     const [tables, setTables] = useState([]);
     const [isTablesLoading, setIsTablesLoading] = useState(true);
 
     useEffect(() => {
+        previousPageContext.setPreviousPage(`/events/${eventId}`);
         fetchEvent();
         fetchTables();
     }, []);

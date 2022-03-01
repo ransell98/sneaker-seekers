@@ -12,7 +12,7 @@ function SneakerInfo({ style }) {
     return (
         <Row className="sneaker-style-info">
             <Col xs={12} md={{span: 3, order: 2}}>
-                <Card.Img src={style.image}/>
+                <Card.Img src={style.styleImage}/>
             </Col>
             <Col>
                 <h3>
@@ -33,7 +33,7 @@ function SneakerInfo({ style }) {
                             <strong>
                                 Release Date:{" "}
                             </strong>
-                            {style.releaseDate}
+                            {style.releaseYear}
                         </div>
                         <div>
                             <strong>

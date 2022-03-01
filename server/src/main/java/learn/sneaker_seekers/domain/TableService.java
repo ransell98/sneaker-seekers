@@ -18,13 +18,13 @@ public class TableService {
 
     public List<Table> findByEventId(int eventId) { return repository.findByEventId(eventId); }
 
-    public Result add(Table table) throws DataAccessException {
-        Result result = validate(table);
+    public Result<Table> add(Table table) throws DataAccessException {
+        Result<Table> result = validate(table);
         if (!result.isSuccess()) {
             return result;
         }
 
-        if (table.getEventId().getEventId() != 0) {
+        if (table.getTableId() != 0) {
             result.addErrorMessage("Table ID must not be set for add.");
             return result;
         }
