@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Button, Image } from "react-bootstrap";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
+
+import PreviousPageContext from "../contexts/PreviousPageContext";
 
 import Page from "./Page";
 import Loading from "./Loading";
@@ -14,46 +16,138 @@ import { EVENTS } from "./Events";
 
 //testing only
 const TABLES = [
-    {"table_id": 1,
+    {"tableId": 1,
     "status": "Booked",
-    "event_id": 1,
-    "app_user": {
-        "app_user_id": 1,
-        "username": "alice_in_chains"
+    "eventId": 1,
+    "appUser": {
+        "id": 1,
+        "username": "alice_in_chains",
+        "profilePicture": "https://upload.wikimedia.org/wikipedia/en/4/43/Alice_In_Chains-Facelift.jpg",
+        "firstName": "Alice",
+        "lastName": "Abel",
+        "email": "alicewithmalice95@gmail.com",
+    },
+    "listings": [
+        {
+            "listingId": 1,
+            "style": {
+                "styleId": 1,
+                "styleName": "Air Jordan",
+                "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Orci nulla pellentesque dignissim enim sit amet venenatis urna cursus. Lectus quam id leo in vitae turpis.",
+                "brand": {
+                    "brandId": 1,
+                    "brandName": "Nike"
+                },
+                "releaseDate": 1985,
+                "image": "https://upload.wikimedia.org/wikipedia/commons/d/dc/74892143_f94145facb.jpg"
+            },
+            "listingPrice": 499.99,
+            "listingCondition": {
+                "conditionId": 0,
+                "conditionName": "Brand New"
+            },
+            "quantity": 5
+        },
+        {
+            "listingId": 2,
+            "style": {
+                "styleId": 1,
+                "styleName": "Air Jordan",
+                "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Orci nulla pellentesque dignissim enim sit amet venenatis urna cursus. Lectus quam id leo in vitae turpis.",
+                "brand": {
+                    "brandId": 1,
+                    "brandName": "Nike"
+                },
+                "releaseDate": 1985,
+                "image": "https://upload.wikimedia.org/wikipedia/commons/d/dc/74892143_f94145facb.jpg"
+            },
+            "listingPrice": 299.99,
+            "listingCondition": {
+                "conditionId": 0,
+                "conditionName": "Used"
+            },
+            "quantity": 2
+        },
+    ]},
+    {"tableId": 2,
+    "status": "Booked",
+    "eventId": 1,
+    "appUser": {
+        "id": 2,
+        "username": "BobTheSlob99",
+        "firstName": "Bob",
+        "lastName": "Bartleby",
+        "email": "bobtheslob99@yahoo.com",
     },
     "listings": [
 
     ]},
-    {"table_id": 2,
+    {"tableId": 3,
     "status": "Booked",
-    "event_id": 1,
-    "app_user": {
-        "app_user_id": 2,
-        "username": "BobTheSlob99"
+    "eventId": 1,
+    "appUser": {
+        "id": 3,
+        "username": "xmascarol63",
+        "profilePicture": "https://i5.walmartimages.com/asr/00dc2778-e05e-4eeb-8011-baf31ec93b23_1.6346fa6da588f848856fcf511c10ef9f.jpeg",
+        "firstName": "Carol",
+        "lastName": "Carell",
+        "email": "xmascarol63@hotmail.com",
     },
     "listings": [
-
-    ]},
-    {"table_id": 3,
-    "status": "Booked",
-    "event_id": 1,
-    "app_user": {
-        "app_user_id": 3,
-        "username": "xmascarol63"
-    },
-    "listings": [
-
+        {
+            "listingId": 3,
+            "style": {
+                "styleId": 3,
+                "styleName": "New Balance 993 Aimé Leon Dore",
+                "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Condimentum lacinia quis vel eros donec. Risus viverra adipiscing at in tellus integer feugiat.",
+                "brand": {
+                    "brandId": 3,
+                    "brandName": "New Balance"
+                },
+                "releaseDate": 2021,
+                "image": "https://images.stockx.com/images/New-Balance-993-Aime-Leon-Dore-Taupe.jpg"
+            },
+            "listingPrice": 749.99,
+            "listingCondition": {
+                "conditionId": 0,
+                "conditionName": "New"
+            },
+            "quantity": 1
+        },
+        {
+            "listingId": 4,
+            "style": {
+                "styleId": 2,
+                "styleName": "Clown Shoes",
+                "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nibh sit amet commodo nulla facilisi nullam vehicula ipsum. Massa tincidunt dui ut ornare lectus sit.",
+                "brand": {
+                    "brandId": 2,
+                    "brandName": "Barnem & Bailey"
+                },
+                "releaseDate": 1886,
+                "image": "https://madhattermagicshop.com/magicshop/images/model24b.jpg"
+            },
+            "listingPrice": 45.49,
+            "listingCondition": {
+                "conditionId": 0,
+                "conditionName": "Used"
+            },
+            "quantity": 33
+        },
     ]},
 ]
 
 function Event() {
     const { id: eventId } = useParams();
+    const previousPageContext = useContext(PreviousPageContext);
+
     const [thisEvent, setThisEvent] = useState();
     const [isEventLoading, setIsEventLoading] = useState(true);
     const [tables, setTables] = useState([]);
     const [isTablesLoading, setIsTablesLoading] = useState(true);
 
     useEffect(() => {
+        previousPageContext.setPreviousPage(`/events/${eventId}`);
         fetchEvent();
         fetchTables();
     }, []);
@@ -63,7 +157,7 @@ function Event() {
             delay(1000)
             .then(() => {
                 for (var i = 0; i < EVENTS.length; i++) {
-                    if (EVENTS[i].event_id === eventId) {
+                    if (EVENTS[i].eventId === eventId) {
                         setThisEvent(EVENTS[i]);
                     }
                 }
@@ -132,10 +226,10 @@ function Event() {
             <div className="mt-4">
                 <h3><strong>Date:</strong></h3>
                 <h4>
-                    {thisEvent.event_date.toLocaleString("default", {weekday: "long"})}{" "}
-                    {thisEvent.event_date.toLocaleString("default", {month: "long"})}{" "}
-                    {thisEvent.event_date.getDate()}{", "}
-                    {thisEvent.event_date.getFullYear()}
+                    {thisEvent.eventDate.toLocaleString("default", {weekday: "long"})}{" "}
+                    {thisEvent.eventDate.toLocaleString("default", {month: "long"})}{" "}
+                    {thisEvent.eventDate.getDate()}{", "}
+                    {thisEvent.eventDate.getFullYear()}
                 </h4>
             </div>
         )
@@ -151,8 +245,8 @@ function Event() {
                     {tables && tables.length > 0
                     ? <>
                         <h4>
-                            Available Tables: {thisEvent.num_table - tables.length}/{thisEvent.num_table}
-                            {thisEvent.num_table - tables.length > 0
+                            Available Tables: {thisEvent.numTable - tables.length}/{thisEvent.numTable}
+                            {thisEvent.numTable - tables.length > 0
                             ? <>{renderBookTableButton()}</>
                             : <></>}
                         </h4>
@@ -161,7 +255,7 @@ function Event() {
                                 return (
                                     <TableCard
                                         table={table}
-                                        key={table.table_id}
+                                        key={table.tableId}
                                     />
                                 );
                             })}
@@ -192,7 +286,7 @@ function Event() {
                 {
                     (isEventLoading || !thisEvent)
                     ? "View Event"
-                    : thisEvent.event_name
+                    : thisEvent.eventName
                 }
             </h1>
             {isEventLoading

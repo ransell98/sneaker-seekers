@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { Col, Form, Row } from "react-bootstrap";
 import _ from "lodash";
 
@@ -7,12 +7,16 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
 import "../styles/Sneakers.css";
 
+import PreviousPageContext from "../contexts/PreviousPageContext";
+
 import Page from "./Page";
 import Loading from "./Loading";
 import ErrorCard from "./ErrorCard";
 import SneakerStyleCard from "./SneakerStyleCard";
 
 function SearchSneakers() {
+    const previousPageContext = useContext(PreviousPageContext);
+
     const [query, setQuery] = useState("");
     const [styles, setStyles] = useState([]);
 
@@ -20,9 +24,14 @@ function SearchSneakers() {
     const [errorMessage, setErrorMessage] = useState("");
 
     useEffect(() => {
+        previousPageContext.setPreviousPage(`/search`);
         const searchBar = document.getElementById("formSearchBar");
         searchBar.focus();
     }, []);
+
+    function noDefaultSubmit (event) {
+        event.preventDefault();
+    }
     
     function handleChange (event) {
         setIsLoading(true);
@@ -95,16 +104,15 @@ function SearchSneakers() {
             return sourceColorway;
         }
         const styleObject = {
-            "styleId": fetched.id,
+            "externalStyleId": fetched.id,
             "styleName": fetched.name,
             "description": fetched.description,
             //brand: need to link to existing brands
             "brand": {
-                "brandId": -1,
                 "brandName": fetched.brand.replace(/^\w/, (c) => c.toUpperCase()),
             },
-            "releaseDate": fetched.release_date,
-            "image": fetched.thumbnail_url,
+            "releaseYear": fetched.release_date,
+            "styleImage": fetched.thumbnail_url,
             "colorway": getColorway(fetched.colorway),
         }
         return styleObject;
@@ -112,7 +120,7 @@ function SearchSneakers() {
 
     function renderSearchBar() {
         return (
-            <Form className="mt-4">
+            <Form className="mt-4" onSubmit={noDefaultSubmit}>
                 <Form.Group controlId="formSearchBar">
                     <Row>
                         <Form.Label column className="text-end">

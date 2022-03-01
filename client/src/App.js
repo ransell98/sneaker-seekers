@@ -6,12 +6,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import AuthContext from "./contexts/AuthContext";
 import { logout, refresh } from "./services/auth-api";
+import PreviousPageContext from "./contexts/PreviousPageContext";
 
 import SiteNavbar from "./components/SiteNavbar";
 import Home from "./components/Home";
 import Events from "./components/Events";
 import Event from "./components/Event";
 import SearchSneakers from "./components/SearchSneakers";
+import User from "./components/User";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Favorites from "./components/Favorites";
@@ -28,6 +30,8 @@ const ROUTES = [
   "component": <Events/>},
   {"uri": "/search",
   "component": <SearchSneakers/>},
+  {"uri": "/users/:id",
+  "component": <User/>},
   {"uri": "/login",
   "component": <Login/>},
   {"uri": "/register",
@@ -46,6 +50,7 @@ const ROUTES = [
 
 function App() {
   const [credentials, setCredentials] = useState();
+  const [previousPage, setPreviousPage] = useState("/");
 
   useEffect(() => {
     refresh()
@@ -61,25 +66,32 @@ function App() {
     }
   };
 
+  const prevPage = {
+    previousPage: previousPage,
+    setPreviousPage: (page) => setPreviousPage(page)
+  }
+
   return (
     <div className="App">
       <AuthContext.Provider value={auth}>
-        <BrowserRouter>
-          <SiteNavbar/>
-          <Routes>
-            {
-              ROUTES.map((page) => {
-                return (
-                  <Route
-                    path={page.uri} 
-                    element={page.component}
-                    key={page.uri}
-                  />
-                );
-              })
-            }
-          </Routes>
-        </BrowserRouter>
+        <PreviousPageContext.Provider value={prevPage}>
+          <BrowserRouter>
+            <SiteNavbar/>
+            <Routes>
+              {
+                ROUTES.map((page) => {
+                  return (
+                    <Route
+                      path={page.uri} 
+                      element={page.component}
+                      key={page.uri}
+                    />
+                  );
+                })
+              }
+            </Routes>
+          </BrowserRouter>
+        </PreviousPageContext.Provider>
       </AuthContext.Provider>
     </div>
   );

@@ -5,7 +5,7 @@ import "../styles/EventCard.css";
 
 function EventCard({ event }) {
     return (
-        <LinkContainer to={`/events/${event.event_id}`}>
+        <LinkContainer to={`/events/${event.eventId}`}>
             <Card bg="light" className="event-card">
                 <Row>
                     {event.image
@@ -17,16 +17,16 @@ function EventCard({ event }) {
                         className={event.image ? "ps-md-0" : ""}
                     >
                         <Card.Header>
-                            {event.event_name}
+                            {event.eventName}
                         </Card.Header>
                         <Card.Body>
                             <Row>
                                 <Col>
                                     <Card.Title>
-                                        {event.event_date.toLocaleString("default", {weekday: "long"})}{" "}
-                                        {event.event_date.toLocaleString("default", {month: "long"})}{" "}
-                                        {event.event_date.getDate()}{", "}
-                                        {event.event_date.getFullYear()}
+                                        {event.eventDate.toLocaleString("default", {weekday: "long"})}{" "}
+                                        {event.eventDate.toLocaleString("default", {month: "long"})}{" "}
+                                        {event.eventDate.getDate()}{", "}
+                                        {event.eventDate.getFullYear()}
                                     </Card.Title>
                                 </Col>
                                 <Col>

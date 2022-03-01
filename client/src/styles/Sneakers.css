@@ -1,27 +1,20 @@
 .sneaker-style-card {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-.sneaker-style-card strong {
+.sneaker-style-info strong {
     font-variant: small-caps;
 }
-.sneaker-style-card .card-text {
+.sneaker-style-info .card-text {
     font-size: small;
 }
-.sneaker-style-card .font-italic {
+.sneaker-style-info .font-italic {
     font-style: italic;
 }
-.sneaker-style-card img {
+.sneaker-style-info img {
     max-height: 150px;
     max-width: 100%;
     height: auto;
     width: auto;
     margin-top: auto;
     margin-bottom: auto;
-}
-.sneaker-style-card .btn {
-    border-radius: 30px;
-    margin-bottom: 0.5em;
-}
-.sneaker-style-card .btn svg {
-    margin-left: 0.5em;
 }

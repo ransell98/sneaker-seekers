@@ -8,6 +8,7 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import '../styles/LoginAndRegister.css';
 
 import AuthContext from "../contexts/AuthContext";
+import PreviousPageContext from "../contexts/PreviousPageContext";
 import { createUser } from "../services/user-api";
 import { login } from "../services/auth-api";
 
@@ -15,6 +16,10 @@ import Page from "./Page";
 import Loading from "./Loading";
 
 function Register() {
+    const authContext = useContext(AuthContext);
+    const previousPageContext = useContext(PreviousPageContext);
+    const navigate = useNavigate();
+
     const [user, setUser] = useState({
         username: "",
         password: "",
@@ -30,9 +35,6 @@ function Register() {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [errorMessages, setErrorMessages] = useState([]);
-    
-    const authContext = useContext(AuthContext);
-    const navigate = useNavigate();
 
     function toggleIsPasswordVisible() {
         setIsPasswordVisible(!isPasswordVisible);
@@ -82,24 +84,6 @@ function Register() {
         setUser(clone);
     }
 
-    function setUsername(event) {
-        const clone = { ...user };
-        clone["username"] = event.target.value;
-        setUser(clone);
-    }
-
-    function setPassword(event) {
-        const clone = { ...user };
-        clone["password"] = event.target.value;
-        setUser(clone);
-    }
-
-    function setConfirmPassword(event) {
-        const clone = { ...user };
-        clone["confirmPassword"] = event.target.value;
-        setUser(clone);
-    }
-
     function addErrorMessage(message) {
         const clone = [ ...errorMessages ];
         clone.push(message);
@@ -122,7 +106,7 @@ function Register() {
                         if (isVendor) {
                             //create request to become vendor
                         }
-                        navigate("/");
+                        navigate(previousPageContext.previousPage);
                     })
                     .catch(() => {
                         setIsLoading(false);

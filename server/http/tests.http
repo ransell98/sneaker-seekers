@@ -1,4 +1,4 @@
-@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbmVha2VyLXNlZWtlcnMiLCJzdWIiOiJhZG1pbiIsImlkIjozLCJhdXRob3JpdGllcyI6IkFETUlOIiwiZXhwIjoxNjQ2MTYzMzYxfQ.OOOyX4TKjpOtIb8EZ4a0u2RUuaM3TNqkUREEMrMBQHA
+@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbmVha2VyLXNlZWtlcnMiLCJzdWIiOiJhZG1pbiIsImlkIjozLCJhdXRob3JpdGllcyI6IkFETUlOIiwiZXhwIjoxNjQ2MDcyMTk4fQ.zh1bu1aTz_YFmCgYZUD6aWHzUkZCyDWb6VDNIVxTMoA
 @host = http://localhost:8080
 
 ### GET USER BY USERNAME (RYAN)
@@ -135,7 +135,7 @@ Authorization: Bearer {{jwt}}
 
 ### GET LISTINGS BY TABLE ID
 
-GET {{host}}/sneakerseekers/listing/4
+GET {{host}}/sneakerseekers/listing/1
 
 ### ADD LISTING
 
@@ -145,17 +145,11 @@ Accept: application/json
 Authorization: Bearer {{jwt}}
 
 {
-    "style": {
-        "styleId": 1
-    },
+    "listingId": 1,
+    "styleId": 1,
     "listingPrice": 200,
-    "listingCondition": {
-        "conditionId": 1
-    },
     "quantity": 1,
-    "table": {
-        "tableId": 4
-    }
+    "tableId": 1
 }
 
 ### DELETE LISTING BY ID
@@ -220,14 +214,11 @@ Accept: application/json
 Authorization: Bearer {{jwt}}
 
 {
-    "eventId": {
-        "eventId": 1
-    },
+    "tableId": 1,
+    "eventId": 1,
+    "appUserId": 1,
     "isBooked": true,
-    "tableNumber": 1,
-    "appUserId": {
-        "id": 1
-    }
+    "tableNumber": 1
 }
 
 ### UPDATE TABLE

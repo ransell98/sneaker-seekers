@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import { Col, Dropdown, Row } from "react-bootstrap";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSortAlphaAsc, faSortAlphaDesc,  faSortNumericAsc, faSortNumericDesc } from '@fortawesome/free-solid-svg-icons';
+
+import PreviousPageContext from "../contexts/PreviousPageContext";
 
 import Page from "./Page";
 import EventCard from "./EventCard";
@@ -10,63 +12,66 @@ import Loading from "./Loading";
 
 //testing only
 export const EVENTS = [
-    {"event_id": "1",
-    "event_name": "Sneaker Seekers Atlanta 2022",
-    "event_date": new Date("2022-03-05"),
+    {"eventId": "1",
+    "eventName": "Sneaker Seekers Atlanta 2022",
+    "eventDate": new Date("2022-03-05"),
     "location": {
         "name": "Atlanta Convention Center",
         "address": "240 Peachtree Street NW Suite 2200",
         "city": "Atlanta",
     },
-    "num_table": 50,
+    "numTable": 50,
     "image": "images/Placeholder.png"},
-    {"event_id": "2",
-    "event_name": "Sneaker Seekers Austin 2022",
-    "event_date": new Date("2022-04-16"),
+    {"eventId": "2",
+    "eventName": "Sneaker Seekers Austin 2022",
+    "eventDate": new Date("2022-04-16"),
     "location": {
         "name": "Austin Convention Center",
         "address": "500 E. Cesar Chavez St.",
         "city": "Austin",
     },
-    "num_table": 36,
+    "numTable": 36,
     "image": "images/Placeholder.png"},
-    {"event_id": "3",
-    "event_name": "Sneaker Seekers Minneapolis 2022",
-    "event_date": new Date("2022-03-26"),
+    {"eventId": "3",
+    "eventName": "Sneaker Seekers Minneapolis 2022",
+    "eventDate": new Date("2022-03-26"),
     "location": {
         "name": "Minneapolis Convention Center",
         "address": "1301 Second Avenue South",
         "city": "Minneapolis",
     },
-    "num_table": 72,
+    "numTable": 72,
     "image": "images/Placeholder.png"},
-    {"event_id": "4",
-    "event_name": "Sneaker Seekers Denver 2022",
-    "event_date": new Date("2022-04-03"),
+    {"eventId": "4",
+    "eventName": "Sneaker Seekers Denver 2022",
+    "eventDate": new Date("2022-04-03"),
     "location": {
         "name": "Denver Convention Center",
         "address": "700 14th St.",
         "city": "Denver",
     },
-    "num_table": 47,
+    "numTable": 47,
     "image": "images/Placeholder.png"},
-    {"event_id": "5",
-    "event_name": "ShoeCon Atlanta 2022",
-    "event_date": new Date("2022-03-16"),
+    {"eventId": "5",
+    "eventName": "ShoeCon Atlanta 2022",
+    "eventDate": new Date("2022-03-16"),
     "location": {
         "name": "Atlanta Convention Center",
         "address": "240 Peachtree Street NW Suite 2200",
         "city": "Atlanta",
     },
-    "num_table": 42,
+    "numTable": 42,
     "image": "images/Placeholder.png"},
 ]
 
 function Events() {
+    const previousPageContext = useContext(PreviousPageContext);
+
     const [isLoading, setIsLoading] = useState(true);
     const [sortByIndex, setSortByIndex] = useState(0);
 
     useEffect(() => {
+        previousPageContext.setPreviousPage(`/events`);
         setTimeout(() => {
             setIsLoading(false);
         }, 1000);
@@ -97,7 +102,7 @@ function Events() {
     }
 
     function sortByDate(a, b) {
-        return a.event_date - b.event_date;
+        return a.eventDate - b.eventDate;
     }
 
     function sortByLocation(a, b) {
@@ -156,7 +161,7 @@ function Events() {
                     return(
                         <EventCard 
                             event={event} 
-                            key={event.event_id}
+                            key={event.eventId}
                         />
                     );
                 })}
