@@ -1,6 +1,7 @@
 package learn.sneaker_seekers.domain;
 
 
+import learn.sneaker_seekers.data.DataAccessException;
 import learn.sneaker_seekers.data.StyleRepository;
 import learn.sneaker_seekers.models.Brand;
 import learn.sneaker_seekers.models.Style;
@@ -26,7 +27,7 @@ class StyleServiceTest {
     StyleService service;
 
     @Test
-    void shouldFindById() {
+    void shouldFindById() throws DataAccessException {
         Style expected = service.findByStyleId(2);
         when(repository.findByStyleId(2)).thenReturn(expected);
 

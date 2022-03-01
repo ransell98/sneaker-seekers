@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbmVha2VyLXNlZWtlcnMiLCJzdWIiOiJhZG1pbiIsImlkIjozLCJhdXRob3JpdGllcyI6IkFETUlOIiwiZXhwIjoxNjQ1ODE4MzEyfQ.-pzOTf71zWZeqgsdMoRo5HfNajBdVgBZzK6PfmifG-Y
-=======
-@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbmVha2VyLXNlZWtlcnMiLCJzdWIiOiJhZG1pbiIsImlkIjozLCJhdXRob3JpdGllcyI6IkFETUlOIiwiZXhwIjoxNjQ1ODIwMzc3fQ.Yg7chqhp_59zkH1NMbG-Ijth1F4jC8aGMT4ZWf3op4I
->>>>>>> 0bb23b354b72652076be7d534344943fe015d851
+@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbmVha2VyLXNlZWtlcnMiLCJzdWIiOiJhZG1pbiIsImlkIjozLCJhdXRob3JpdGllcyI6IkFETUlOIiwiZXhwIjoxNjQ2MDcyMTk4fQ.zh1bu1aTz_YFmCgYZUD6aWHzUkZCyDWb6VDNIVxTMoA
 @host = http://localhost:8080
 
 ### GET USER BY USERNAME (RYAN)
@@ -104,16 +100,9 @@ Content-Type: application/json
 Authorization: Bearer {{jwt}}
 
 {
-    "styleId": 1,
-    "styleName": "Nike Rare Shoes That Aren't In Database",
-    "brand": {
-        "brandId": 1,
-        "brandName": "Nike"
-    },
-    "description": "These shoes do not exist in the database yet. They should be added to the styles table, and then to favorites.",
-    "releaseYear": "2022-01-01",
-    "colorway": "Black/White/Tan",
-    "styleImage": "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/7dc49569-2d66-47bd-8139-91f671b3f1e4/court-legacy-mens-shoe-Lswv5z.png"
+    "styleId": 1
+
+    
 }
 
 

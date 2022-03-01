@@ -20,11 +20,28 @@ public class FavoriteJdbcTemplateRepository implements FavoriteRepository {
 
 
     @Override
+    public List<Favorite> findAll() {
+
+        final String sql = "select f.favorite_id, s.style_id, s.external_style_id, s.style_name, s.`description`, "
+                + "s.release_year, s.colorway, s.style_image, b.brand_id, b.brand_name "
+                + "from favorite f "
+                + "inner join style s on f.style_id = s.style_id "
+                + "inner join brand b on s.brand_id = b.brand_id;";
+
+        return jdbcTemplate.query(sql, new FavoriteMapper());
+
+    }
+
+    @Override
     public List<Favorite> findByAppUserId(int appUserId) {
 
-        final String sql = "select favorite_id, style_id, app_user_id "
-                + "from favorite "
-                + "where app_user_id = " + appUserId + ";";
+        final String sql = "select f.favorite_id, s.style_id, s.external_style_id, s.style_name, s.`description`, "
+                + "s.release_year, s.colorway, s.style_image, b.brand_id, b.brand_name, a.app_user_id "
+                + "from favorite f "
+                + "inner join app_user a on f.app_user_id = a.app_user_id "
+                + "inner join style s on f.style_id = s.style_id "
+                + "inner join brand b on s.brand_id = b.brand_id "
+                + "where f.app_user_id = " + appUserId + ";";
 
         return jdbcTemplate.query(sql, new FavoriteMapper());
 

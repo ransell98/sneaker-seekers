@@ -3,8 +3,6 @@ package learn.sneaker_seekers.controllers;
 import learn.sneaker_seekers.data.DataAccessException;
 import learn.sneaker_seekers.domain.Result;
 import learn.sneaker_seekers.domain.TableService;
-import learn.sneaker_seekers.models.Follow;
-import learn.sneaker_seekers.models.Location;
 import learn.sneaker_seekers.models.Table;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

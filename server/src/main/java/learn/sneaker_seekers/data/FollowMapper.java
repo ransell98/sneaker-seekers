@@ -23,6 +23,12 @@ public class FollowMapper implements RowMapper<Follow> {
         int vendorId = rs.getInt("vendor_id");
         AppUser vendorUser = new AppUser();
         vendorUser.setId(vendorId);
+        vendorUser.setUsername(rs.getString("username"));
+        vendorUser.setProfilePicture(rs.getString("profile_picture"));
+        vendorUser.setFirstName(rs.getString("first_name"));
+        vendorUser.setLastName(rs.getString("last_name"));
+        vendorUser.setEmail(rs.getString("email"));
+
         follow.setVendorId(vendorUser);
 
         return follow;
