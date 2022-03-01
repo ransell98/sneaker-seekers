@@ -5,17 +5,17 @@ public class Table {
     private boolean isBooked;
     private int tableNumber;
     private Event eventId;
-    private AppUser appUserId;
+    private AppUser appUser;
 
 
     public Table(){}
 
-    public Table(int tableId, boolean isBooked, int tableNumber, Event eventId, AppUser appUserId) {
+    public Table(int tableId, boolean isBooked, int tableNumber, Event eventId, AppUser appUser) {
         this.tableId = tableId;
         this.isBooked = isBooked;
         this.tableNumber = tableNumber;
         this.eventId = eventId;
-        this.appUserId = appUserId;
+        this.appUser = appUser;
     }
 
     public int getTableId() {
@@ -34,12 +34,12 @@ public class Table {
         this.eventId = eventId;
     }
 
-    public AppUser getAppUserId() {
-        return appUserId;
+    public AppUser getAppUser() {
+        return appUser;
     }
 
-    public void setAppUserId(AppUser appUserId) {
-        this.appUserId = appUserId;
+    public void setAppUser(AppUser appUser) {
+        this.appUser = appUser;
     }
 
     public boolean isBooked() {

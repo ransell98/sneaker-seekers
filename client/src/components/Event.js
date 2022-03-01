@@ -7,6 +7,7 @@ import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 
 import PreviousPageContext from "../contexts/PreviousPageContext";
 import { getOneEvent } from "../services/event-api";
+import { getTablesByEventId } from "../services/table-api";
 
 import Page from "./Page";
 import Loading from "./Loading";
@@ -167,26 +168,20 @@ function Event() {
         })
         .finally(() => {
             setIsEventLoading(false);
-        })
+        });
     }
 
     function fetchTables() {
-        return new Promise(() => {
-            delay(3000)
-            .then(() => {
-                setTables(TABLES);
-            })
-            .then(() => {
-                setIsTablesLoading(false);
-            });
+        getTablesByEventId(eventId)
+        .then((result) => {
+            setTables(result);
         })
-    }
-
-    //testing only
-    function delay(t, v) {
-        return new Promise(function(resolve) {
-            setTimeout(resolve.bind(null, v), t)
-        });
+        .catch((error) => {
+            setErrorMessage(error.toString());
+        })
+        .finally(() => {
+            setIsTablesLoading(false);
+        })
     }
 
     function handleBookTable() {
@@ -244,27 +239,24 @@ function Event() {
                 {isTablesLoading
                 ? <Loading/>
                 : <>
-                    {tables && tables.length > 0
-                    ? <>
-                        <h4>
-                            Available Tables: {thisEvent.numTable - tables.length}/{thisEvent.numTable}
-                            {thisEvent.numTable - tables.length > 0
-                            ? <>{renderBookTableButton()}</>
-                            : <></>}
-                        </h4>
-                        <ul className="ps-0">
-                            {tables.map((table) => {
-                                return (
-                                    <TableCard
-                                        table={table}
-                                        key={table.tableId}
-                                    />
-                                );
-                            })}
-                        </ul>
-                    </>
-                    : <ErrorCard message={"Problem fetching tables."}/>
-                    }
+                    <h4>
+                        Available Tables: {thisEvent.numTable - tables.length}/{thisEvent.numTable}
+                        {thisEvent.numTable - tables.length > 0
+                        ? <>{renderBookTableButton()}</>
+                        : <></>}
+                    </h4>
+                    <ul className="ps-0">
+                        {tables.sort((a, b) => {
+                            return (a.tableNumber - b.tableNumber);
+                        }).map((table) => {
+                            return (
+                                <TableCard
+                                    table={table}
+                                    key={table.tableId}
+                                />
+                            );
+                        })}
+                    </ul>
                 </>}
             </div>
         )

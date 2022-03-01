@@ -72,13 +72,21 @@ function TableCard({ table }) {
                                 </Link>
                                 {" "}
                                 <Link to={`/users/${table.appUser.id}`}>
-                                    {table.appUser.username}
+                                    {
+                                        table.appUser.firstName && table.appUser.lastName
+                                        ? <>
+                                            {table.appUser.firstName}
+                                            {" "}
+                                            {table.appUser.lastName}
+                                        </>
+                                        : table.appUser.username
+                                    }
                                 </Link>
                                 {" "}
                                 <FollowUnfollowButton appUser={table.appUser}/>
                             </Col>
                             <Col xs={3} className="text-end pt-2">
-                                Table {table.tableId}
+                                Table {table.tableNumber}
                             </Col>
                         </Row>
                     </Card.Header>

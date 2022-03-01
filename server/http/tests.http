@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbmVha2VyLXNlZWtlcnMiLCJzdWIiOiJ1c2VyIiwiaWQiOjEsImF1dGhvcml0aWVzIjoiVVNFUiIsImV4cCI6MTY0NjE3MTAxOH0.lqUak2yZDDKyN7UVaQOjEJNG2SUGNOr8BnJX60CovuM
-=======
 @jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbmVha2VyLXNlZWtlcnMiLCJzdWIiOiJhZG1pbiIsImlkIjozLCJhdXRob3JpdGllcyI6IkFETUlOIiwiZXhwIjoxNjQ2MDcyMTk4fQ.zh1bu1aTz_YFmCgYZUD6aWHzUkZCyDWb6VDNIVxTMoA
->>>>>>> 2a193afc9f66c20cdc4eb4b105c0208f242e27c7
 @host = http://localhost:8080
 
 ### GET USER BY USERNAME (RYAN)

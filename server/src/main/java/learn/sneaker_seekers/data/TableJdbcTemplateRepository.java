@@ -21,15 +21,12 @@ public class TableJdbcTemplateRepository implements TableRepository {
     @Override
     public List<Table> findByEventId(int eventId) {
 
-        final String sql = "select v.vendor_table_id, v.is_booked, v.table_number, e.event_id, "
-                + "e.event_name, e.event_date, e.num_table, e.event_image, l.location_id, "
-                + "l.location_name, l.location_address, l.location_city, a.app_user_id, "
-                + "a.username, a.profile_picture, a.first_name, a.last_name, a.email "
-                + "from vendor_table v "
-                + "inner join app_user a on v.app_user_id = a.app_user_id "
-                + "inner join `event` e on v.event_id = e.event_id "
-                + "inner join location l on e.location_id = l.location_id "
-                + "where e.event_id = " + eventId + ";";
+        final String sql = "select v.vendor_table_id, v.is_booked, v.table_number, " +
+                "v.event_id, " +
+                "a.app_user_id, a.username, a.profile_picture, a.first_name, a.last_name, a.email " +
+                "from vendor_table v " +
+                "inner join app_user a on v.app_user_id = a.app_user_id " +
+                "where v.event_id = " + eventId + ";";
 
         return jdbcTemplate.query(sql, new TableMapper());
 
@@ -49,7 +46,7 @@ public class TableJdbcTemplateRepository implements TableRepository {
             statement.setBoolean(2, table.isBooked());
             statement.setInt(3, table.getTableNumber());
             statement.setInt(4, table.getEventId().getEventId());
-            statement.setInt(5, table.getAppUserId().getId());
+            statement.setInt(5, table.getAppUser().getId());
             return statement;
         }, keyHolder);
 
@@ -79,7 +76,7 @@ public class TableJdbcTemplateRepository implements TableRepository {
                 table.isBooked(),
                 table.getTableNumber(),
                 table.getEventId().getEventId(),
-                table.getAppUserId().getId(),
+                table.getAppUser().getId(),
                 table.getTableId());
 
         return rowsAffected > 0;

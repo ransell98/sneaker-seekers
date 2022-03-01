@@ -52,7 +52,7 @@ class TableJdbcTemplateRepositoryTest {
 
         AppUser appUser = new AppUser();
         appUser.setId(1);
-        table.setAppUserId(appUser);
+        table.setAppUser(appUser);
 
         Table actual = repository.add(table);
         assertNotNull(actual);
@@ -77,7 +77,7 @@ class TableJdbcTemplateRepositoryTest {
 
         AppUser appUser = new AppUser();
         appUser.setId(1);
-        table.setAppUserId(appUser);
+        table.setAppUser(appUser);
 
         return table;
     }
