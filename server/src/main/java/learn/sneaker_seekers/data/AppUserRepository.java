@@ -73,6 +73,11 @@ public class AppUserRepository {
 
         user.setId(keyHolder.getKey().intValue());
 
+        final String sqlRoleInsert = "insert into app_user_role (app_user_id, app_role_id) "
+                + "values (" + user.getId() + ", 1);";
+
+        jdbcTemplate.update(sqlRoleInsert);
+
         return user;
     }
 
