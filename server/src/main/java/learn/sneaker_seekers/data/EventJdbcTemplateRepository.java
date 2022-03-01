@@ -23,7 +23,7 @@ public class EventJdbcTemplateRepository implements EventRepository {
 
         final String sql = "select e.event_id, e.event_name, e.event_date, e.num_table, e.event_image, l.location_id, l.location_name, l.location_address, l.location_address, l.location_city  "
                 + "from `event` e "
-                + "inner join location l on e.location_id = l.location_id";
+                + "inner join location l on e.location_id = l.location_id;";
 
         return jdbcTemplate.query(sql, new EventMapper());
 
@@ -32,11 +32,12 @@ public class EventJdbcTemplateRepository implements EventRepository {
     @Override
     public Event findByEventId(int eventId) {
 
-        final String sql = "select event_id, event_name, event_date, num_table, location_id "
-                + "from `event` "
-                + "where event_id = " + eventId + ";";
+        final String sql = "select e.event_id, e.event_name, e.event_date, e.num_table, e.event_image, l.location_id, l.location_name, l.location_address, l.location_address, l.location_city "
+                + "from `event` e "
+                + "inner join location l on e.location_id = l.location_id "
+                + "where e.event_id = " + eventId + ";";
 
-        return jdbcTemplate.queryForObject(sql, new EventMapper(), eventId);
+        return jdbcTemplate.queryForObject(sql, new EventMapper());
 
     }
 

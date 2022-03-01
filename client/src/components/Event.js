@@ -156,8 +156,11 @@ function Event() {
 
     function fetchEvent() {
         getOneEvent(eventId)
-        .then((response) => {
-            setThisEvent(response);
+        .then((result) => {
+            const newEvent = result;
+            newEvent.eventDate = new Date(newEvent.eventDate);
+            result = newEvent;
+            setThisEvent(result);
         })
         .catch((error) => {
             setErrorMessage(error.toString());
@@ -193,9 +196,9 @@ function Event() {
     function renderEventImage() {
         return (
             <>
-                {thisEvent.image
+                {thisEvent.eventImage
                 ? <Image 
-                    src={`../${thisEvent.image}`}
+                    src={`../${thisEvent.eventImage}`}
                     style={{
                         "maxHeight": "300px", 
                         "maxWidth": "100%"
@@ -210,11 +213,11 @@ function Event() {
         return (
             <div className="mt-4">
                 <h3><strong>Location:</strong></h3>
-                <h4>{thisEvent.location.name}</h4>
+                <h4>{thisEvent.location.locationName}</h4>
                 <p>
-                    {thisEvent.location.address}
+                    {thisEvent.location.locationAddress}
                     <br/>
-                    {thisEvent.location.city}
+                    {thisEvent.location.locationCity}
                 </p>
             </div>
         );

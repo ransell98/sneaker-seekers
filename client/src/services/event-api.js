@@ -18,7 +18,7 @@ export async function getOneEvent(eventId) {
     if (response.status === 200) {
         return response.json();
     } else if (response.status === 404) {
-        return Promise.reject(403);
+        return Promise.reject(404);
     }
     return Promise.reject("Could not fetch event.");
 }
