@@ -18,10 +18,22 @@ public class ListingMapper implements RowMapper<Listing> {
         listing.setListingId(rs.getInt("listing_id"));
         listing.setListingPrice(BigDecimal.valueOf(rs.getInt("listing_price")));
         listing.setQuantity(rs.getInt("quantity"));
-        listing.setStyleId(rs.getInt("style_id"));
 
+        StyleMapper styleMapper = new StyleMapper();
+        listing.setStyle(styleMapper.mapRow(rs, rowNum));
+
+        /*
         TableMapper tableMapper = new TableMapper();
-        listing.setTableId(tableMapper.mapRow(rs, rowNum));
+        listing.setTable(tableMapper.mapRow(rs, rowNum));
+        */
+
+        int tableId = rs.getInt("vendor_table_id");
+        Table table = new Table();
+        table.setTableId(tableId);
+        table.setTableNumber(rs.getInt("table_number"));
+        listing.setTable(table);
+
+
 
         int conditionId = rs.getInt("condition_id");
         Condition condition = new Condition();
