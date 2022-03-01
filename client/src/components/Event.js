@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 
 import PreviousPageContext from "../contexts/PreviousPageContext";
+import { getOneEvent } from "../services/event-api";
 
 import Page from "./Page";
 import Loading from "./Loading";
@@ -145,6 +146,7 @@ function Event() {
     const [isEventLoading, setIsEventLoading] = useState(true);
     const [tables, setTables] = useState([]);
     const [isTablesLoading, setIsTablesLoading] = useState(true);
+    const [errorMessage, setErrorMessage] = useState("");
 
     useEffect(() => {
         previousPageContext.setPreviousPage(`/events/${eventId}`);
@@ -153,18 +155,15 @@ function Event() {
     }, []);
 
     function fetchEvent() {
-        return new Promise(() => {
-            delay(1000)
-            .then(() => {
-                for (var i = 0; i < EVENTS.length; i++) {
-                    if (EVENTS[i].eventId === eventId) {
-                        setThisEvent(EVENTS[i]);
-                    }
-                }
-            })
-            .then(() => {
-                setIsEventLoading(false);
-            });
+        getOneEvent(eventId)
+        .then((response) => {
+            setThisEvent(response);
+        })
+        .catch((error) => {
+            setErrorMessage(error.toString());
+        })
+        .finally(() => {
+            setIsEventLoading(false);
         })
     }
 
@@ -292,14 +291,14 @@ function Event() {
             {isEventLoading
             ? <Loading/>
             : <>
-                {thisEvent
-                ? <>
+                {errorMessage
+                ? <ErrorCard message={errorMessage}/>
+                : <>
                     {renderEventImage()}
                     {renderEventLocation()}
                     {renderEventDate()}
                     {renderTables()}
                 </>
-                : <ErrorCard message={"Event not found."}/>
                 }
             </>
             }

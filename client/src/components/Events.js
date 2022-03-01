@@ -87,13 +87,10 @@ function Events() {
                 const newEvent = result[i];
                 newEvent.eventDate = new Date(newEvent.eventDate);
                 result[i] = newEvent;
-                console.log(result[i]);
             }
-            //console.log(result);
             setEvents(result);
         })
         .catch((error) => {
-            //console.log(error);
             setErrorMessage(error.toString());
         })
         .finally(() => {

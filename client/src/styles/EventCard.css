@@ -6,7 +6,7 @@
 }
 .event-card:hover {
     cursor: pointer;
-    transform: scale3d(1.02, 1.04, 1);
+    transform: scale3d(1.04, 1.04, 1);
 }
 .event-card .card-img {
     max-height: 250px;
