@@ -8,6 +8,8 @@ public interface BrandRepository {
 
     List<Brand> findAll();
 
+    Brand findByBrandName(String brandName) throws DataAccessException;
+
     Brand add(Brand brand) throws DataAccessException;
 
 }

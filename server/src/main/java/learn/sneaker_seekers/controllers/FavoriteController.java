@@ -1,12 +1,10 @@
 package learn.sneaker_seekers.controllers;
 
 import learn.sneaker_seekers.data.DataAccessException;
+import learn.sneaker_seekers.domain.BrandService;
 import learn.sneaker_seekers.domain.FavoriteService;
 import learn.sneaker_seekers.domain.Result;
-import learn.sneaker_seekers.models.AppUser;
-import learn.sneaker_seekers.models.Event;
-import learn.sneaker_seekers.models.Favorite;
-import learn.sneaker_seekers.models.Style;
+import learn.sneaker_seekers.models.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -19,22 +17,13 @@ import java.util.List;
 @RequestMapping("/sneakerseekers/favorite")
 public class FavoriteController {
     private final FavoriteService service;
+    private final BrandService brandService;
 
-    public FavoriteController(FavoriteService service) { this.service = service; }
-
-    /*
-    @GetMapping
-    public ResponseEntity<List<Favorite>> findAll() {
-
-        List<Favorite> favorites = service.findAll();
-        if (favorites == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return ResponseEntity.ok(favorites);
+    public FavoriteController(FavoriteService service, BrandService brandService) {
+        this.service = service;
+        this.brandService = brandService;
     }
 
-
-     */
     @GetMapping
     public ResponseEntity<List<Favorite>> findByAppUserId(@AuthenticationPrincipal AppUser user) throws DataAccessException {
         List<Favorite> favorites = service.findByAppUserId(user.getId());
@@ -50,6 +39,9 @@ public class FavoriteController {
         favorite.setStyle(style);
         favorite.setAppUser(user);
 
+        Brand brand = brandService.findByBrandName(style.getBrand().getBrandName());
+
+        favorite.getStyle().setBrand(brand);
 
         Result<Favorite> result = service.add(favorite);
         if (result.isSuccess()) {
@@ -57,6 +49,22 @@ public class FavoriteController {
         }
         return ErrorResponse.build(result);
     }
+    /*
+    @PostMapping
+    public ResponseEntity<Object> add(@RequestBody Style style, @AuthenticationPrincipal AppUser user) throws DataAccessException {
+        Favorite favorite = new Favorite();
+        favorite.setStyle(style);
+        favorite.setAppUser(user);
+
+
+        Result<Favorite> result = service.add(favorite);
+        if (result.isSuccess()) {
+            return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
+        }
+        return ErrorResponse.build(result);
+    }
+
+     */
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteByFavoriteId(@PathVariable int id) throws DataAccessException {

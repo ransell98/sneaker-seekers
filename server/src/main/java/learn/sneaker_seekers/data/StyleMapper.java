@@ -20,11 +20,10 @@ public class StyleMapper implements RowMapper<Style> {
         style.setDescription(rs.getString("description"));
         style.setReleaseYear(rs.getDate("release_year").toLocalDate());
         style.setColorway(rs.getString("colorway"));
+        style.setStyleImage(rs.getString("style_image"));
 
         BrandMapper brandMapper = new BrandMapper();
         style.setBrand(brandMapper.mapRow(rs, rowNum));
-
-        style.setStyleImage(rs.getString("style_image"));
 
         return style;
 

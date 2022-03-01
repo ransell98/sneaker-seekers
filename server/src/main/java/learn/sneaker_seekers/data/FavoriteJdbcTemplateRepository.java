@@ -83,15 +83,15 @@ public class FavoriteJdbcTemplateRepository implements FavoriteRepository {
     }
 
     @Override
-    public boolean isStyleAdded(String styleId) throws DataAccessException {
+    public boolean isStyleAdded(String externalStyleId) throws DataAccessException {
 
-        final String sql = "select style_id, style_name, `description`, release_year, style_image, brand_id "
+        final String sql = "select style_id "
                 + "from style "
-                + "where style_id = " + styleId + ";";
+                + "where external_style_id = " + externalStyleId + ";";
 
         Style style = jdbcTemplate.queryForObject(sql, new StyleMapper());
 
-        if (style != null){
+        if (style.getStyleId() > 0){
             return true;
         } else {
             return false;

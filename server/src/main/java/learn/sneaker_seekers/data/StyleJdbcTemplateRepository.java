@@ -1,7 +1,9 @@
 package learn.sneaker_seekers.data;
 
+import learn.sneaker_seekers.models.Brand;
 import learn.sneaker_seekers.models.Style;
 import learn.sneaker_seekers.models.Table;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -33,7 +35,27 @@ public class StyleJdbcTemplateRepository implements StyleRepository{
     }
 
     @Override
+    public Style findByExternalStyleId(String externalStyleId) {
+        final String sql = "select s.style_id, s.external_style_id, s.style_name, s.`description`, "
+                + "s.release_year, s.colorway, s.style_image, b.brand_id, b.brand_name "
+                + "from style s "
+                + "inner join brand b on s.brand_id = b.brand_id "
+                + "where s.style_id = \"" + externalStyleId + "\";";
+
+        try {
+            Style style = jdbcTemplate.queryForObject(sql, new StyleMapper());
+            return style;
+        } catch (EmptyResultDataAccessException e){
+            return null;
+        }
+    }
+
+    @Override
     public Style add(Style style) {
+        if (findByExternalStyleId(style.getExternalStyleId()) != null){
+            return findByExternalStyleId(style.getExternalStyleId());
+        }
+
         final String sql = "insert into style (style_id, external_style_id, style_name, `description`, release_year, colorway, style_image, brand_id) "
                 + "values (?, ?, ?, ?, ?, ?, ?, ?);";
 
@@ -60,5 +82,6 @@ public class StyleJdbcTemplateRepository implements StyleRepository{
 
         return style;
     }
+
 
 }
