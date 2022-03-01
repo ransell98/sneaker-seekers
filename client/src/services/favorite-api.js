@@ -15,3 +15,21 @@ export async function getAllFavorites() {
     }
     return Promise.reject("Could not fetch favorites.");
 }
+export async function createFavorite(style) {
+    const init = {
+        method: "POST",
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem("BG_TOKEN")}`
+        },
+        body: JSON.stringify(style)
+    };
+    console.log(init.body);
+    const response = await fetch(baseUrl, init);
+    if (response.status === 201) {
+        return response.json();
+    }
+    return Promise.reject("Could not add favorite.");
+}
+export async function deleteFavorite(style) {
+    
+}

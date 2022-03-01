@@ -9,43 +9,6 @@ import SneakerStyleCard from "./SneakerStyleCard";
 import Loading from "./Loading";
 import ErrorCard from "./ErrorCard";
 
-//testing only
-const STYLES = [
-    {
-        "styleId": 1,
-        "styleName": "Air Jordan",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Orci nulla pellentesque dignissim enim sit amet venenatis urna cursus. Lectus quam id leo in vitae turpis.",
-        "brand": {
-            "brandId": 1,
-            "brandName": "Nike"
-        },
-        "releaseDate": 1985,
-        "image": "https://upload.wikimedia.org/wikipedia/commons/d/dc/74892143_f94145facb.jpg"
-    },
-    {
-        "styleId": 2,
-        "styleName": "Clown Shoes",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nibh sit amet commodo nulla facilisi nullam vehicula ipsum. Massa tincidunt dui ut ornare lectus sit.",
-        "brand": {
-            "brandId": 2,
-            "brandName": "Barnem & Bailey"
-        },
-        "releaseDate": 1886,
-        "image": "https://madhattermagicshop.com/magicshop/images/model24b.jpg"
-    },
-    {
-        "styleId": 3,
-        "styleName": "New Balance 993 Aimé Leon Dore",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Condimentum lacinia quis vel eros donec. Risus viverra adipiscing at in tellus integer feugiat.",
-        "brand": {
-            "brandId": 3,
-            "brandName": "New Balance"
-        },
-        "releaseDate": 2021,
-        "image": "https://images.stockx.com/images/New-Balance-993-Aime-Leon-Dore-Taupe.jpg"
-    },
-]
-
 function Favorites() {
     const [isLoading, setIsLoading] = useState(true);
     const [errorMessage, setErrorMessage] = useState("");
@@ -62,18 +25,11 @@ function Favorites() {
     }, [authContext]);
 
     function fetchStyles() {
-        /*return new Promise(() => {
-            delay(1000)
-            .then(() => {
-                setStyles(STYLES);
-            })
-            .then(() => {
-                setIsLoading(false);
-            });
-        })*/
         getAllFavorites()
         .then((result) => {
             console.log(result);
+            setStyles(result);
+            setIsLoading(false);
         })
         .catch((error) => {
             console.log(error);
@@ -85,14 +41,7 @@ function Favorites() {
     function redirect() {
         navigate("/login");
     }
-
-    //testing only
-    /*function delay(t, v) {
-        return new Promise(function(resolve) {
-            setTimeout(resolve.bind(null, v), t)
-        });
-    }*/
-
+    
     function renderStyles() {
         return (
             <div className="mb-4">
@@ -122,7 +71,7 @@ function Favorites() {
                     ? <>
                         {renderStyles()}
                     </>
-                    : <p>You have no favorite styles!</p>}
+                    : <h4 className="text-center">You have no favorite styles!</h4>}
                 </>}
             </>}
         </Page>
