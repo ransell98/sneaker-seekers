@@ -8,13 +8,13 @@ function EventCard({ event }) {
         <LinkContainer to={`/events/${event.eventId}`}>
             <Card bg="light" className="event-card">
                 <Row>
-                    {event.image
+                    {event.eventImage
                     ? <Col md={4} className="px-md-0">
-                        <Card.Img src={event.image}/>
+                        <Card.Img src={event.eventImage}/>
                     </Col>
                     : <></>}
                     <Col
-                        className={event.image ? "ps-md-0" : ""}
+                        className={event.eventImage ? "ps-md-0" : ""}
                     >
                         <Card.Header>
                             {event.eventName}
@@ -31,11 +31,11 @@ function EventCard({ event }) {
                                 </Col>
                                 <Col>
                                     <Card.Text>
-                                        {event.location.name}
+                                        {event.location.locationName}
                                         <br/>
-                                        {event.location.address}
+                                        {event.location.locationAddress}
                                         <br/>
-                                        {event.location.city}
+                                        {event.location.locationCity}
                                     </Card.Text>
                                 </Col>
                             </Row>

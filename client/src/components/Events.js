@@ -5,10 +5,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSortAlphaAsc, faSortAlphaDesc,  faSortNumericAsc, faSortNumericDesc } from '@fortawesome/free-solid-svg-icons';
 
 import PreviousPageContext from "../contexts/PreviousPageContext";
+import { getAllEvents } from "../services/event-api";
 
 import Page from "./Page";
 import EventCard from "./EventCard";
 import Loading from "./Loading";
+import ErrorCard from "./ErrorCard";
 
 //testing only
 export const EVENTS = [
@@ -68,14 +70,36 @@ function Events() {
     const previousPageContext = useContext(PreviousPageContext);
 
     const [isLoading, setIsLoading] = useState(true);
+    const [errorMessage, setErrorMessage] = useState("");
+
+    const [events, setEvents] = useState([]);
     const [sortByIndex, setSortByIndex] = useState(0);
 
     useEffect(() => {
         previousPageContext.setPreviousPage(`/events`);
-        setTimeout(() => {
-            setIsLoading(false);
-        }, 1000);
+        fetchEvents();
     }, []);
+
+    function fetchEvents() {
+        getAllEvents()
+        .then((result) => {
+            for (let i = 0; i < result.length; i++) {
+                const newEvent = result[i];
+                newEvent.eventDate = new Date(newEvent.eventDate);
+                result[i] = newEvent;
+                console.log(result[i]);
+            }
+            //console.log(result);
+            setEvents(result);
+        })
+        .catch((error) => {
+            //console.log(error);
+            setErrorMessage(error.toString());
+        })
+        .finally(() => {
+            setIsLoading(false);
+        });
+    }
 
     const SORT_BY_OPTIONS = [
         {"title": "Date Ascending",
@@ -146,25 +170,29 @@ function Events() {
             {isLoading
             ? <Loading/>
             : <>
-                <Row className="w-100 mt-3">
-                    <Col
-                        md={{offset: 2}}
-                    >
-                        {renderSortByDropdown()}
-                    </Col>
-                </Row>
-                {EVENTS.sort(
-                    function(a, b) {
-                        return sortFunction(a, b)
-                    }
-                ).map((event) => {
-                    return(
-                        <EventCard 
-                            event={event} 
-                            key={event.eventId}
-                        />
-                    );
-                })}
+                {errorMessage
+                ? <ErrorCard message={errorMessage}/>
+                : <>
+                    <Row className="w-100 mt-3">
+                        <Col
+                            md={{offset: 2}}
+                        >
+                            {renderSortByDropdown()}
+                        </Col>
+                    </Row>
+                    {events.sort(
+                        function(a, b) {
+                            return sortFunction(a, b)
+                        }
+                    ).map((event) => {
+                        return(
+                            <EventCard 
+                                event={event} 
+                                key={event.eventId}
+                            />
+                        );
+                    })}
+                </>}
             </>}
         </Page>
     );
