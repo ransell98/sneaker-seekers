@@ -69,6 +69,7 @@ function FollowUnfollowButton({ appUser }) {
             onClick={handleClick}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
+            size="sm"
         >
             <Row>
                 <Col xs={8}>
