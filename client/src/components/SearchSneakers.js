@@ -104,16 +104,15 @@ function SearchSneakers() {
             return sourceColorway;
         }
         const styleObject = {
-            "styleId": fetched.id,
+            "externalStyleId": fetched.id,
             "styleName": fetched.name,
             "description": fetched.description,
             //brand: need to link to existing brands
             "brand": {
-                "brandId": -1,
                 "brandName": fetched.brand.replace(/^\w/, (c) => c.toUpperCase()),
             },
-            "releaseDate": fetched.release_date,
-            "image": fetched.thumbnail_url,
+            "releaseYear": fetched.release_date,
+            "styleImage": fetched.thumbnail_url,
             "colorway": getColorway(fetched.colorway),
         }
         return styleObject;
