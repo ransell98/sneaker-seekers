@@ -24,7 +24,6 @@ export async function createFavorite(style) {
         },
         body: JSON.stringify(style)
     };
-    console.log(init.body);
     const response = await fetch(baseUrl, init);
     if (response.status === 201) {
         return response.json();
@@ -32,5 +31,19 @@ export async function createFavorite(style) {
     return Promise.reject("Could not add favorite.");
 }
 export async function deleteFavorite(style) {
-    
+    const init = {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${localStorage.getItem("BG_TOKEN")}`
+        },
+        body: JSON.stringify(style)
+    };
+    const response = await fetch(baseUrl, init);
+    if (response.status === 204) {
+        return Promise.resolve();
+    } else if (response.status === 404) {
+        return Promise.reject("Could not find favorite to delete.");
+    }
+    return Promise.reject("Error in deleting favorite.");
 }
