@@ -10,7 +10,7 @@ import "../styles/FollowFavoriteButton.css";
 import AuthContext from "../contexts/AuthContext";
 import { addFollow as fetchAddFollow, deleteFollow } from "../services/follow-api";
 
-function FollowUnfollowButton({ appUser }) {
+function FollowUnfollowButton({ appUser, follows, setFollows }) {
     const authContext = useContext(AuthContext);
 
     const [ isLoading, setIsLoading ] = useState(false);
@@ -36,8 +36,11 @@ function FollowUnfollowButton({ appUser }) {
 
     function addFollow() {
         fetchAddFollow(appUser)
-        .then(() => {
+        .then((result) => {
             setIsFollowed(true);
+            if (follows) {
+                setIsFollowed([...follows, result]);
+            }
         })
         .catch((error) => {
             console.log(error.toString());
@@ -51,6 +54,15 @@ function FollowUnfollowButton({ appUser }) {
         deleteFollow(appUser.id)
         .then (() => {
             setIsFollowed(false);
+            if (follows) {
+                const newFollows = [];
+                for (let i = 0; i < follows.length; i++) {
+                    if (follows[i].id !== appUser.id) {
+                        newFollows.push(follows[i]);
+                    }
+                }
+                setIsFollowed(newFollows);
+            }
         })
         .catch((error) => {
             console.log(error.toString());
