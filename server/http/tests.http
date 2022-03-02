@@ -1,4 +1,4 @@
-@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbmVha2VyLXNlZWtlcnMiLCJzdWIiOiJhZG1pbiIsImlkIjozLCJhdXRob3JpdGllcyI6IkFETUlOIiwiZXhwIjoxNjQ2MjQxOTc3fQ.vC-f8oWrI-lyfPcS8lsjpUwGDCcTCLLlmfxZ2gNRV7Y
+@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbmVha2VyLXNlZWtlcnMiLCJzdWIiOiJ2ZW5kb3IiLCJpZCI6MiwiYXV0aG9yaXRpZXMiOiJWRU5ET1IiLCJleHAiOjE2NDYyNTQ5Mjd9.lANcK97ETIwV9snpypWxTptzB_CNilHRsxwl7MtTd8w
 @host = http://localhost:8080
 
 ### GET USER BY USERNAME (RYAN)
@@ -238,7 +238,7 @@ Authorization: Bearer {{jwt}}
 
 ### GET TABLES BY EVENT ID
 
-GET {{host}}/sneakerseekers/table/2
+GET {{host}}/sneakerseekers/table/3
 
 ### ADD TABLE
 
@@ -249,10 +249,10 @@ Authorization: Bearer {{jwt}}
 
 {
     "event": {
-        "eventId": 2
+        "eventId": 3
     },
-    "isBooked": true,
-    "tableNumber": 12,
+    "booked": true,
+    "tableNumber": 15,
     "appUser": {
         "id": 1
     }

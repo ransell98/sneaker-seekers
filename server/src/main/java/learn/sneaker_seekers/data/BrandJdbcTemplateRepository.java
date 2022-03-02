@@ -40,12 +40,6 @@ public class BrandJdbcTemplateRepository implements BrandRepository{
         } catch (EmptyResultDataAccessException e){
             return null;
         }
-
-
-        /*
-        Integer result = jdbcTemplate.queryForObject(sql, Integer.class);
-return result != null ? result : 0;
-         */
     }
 
     @Override

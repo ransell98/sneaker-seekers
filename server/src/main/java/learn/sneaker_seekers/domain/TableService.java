@@ -59,6 +59,14 @@ public class TableService {
             result.addErrorMessage("Table number cannot be greater than event's max tables.");
         }
 
+        if (repository.isTableBooked(table.getEvent().getEventId(), table.getTableNumber())) {
+            result.addErrorMessage("Table is already booked.");
+        }
+
+        if (repository.doesUserAlreadyHaveTable(table.getEvent().getEventId(), table.getAppUser().getId())){
+            result.addErrorMessage("User already has a table at this event.");
+        }
+
         return result;
     }
 }
