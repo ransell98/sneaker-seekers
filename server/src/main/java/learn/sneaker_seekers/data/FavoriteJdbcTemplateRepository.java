@@ -48,6 +48,19 @@ public class FavoriteJdbcTemplateRepository implements FavoriteRepository {
     }
 
     @Override
+    public Favorite findByAppUserIdAndStyleId(int appUserId, int styleId) throws DataAccessException {
+        final String sql = "select f.favorite_id, s.style_id, s.external_style_id, s.style_name, s.`description`, "
+                + "s.release_year, s.colorway, s.style_image, b.brand_id, b.brand_name, a.app_user_id "
+                + "from favorite f "
+                + "inner join app_user a on f.app_user_id = a.app_user_id "
+                + "inner join style s on f.style_id = s.style_id "
+                + "inner join brand b on s.brand_id = b.brand_id "
+                + "where f.app_user_id = " + appUserId + " and f.style_id = " + styleId + ";";
+
+        return jdbcTemplate.queryForObject(sql, new FavoriteMapper());
+    }
+
+    @Override
     public Favorite add(Favorite favorite) throws DataAccessException {
 
         final String sql = "insert into favorite"
@@ -75,9 +88,9 @@ public class FavoriteJdbcTemplateRepository implements FavoriteRepository {
     }
 
     @Override
-    public boolean deleteByFavoriteId(int favoriteId) throws DataAccessException {
+    public boolean delete(Favorite favorite) throws DataAccessException {
 
-        int rowsAffected = jdbcTemplate.update("delete from favorite where favorite_id = ?;", favoriteId);
+        int rowsAffected = jdbcTemplate.update("delete from favorite where favorite_id = ?;", favorite.getFavoriteId());
         return rowsAffected > 0;
 
     }
