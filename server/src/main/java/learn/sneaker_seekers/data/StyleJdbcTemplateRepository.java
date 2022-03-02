@@ -40,7 +40,7 @@ public class StyleJdbcTemplateRepository implements StyleRepository{
                 + "s.release_year, s.colorway, s.style_image, b.brand_id, b.brand_name "
                 + "from style s "
                 + "inner join brand b on s.brand_id = b.brand_id "
-                + "where s.style_id = \"" + externalStyleId + "\";";
+                + "where s.external_style_id = \"" + externalStyleId + "\";";
 
         try {
             Style style = jdbcTemplate.queryForObject(sql, new StyleMapper());

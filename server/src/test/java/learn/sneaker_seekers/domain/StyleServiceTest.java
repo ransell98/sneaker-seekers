@@ -36,7 +36,7 @@ class StyleServiceTest {
     }
 
     @Test
-    void shouldAdd() {
+    void shouldAdd() throws DataAccessException{
         Style style = makeStyle();
         Style mockStyle = makeStyle();
 
@@ -48,14 +48,14 @@ class StyleServiceTest {
     }
 
     @Test
-    void shouldNotAddNull() {
+    void shouldNotAddNull() throws DataAccessException{
         Result<Style> result = service.add(null);
         assertEquals(ResultType.INVALID, result.getStatus());
         assertNull(result.getPayload());
     }
 
     @Test
-    void shouldNotAddEmpty() {
+    void shouldNotAddEmpty() throws DataAccessException{
         Style style = new Style();
         style.setStyleName("");
         style.setDescription("");
