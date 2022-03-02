@@ -59,11 +59,11 @@ class FollowServiceTest {
 
         AppUser follower = new AppUser();
         follower.setId(0);
-        follow.setFollowerId(follower);
+        follow.setFollower(follower);
 
         AppUser vendor = new AppUser();
         vendor.setId(0);
-        follow.setVendorId(vendor);
+        follow.setVendor(vendor);
 
         Result<Favorite> actual = service.add(follow);
         assertEquals(ResultType.INVALID, actual.getStatus());
@@ -94,12 +94,12 @@ class FollowServiceTest {
 
         AppUser follower = new AppUser();
         follower.setId(2);
-        follow.setFollowerId(follower);
+        follow.setFollower(follower);
 
 
         AppUser vendor = new AppUser();
         vendor.setId(1);
-        follow.setVendorId(vendor);
+        follow.setVendor(vendor);
         return follow;
     }
 }

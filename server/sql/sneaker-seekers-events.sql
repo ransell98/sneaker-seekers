@@ -18,3 +18,14 @@ insert into `event` (event_name, event_date, num_table, event_image, location_id
     ("Sneaker Seekers Austin 2022", "2022-04-16", 36, "images/events/austin.jpg", 2),
     ("Sneaker Seekers Minneapolis 2022", "2022-03-26", 72, "images/events/minneapolis.jpg", 3),
     ("Sneaker Seekers Denver 2022", "2022-04-03", 47, "images/events/denver.jpg", 4);
+
+insert into `vendor_table` (is_booked, table_number, event_id, app_user_id) values
+	(true, 3, 1, 4),
+    (true, 7, 1, 5),
+    (true, 14, 1, 6),
+    (true, 19, 2, 4),
+    (true, 4, 3, 4),
+    (true, 33, 3, 5),
+    (true, 21, 3, 6),
+    (true, 10, 4, 4),
+    (true, 16, 4, 6);

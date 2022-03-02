@@ -41,8 +41,8 @@ public class FollowJdbcTemplateRepository implements FollowRepository {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(conn -> {
             PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            statement.setInt(1, follow.getFollowerId().getId());
-            statement.setInt(2, follow.getVendorId().getId());
+            statement.setInt(1, follow.getFollower().getId());
+            statement.setInt(2, follow.getVendor().getId());
             return statement;
         }, keyHolder);
 

@@ -4,29 +4,29 @@ package learn.sneaker_seekers.models;
 
 public class Follow {
 
-    private AppUser followerId;
-    private AppUser vendorId;
+    private AppUser follower;
+    private AppUser vendor;
 
     public Follow(){}
 
-    public Follow(AppUser followerId, AppUser vendorId){
-        this.followerId = followerId;
-        this.vendorId = vendorId;
+    public Follow(AppUser follower, AppUser vendor){
+        this.follower = follower;
+        this.vendor = vendor;
     }
 
-    public AppUser getFollowerId() {
-        return followerId;
+    public AppUser getFollower() {
+        return follower;
     }
 
-    public void setFollowerId(AppUser followerId) {
-        this.followerId = followerId;
+    public void setFollower(AppUser follower) {
+        this.follower = follower;
     }
 
-    public AppUser getVendorId() {
-        return vendorId;
+    public AppUser getVendor() {
+        return vendor;
     }
 
-    public void setVendorId(AppUser vendorId) {
-        this.vendorId = vendorId;
+    public void setVendor(AppUser vendor) {
+        this.vendor = vendor;
     }
 }

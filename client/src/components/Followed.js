@@ -1,19 +1,18 @@
 import { useContext, useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
-import { Card } from "react-bootstrap";
 
 import AuthContext from "../contexts/AuthContext";
+import { getAllFollowsByUserId } from "../services/follow-api";
 
 import Page from "./Page";
 import Loading from "./Loading";
 import UserCard from "./UserCard";
-
-//testing only
-import { USERS } from "./User";
+import ErrorCard from "./ErrorCard";
 
 function Followed() {
     const [isLoading, setIsLoading] = useState(true);
-    const [followedUsers, setFollowedUsers] = useState([]);
+    const [errorMessage, setErrorMessage] = useState("");
+    const [follows, setFollows] = useState([]);
     const authContext = useContext(AuthContext);
     const navigate = useNavigate();
 
@@ -26,14 +25,15 @@ function Followed() {
     }, [authContext]);
 
     function fetchFollowedUsers() {
-        return new Promise(() => {
-            delay(1000)
-            .then(() => {
-                setFollowedUsers(USERS);
-            })
-            .then(() => {
-                setIsLoading(false);
-            });
+        getAllFollowsByUserId()
+        .then((result) => {
+            setFollows(result);
+        })
+        .catch((error) => {
+            setErrorMessage(error);
+        })
+        .finally(() => {
+            setIsLoading(false);
         })
     }
 
@@ -41,19 +41,12 @@ function Followed() {
         navigate("/login");
     }
 
-    //testing only
-    function delay(t, v) {
-        return new Promise(function(resolve) {
-            setTimeout(resolve.bind(null, v), t)
-        });
-    }
-
     function renderFollowedUsers() {
         return (
             <div className="mb-4">
-                {followedUsers.map((user) => {
+                {follows.map((follow) => {
                     return (
-                        <UserCard appUser={user} key={user.id}/>
+                        <UserCard appUser={follow.vendor} key={follow.vendor.id}/>
                     );
                 })}
             </div>
@@ -66,11 +59,14 @@ function Followed() {
             {isLoading
             ? <Loading/>
             :<>
-                {followedUsers && followedUsers.length > 0
-                ? <>
-                    {renderFollowedUsers()}
-                </>
-                : <p>You have no vendors that you're following!</p>}
+                {errorMessage
+                ? <ErrorCard message={errorMessage}/>
+                : follows && follows.length > 0
+                    ? <>
+                        {renderFollowedUsers()}
+                    </>
+                    : <h4 className="text-center mt-5">You are not following any vendors!</h4>
+                }
             </>}
         </Page>
     );

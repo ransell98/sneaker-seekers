@@ -71,7 +71,7 @@ function Favorites() {
                     ? <>
                         {renderStyles()}
                     </>
-                    : <h4 className="text-center">You have no favorite styles!</h4>}
+                    : <h4 className="text-center mt-5">You have no favorite sneaker styles!</h4>}
                 </>}
             </>}
         </Page>

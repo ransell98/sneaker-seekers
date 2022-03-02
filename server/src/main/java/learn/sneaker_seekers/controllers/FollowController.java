@@ -33,8 +33,8 @@ public class FollowController {
     @PostMapping
     public ResponseEntity<Object> add(@RequestBody AppUser vendor, @AuthenticationPrincipal AppUser follower) throws DataAccessException {
         Follow follow = new Follow();
-        follow.setFollowerId(follower);
-        follow.setVendorId(vendor);
+        follow.setFollower(follower);
+        follow.setVendor(vendor);
 
         Result<Follow> result = service.add(follow);
         if (result.isSuccess()) {

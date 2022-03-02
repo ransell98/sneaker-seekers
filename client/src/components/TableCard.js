@@ -67,18 +67,26 @@ function TableCard({ table }) {
                     <Card.Header className="py-1">
                         <Row>
                             <Col>
-                                <Link to={`/users/${table.appUser.id}`}>
+                                <Link to={`/users/${table.appUser.username}`}>
                                     {renderProfilePicture(table.appUser)}
                                 </Link>
                                 {" "}
-                                <Link to={`/users/${table.appUser.id}`}>
-                                    {table.appUser.username}
+                                <Link to={`/users/${table.appUser.username}`}>
+                                    {
+                                        table.appUser.firstName && table.appUser.lastName
+                                        ? <>
+                                            {table.appUser.firstName}
+                                            {" "}
+                                            {table.appUser.lastName}
+                                        </>
+                                        : table.appUser.username
+                                    }
                                 </Link>
                                 {" "}
                                 <FollowUnfollowButton appUser={table.appUser}/>
                             </Col>
                             <Col xs={3} className="text-end pt-2">
-                                Table {table.tableId}
+                                Table {table.tableNumber}
                             </Col>
                         </Row>
                     </Card.Header>
