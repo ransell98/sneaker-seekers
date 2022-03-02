@@ -43,11 +43,11 @@ public class FollowService {
             return result;
         }
 
-        if (follow.getFollowerId().getId() == 0) {
+        if (follow.getFollower().getId() == 0) {
             result.addMessage("Follower ID cannot be null", ResultType.INVALID);
         }
 
-        if (follow.getVendorId().getId() == 0) {
+        if (follow.getVendor().getId() == 0) {
             result.addMessage("Vendor ID cannot be null", ResultType.INVALID);
         }
 

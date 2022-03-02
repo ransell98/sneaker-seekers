@@ -18,7 +18,7 @@ public class FollowMapper implements RowMapper<Follow> {
         int followerId = rs.getInt("follower_id");
         AppUser followerUser = new AppUser();
         followerUser.setId(followerId);
-        follow.setFollowerId(followerUser);
+        follow.setFollower(followerUser);
 
         int vendorId = rs.getInt("vendor_id");
         AppUser vendorUser = new AppUser();
@@ -29,7 +29,7 @@ public class FollowMapper implements RowMapper<Follow> {
         vendorUser.setLastName(rs.getString("last_name"));
         vendorUser.setEmail(rs.getString("email"));
 
-        follow.setVendorId(vendorUser);
+        follow.setVendor(vendorUser);
 
         return follow;
 

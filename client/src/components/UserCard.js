@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Card, Col, Image, Row } from "react-bootstrap";
 
 import "../styles/User.css";
@@ -33,11 +34,15 @@ function UserCard({ appUser }) {
                     </Col>
                     <Col>
                         <Card.Title>
-                            {appUser.username}
+                            <Link to={`/users/${appUser.username}`}>
+                                {appUser.firstName && appUser.lastName
+                                ? `${appUser.firstName} ${appUser.lastName}`
+                                : appUser.username}
+                            </Link>
                         </Card.Title>
-                        {appUser.firstName || appUser.lastName
+                        {appUser.firstName && appUser.lastName
                         ? <Card.Text>
-                            Full Name: {appUser.firstName} {appUser.lastName}
+                            username: {appUser.username}
                         </Card.Text>
                         : <></>}
                         {appUser.email
