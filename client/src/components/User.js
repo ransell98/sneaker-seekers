@@ -58,6 +58,7 @@ function User() {
     function fetchUser() {
         getUserByUsername(username)
         .then((result) => {
+            console.log(result);
             setAppUser(result);
         })
         .catch((error) => {

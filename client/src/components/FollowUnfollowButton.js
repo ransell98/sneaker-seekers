@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,7 +7,12 @@ import { faBookmark, faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 import "../styles/FollowFavoriteButton.css";
 
+import AuthContext from "../contexts/AuthContext";
+import { addFollow as fetchAddFollow } from "../services/follow-api";
+
 function FollowUnfollowButton({ appUser }) {
+    const authContext = useContext(AuthContext);
+
     const [ isLoading, setIsLoading ] = useState(false);
     const [ isFollowed, setIsFollowed ] = useState(false);
     const [ isHover, setIsHover ] = useState(false);
@@ -30,16 +35,17 @@ function FollowUnfollowButton({ appUser }) {
     }
 
     function addFollow() {
-        console.log("addFollow()");
-        return new Promise(() => {
-            delay(1000)
-            .then(() => {
-                setIsFollowed(true);
-            })
-            .then(() => {
-                setIsLoading(false);
-            })
-        });
+        console.log(appUser);
+        fetchAddFollow(appUser)
+        .then((result) => {
+            console.log(result);
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+        .finally(() => {
+            setIsLoading(false);
+        })
     }
 
     function removeFollow() {
@@ -63,54 +69,58 @@ function FollowUnfollowButton({ appUser }) {
     }
 
     return (
-        <Button
-            disabled={isLoading}
-            className="follow-unfollow-button"
-            onClick={handleClick}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-            size="sm"
-        >
-            <Row>
-                <Col xs={8}>
-                    {
-                        isLoading
-                        ? "Loading"
-                        : (
-                            isFollowed
-                            ? (
-                                isHover
-                                ? "Unfollow"
-                                : "Followed"
-                            )
-                            : "Follow"
-                        )
-                    }
-                </Col>
-                <Col xs={2}>
-                    <FontAwesomeIcon
-                        icon={
+        <>
+            {authContext.credentials
+            ? <Button
+                disabled={isLoading}
+                className="follow-unfollow-button"
+                onClick={handleClick}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+                size="sm"
+            >
+                <Row>
+                    <Col xs={8}>
+                        {
                             isLoading
-                            ? faSpinner
+                            ? "Loading"
                             : (
                                 isFollowed
                                 ? (
                                     isHover
-                                    ? faBookmarkOutline
-                                    : faBookmark
+                                    ? "Unfollow"
+                                    : "Followed"
                                 )
-                                : (
-                                    isHover
-                                    ? faBookmark
-                                    : faBookmarkOutline
-                                )
+                                : "Follow"
                             )
                         }
-                        pulse={isLoading}
-                    />
-                </Col>
-            </Row>
-        </Button>
+                    </Col>
+                    <Col xs={2}>
+                        <FontAwesomeIcon
+                            icon={
+                                isLoading
+                                ? faSpinner
+                                : (
+                                    isFollowed
+                                    ? (
+                                        isHover
+                                        ? faBookmarkOutline
+                                        : faBookmark
+                                    )
+                                    : (
+                                        isHover
+                                        ? faBookmark
+                                        : faBookmarkOutline
+                                    )
+                                )
+                            }
+                            pulse={isLoading}
+                        />
+                    </Col>
+                </Row>
+            </Button>
+            : <></>}
+        </>
     );
 }
 

@@ -13,3 +13,18 @@ export async function getAllFollowsByUserId() {
     }
     return Promise.reject({ status: response.status });
 }
+export async function addFollow(user) {
+    console.log(localStorage.getItem("BG_TOKEN"));
+    const init = {
+        method: "POST",
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem("BG_TOKEN")}`
+        },
+        body: JSON.stringify(user)
+    };
+    const response = await fetch(baseUrl, init);
+    if (response.status === 201) {
+        return Promise.resolve();
+    }
+    return Promise.reject({ status: response.status });
+}

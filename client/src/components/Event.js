@@ -158,9 +158,11 @@ function Event() {
     function fetchEvent() {
         getOneEvent(eventId)
         .then((result) => {
+            console.log(result);
             const newEvent = result;
             newEvent.eventDate = new Date(newEvent.eventDate);
             result = newEvent;
+            console.log(newEvent);
             setThisEvent(result);
         })
         .catch((error) => {
