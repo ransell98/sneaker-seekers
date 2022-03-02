@@ -5,6 +5,7 @@ import { Image } from "react-bootstrap";
 import "../styles/User.css";
 
 import PreviousPageContext from "../contexts/PreviousPageContext";
+import { getUserByUsername } from "../services/user-api";
 
 import Page from "./Page";
 import Loading from "./Loading";
@@ -41,41 +42,29 @@ export const USERS = [
 ]
 
 function User() {
-    const { id: appUserId } = useParams();
+    const { username: username } = useParams();
     const previousPageContext = useContext(PreviousPageContext);
 
     const [ appUser, setAppUser ] = useState();
 
     const [ isLoading, setIsLoading ] = useState(true);
+    const [ errorMessage, setErrorMessage ] = useState("");
 
     useEffect(() => {
-        previousPageContext.setPreviousPage(`/users/${appUserId}`);
+        previousPageContext.setPreviousPage(`/users/${username}`);
         fetchUser();
     }, []);
 
     function fetchUser() {
-        return new Promise(() => {
-            delay(2000)
-            .then(() => {
-                let thisUser = null;
-                for (let i = 0; i < USERS.length; i++) {
-                    if (USERS[i].id == appUserId) {
-                        thisUser = USERS[i];
-                    }
-                }
-                setAppUser(thisUser);
-            })
-            .then(() => {
-                setIsLoading(false);
-            })
-            .catch((error) => console.log);
+        getUserByUsername(username)
+        .then((result) => {
+            setAppUser(result);
         })
-    }
-
-    //testing only
-    function delay(t, v) {
-        return new Promise(function(resolve) {
-            setTimeout(resolve.bind(null, v), t)
+        .catch((error) => {
+            setErrorMessage(error.toString());
+        })
+        .finally(() => {
+            setIsLoading(false);
         });
     }
 
@@ -99,24 +88,26 @@ function User() {
             {isLoading
             ? <Loading className="mt-5"/>
             : <>
-                {appUser
-                ? <>
+                {errorMessage
+                ? <ErrorCard message={errorMessage}/>
+                : <>
                     {renderProfilePicture()}
-                    <h1>{appUser.username}</h1>
-                    <FollowUnfollowButton appUser={appUser}/>
-                    <p/>
-                    {appUser.firstName || appUser.lastName
-                    ? <p>
-                        Full Name: {appUser.firstName} {appUser.lastName}
-                    </p>
+                    {appUser.firstName && appUser.lastName
+                    ? <h1>
+                        {appUser.firstName} {appUser.lastName}
+                    </h1>
                     : <></>}
+                    <h3>
+                        username: {appUser.username}
+                    </h3>
+                    <p/>
                     {appUser.email
                     ? <p>
                         Email: {appUser.email}
                     </p>
                     : <></>}
-                </>
-                : <ErrorCard message="User not found."/>}
+                    <FollowUnfollowButton appUser={appUser}/>
+                </>}
             </>}
         </Page>
     );

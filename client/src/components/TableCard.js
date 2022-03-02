@@ -67,11 +67,11 @@ function TableCard({ table }) {
                     <Card.Header className="py-1">
                         <Row>
                             <Col>
-                                <Link to={`/users/${table.appUser.id}`}>
+                                <Link to={`/users/${table.appUser.username}`}>
                                     {renderProfilePicture(table.appUser)}
                                 </Link>
                                 {" "}
-                                <Link to={`/users/${table.appUser.id}`}>
+                                <Link to={`/users/${table.appUser.username}`}>
                                     {
                                         table.appUser.firstName && table.appUser.lastName
                                         ? <>

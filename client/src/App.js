@@ -30,7 +30,7 @@ const ROUTES = [
   "component": <Events/>},
   {"uri": "/search",
   "component": <SearchSneakers/>},
-  {"uri": "/users/:id",
+  {"uri": "/users/:username",
   "component": <User/>},
   {"uri": "/login",
   "component": <Login/>},
