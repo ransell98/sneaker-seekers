@@ -12,6 +12,7 @@ import SiteNavbar from "./components/SiteNavbar";
 import Home from "./components/Home";
 import Events from "./components/Events";
 import Event from "./components/Event";
+import TableForm from "./components/TableForm";
 import SearchSneakers from "./components/SearchSneakers";
 import User from "./components/User";
 import Login from "./components/Login";
@@ -28,6 +29,8 @@ const ROUTES = [
   "component": <Event/>},
   {"uri": "/events",
   "component": <Events/>},
+  {"uri": "/events/:id/booktable",
+  "component": <TableForm/>},
   {"uri": "/search",
   "component": <SearchSneakers/>},
   {"uri": "/users/:username",
