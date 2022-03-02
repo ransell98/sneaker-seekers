@@ -48,11 +48,11 @@ class TableJdbcTemplateRepositoryTest {
 
         Event event = new Event();
         event.setEventId(3);
-        table.setEventId(event);
+        table.setEvent(event);
 
         AppUser appUser = new AppUser();
         appUser.setId(1);
-        table.setAppUserId(appUser);
+        table.setAppUser(appUser);
 
         Table actual = repository.add(table);
         assertNotNull(actual);
@@ -73,11 +73,11 @@ class TableJdbcTemplateRepositoryTest {
 
         Event event = new Event();
         event.setEventId(3);
-        table.setEventId(event);
+        table.setEvent(event);
 
         AppUser appUser = new AppUser();
         appUser.setId(1);
-        table.setAppUserId(appUser);
+        table.setAppUser(appUser);
 
         return table;
     }

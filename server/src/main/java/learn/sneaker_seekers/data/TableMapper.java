@@ -19,7 +19,7 @@ public class TableMapper implements RowMapper<Table> {
         table.setTableNumber(rs.getInt("table_number"));
 
         EventMapper eventMapper = new EventMapper();
-        table.setEventId(eventMapper.mapRow(rs, rowNum));
+        table.setEvent(eventMapper.mapRow(rs, rowNum));
 
         /*
         AppUserMapper appUserMapper = new AppUserMapper();
@@ -34,7 +34,7 @@ public class TableMapper implements RowMapper<Table> {
         user.setFirstName(rs.getString("first_name"));
         user.setLastName(rs.getString("last_name"));
         user.setEmail(rs.getString("email"));
-        table.setAppUserId(user);
+        table.setAppUser(user);
 
         return table;
     }

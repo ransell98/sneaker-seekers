@@ -48,8 +48,8 @@ public class TableJdbcTemplateRepository implements TableRepository {
             statement.setInt(1, table.getTableId());
             statement.setBoolean(2, table.isBooked());
             statement.setInt(3, table.getTableNumber());
-            statement.setInt(4, table.getEventId().getEventId());
-            statement.setInt(5, table.getAppUserId().getId());
+            statement.setInt(4, table.getEvent().getEventId());
+            statement.setInt(5, table.getAppUser().getId());
             return statement;
         }, keyHolder);
 
@@ -78,8 +78,8 @@ public class TableJdbcTemplateRepository implements TableRepository {
                 table.getTableId(),
                 table.isBooked(),
                 table.getTableNumber(),
-                table.getEventId().getEventId(),
-                table.getAppUserId().getId(),
+                table.getEvent().getEventId(),
+                table.getAppUser().getId(),
                 table.getTableId());
 
         return rowsAffected > 0;

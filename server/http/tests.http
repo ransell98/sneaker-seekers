@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbmVha2VyLXNlZWtlcnMiLCJzdWIiOiJ1c2VyIiwiaWQiOjEsImF1dGhvcml0aWVzIjoiVVNFUiIsImV4cCI6MTY0NjE3MTAxOH0.lqUak2yZDDKyN7UVaQOjEJNG2SUGNOr8BnJX60CovuM
-=======
-@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbmVha2VyLXNlZWtlcnMiLCJzdWIiOiJhZG1pbiIsImlkIjozLCJhdXRob3JpdGllcyI6IkFETUlOIiwiZXhwIjoxNjQ2MDcyMTk4fQ.zh1bu1aTz_YFmCgYZUD6aWHzUkZCyDWb6VDNIVxTMoA
->>>>>>> 2a193afc9f66c20cdc4eb4b105c0208f242e27c7
+@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbmVha2VyLXNlZWtlcnMiLCJzdWIiOiJhZG1pbiIsImlkIjozLCJhdXRob3JpdGllcyI6IkFETUlOIiwiZXhwIjoxNjQ2MjM0OTUwfQ.w1TITOj-ON0DCF9LTqKltGPQxz3EkhhARHQ-sUPQRXA
 @host = http://localhost:8080
 
 ### GET USER BY USERNAME (RYAN)
@@ -93,7 +89,7 @@ Authorization: Bearer {{jwt}}
 
 ### GET FAVORITE BY APP USER ID 1
 
-GET {{host}}/sneakerseekers/favorite/1 HTTP/1.1
+GET {{host}}/sneakerseekers/favorite/3 HTTP/1.1
 Authorization: Bearer {{jwt}}
 
 
@@ -104,9 +100,9 @@ Content-Type: application/json
 Authorization: Bearer {{jwt}}
 
 {
-    "styleId": 1
-
-    
+    "style": {
+        "styleId": 1
+    }
 }
 
 ### ADD NON EXISTING FAVORITE
@@ -157,7 +153,7 @@ Authorization: Bearer {{jwt}}
 
 ### GET LISTINGS BY TABLE ID
 
-GET {{host}}/sneakerseekers/listing/1
+GET {{host}}/sneakerseekers/listing/4
 
 ### ADD LISTING
 
@@ -167,11 +163,17 @@ Accept: application/json
 Authorization: Bearer {{jwt}}
 
 {
-    "listingId": 1,
-    "styleId": 1,
+    "style": {
+        "styleId": 1
+    },
     "listingPrice": 200,
+    "listingCondition": {
+        "conditionId": 1
+    },
     "quantity": 1,
-    "tableId": 1
+    "table": {
+        "tableId": 4
+    }
 }
 
 ### DELETE LISTING BY ID
@@ -195,9 +197,9 @@ Accept: application/json
 Authorization: Bearer {{jwt}}
 
 {
-    "locationName": "Minneapolis International Convention Center",
+    "locationName": "Los Angeles International Convention Center",
     "locationAddress": "9000 Convention Center Concourse, College Park, GA 30337",
-    "locationCity": "Minneapolis"
+    "locationCity": "Los Angeles"
 }
 
 ### GET STYLE BY ID
@@ -215,7 +217,7 @@ Authorization: Bearer {{jwt}}
     "externalStyleId": "XX0000",
     "styleName": "Air Jordan 1 Retro High OG Patent Bred",
     "brand": {
-        "brandId": 1,
+        "brandId": 1
     },
     "description": "Featuring a classic mix of hues, the Air Jordan 1 Retro High OG 'Patent Bred' also sports an elevated construction. Built entirely with patent leather, the shoe's upper appears in a familiar mix of black and Varsity Red, with perforations on the toe box offering breathability. Underfoot, a white Air midsole provides cushioning and contrast, giving way to a Varsity Red finish on the concentric rubber outsole, which is included for traction.",
     "releaseYear": "2021-12-30",
@@ -236,11 +238,14 @@ Accept: application/json
 Authorization: Bearer {{jwt}}
 
 {
-    "tableId": 1,
-    "eventId": 1,
-    "appUserId": 1,
+    "event": {
+        "eventId": 3
+    },
     "isBooked": true,
-    "tableNumber": 1
+    "tableNumber": 1,
+    "appUser": {
+        "id": 4
+    }
 }
 
 ### UPDATE TABLE
@@ -252,10 +257,14 @@ Authorization: Bearer {{jwt}}
 
 {
     "tableId": 1,
-    "eventId": 1,
-    "appUserId": 1,
+    "event": {
+        "eventId": 3
+    },
     "isBooked": true,
-    "tableNumber": 2
+    "tableNumber": 25,
+    "appUser": {
+        "id": 4
+    }
 }
 
 ### GET ALL UPGRADE REQUESTS

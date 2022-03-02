@@ -55,7 +55,7 @@ public class TableService {
             result.addErrorMessage("Table cannot be null.");
         }
 
-        if (table.getTableNumber() > repository.getMaxTables(table.getEventId().getEventId())) {
+        if (table.getTableNumber() > repository.getMaxTables(table.getEvent().getEventId())) {
             result.addErrorMessage("Table number cannot be greater than event's max tables.");
         }
 
