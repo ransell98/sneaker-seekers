@@ -8,9 +8,9 @@ import { faBookmark, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import "../styles/FollowFavoriteButton.css";
 
 import AuthContext from "../contexts/AuthContext";
-import { addFollow as fetchAddFollow } from "../services/follow-api";
+import { addFollow as fetchAddFollow, deleteFollow } from "../services/follow-api";
 
-function FollowUnfollowButton({ appUser }) {
+function FollowUnfollowButton({ appUser, follows, setFollows }) {
     const authContext = useContext(AuthContext);
 
     const [ isLoading, setIsLoading ] = useState(false);
@@ -35,29 +35,40 @@ function FollowUnfollowButton({ appUser }) {
     }
 
     function addFollow() {
-        console.log(appUser);
         fetchAddFollow(appUser)
         .then((result) => {
-            console.log(result);
+            setIsFollowed(true);
+            if (follows) {
+                setIsFollowed([...follows, result]);
+            }
         })
         .catch((error) => {
-            console.log(error);
+            console.log(error.toString());
         })
         .finally(() => {
             setIsLoading(false);
-        })
+        });
     }
 
     function removeFollow() {
-        console.log("removeFollow()");
-        return new Promise(() => {
-            delay(1000)
-            .then(() => {
-                setIsFollowed(false);
-            })
-            .then(() => {
-                setIsLoading(false);
-            })
+        deleteFollow(appUser.id)
+        .then (() => {
+            setIsFollowed(false);
+            if (follows) {
+                const newFollows = [];
+                for (let i = 0; i < follows.length; i++) {
+                    if (follows[i].id !== appUser.id) {
+                        newFollows.push(follows[i]);
+                    }
+                }
+                setIsFollowed(newFollows);
+            }
+        })
+        .catch((error) => {
+            console.log(error.toString());
+        })
+        .finally(() => {
+            setIsLoading(false);
         });
     }
     

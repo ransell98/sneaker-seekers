@@ -22,7 +22,7 @@ function Followed() {
         } else {
             redirect();
         }
-    }, [authContext]);
+    }, [authContext, follows]);
 
     function fetchFollowedUsers() {
         getAllFollowsByUserId()
@@ -46,7 +46,12 @@ function Followed() {
             <div className="mb-4">
                 {follows.map((follow) => {
                     return (
-                        <UserCard appUser={follow.vendor} key={follow.vendor.id}/>
+                        <UserCard 
+                            appUser={follow.vendor} 
+                            key={follow.vendor.id}
+                            follows={follows}
+                            setFollows={setFollows}
+                        />
                     );
                 })}
             </div>

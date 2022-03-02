@@ -8,7 +8,7 @@ import FollowUnfollowButton from "./FollowUnfollowButton";
 //testing only
 import { DEFAULT_PROFILE_PICTURE } from "./User";
 
-function UserCard({ appUser }) {
+function UserCard({ appUser, follows, setFollows }) {
 
     function renderProfilePicture() {
         let profilePicture = DEFAULT_PROFILE_PICTURE;
@@ -50,7 +50,11 @@ function UserCard({ appUser }) {
                             Email: {appUser.email}
                         </Card.Text>
                         : <></>}
-                        <FollowUnfollowButton appUser={appUser}/>
+                        <FollowUnfollowButton 
+                            appUser={appUser}
+                            follows={follows}
+                            setFollows={setFollows}
+                        />
                     </Col>
                 </Row>
             </Card.Body>
