@@ -1,4 +1,4 @@
-@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbmVha2VyLXNlZWtlcnMiLCJzdWIiOiJhZG1pbiIsImlkIjozLCJhdXRob3JpdGllcyI6IkFETUlOIiwiZXhwIjoxNjQ2MjM5MjU3fQ.jGmBEIlgtUH5sopgz1TnjTAGgRvDCTu7KOnhu5-YmH8
+@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbmVha2VyLXNlZWtlcnMiLCJzdWIiOiJhZG1pbiIsImlkIjozLCJhdXRob3JpdGllcyI6IkFETUlOIiwiZXhwIjoxNjQ2MjQxOTc3fQ.vC-f8oWrI-lyfPcS8lsjpUwGDCcTCLLlmfxZ2gNRV7Y
 @host = http://localhost:8080
 
 ### GET USER BY USERNAME (RYAN)
@@ -77,7 +77,7 @@ Accept: application/json
 Authorization: Bearer {{jwt}}
 
 {
-    "eventName": "Sneaker Seeker Convention 5",
+    "eventName": "Sneaker Seeker Convention 36",
     "eventDate": "2022-12-25",
     "numTable": 100,
     "eventImage": "https://www.gicc.com/wp-content/uploads/2017/03/home-slider1.png",
@@ -89,7 +89,7 @@ Authorization: Bearer {{jwt}}
 
 ### GET FAVORITE BY APP USER ID 1
 
-GET {{host}}/sneakerseekers/favorite/3 HTTP/1.1
+GET {{host}}/sneakerseekers/favorite HTTP/1.1
 Authorization: Bearer {{jwt}}
 
 
@@ -100,9 +100,7 @@ Content-Type: application/json
 Authorization: Bearer {{jwt}}
 
 {
-    "style": {
-        "styleId": 1
-    }
+    "styleId": 5
 }
 
 ### ADD NON EXISTING FAVORITE
@@ -216,7 +214,7 @@ Authorization: Bearer {{jwt}}
 
 ### GET STYLE BY ID
 
-GET {{host}}/sneakerseekers/style/1
+GET {{host}}/sneakerseekers/style/5
 
 ### ADD STYLE
 
@@ -240,7 +238,7 @@ Authorization: Bearer {{jwt}}
 
 ### GET TABLES BY EVENT ID
 
-GET {{host}}/sneakerseekers/table/3
+GET {{host}}/sneakerseekers/table/2
 
 ### ADD TABLE
 
@@ -251,12 +249,12 @@ Authorization: Bearer {{jwt}}
 
 {
     "event": {
-        "eventId": 3
+        "eventId": 2
     },
     "isBooked": true,
     "tableNumber": 12,
     "appUser": {
-        "id": 4
+        "id": 1
     }
 }
 
@@ -270,12 +268,12 @@ Authorization: Bearer {{jwt}}
 {
     "tableId": 1,
     "event": {
-        "eventId": 3
+        "eventId": 2
     },
     "isBooked": true,
     "tableNumber": 25,
     "appUser": {
-        "id": 4
+        "id": 1
     }
 }
 

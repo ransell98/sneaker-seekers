@@ -4,6 +4,7 @@ import learn.sneaker_seekers.data.DataAccessException;
 import learn.sneaker_seekers.domain.BrandService;
 import learn.sneaker_seekers.domain.FavoriteService;
 import learn.sneaker_seekers.domain.Result;
+import learn.sneaker_seekers.domain.StyleService;
 import learn.sneaker_seekers.models.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +19,12 @@ import java.util.List;
 public class FavoriteController {
     private final FavoriteService service;
     private final BrandService brandService;
+    private final StyleService styleService;
 
-    public FavoriteController(FavoriteService service, BrandService brandService) {
+    public FavoriteController(FavoriteService service, BrandService brandService, StyleService styleService) {
         this.service = service;
         this.brandService = brandService;
+        this.styleService = styleService;
     }
 
     @GetMapping
@@ -38,8 +41,21 @@ public class FavoriteController {
         Favorite favorite = new Favorite();
         favorite.setAppUser(user);
 
-        Brand brand = brandService.findByBrandName(style.getBrand().getBrandName());
-        style.setBrand(brand);
+        if (style.getStyleId() > 0) {
+            Style populatedStyle = styleService.findByStyleId(style.getStyleId());
+            style.setExternalStyleId(populatedStyle.getExternalStyleId());
+            style.setStyleName(populatedStyle.getStyleName());
+            style.setBrand(populatedStyle.getBrand());
+            style.setDescription(populatedStyle.getDescription());
+            style.setReleaseYear(populatedStyle.getReleaseYear());
+            style.setColorway(populatedStyle.getColorway());
+            style.setStyleImage(populatedStyle.getStyleImage());
+        } else {
+            Brand brand = brandService.findByBrandName(style.getBrand().getBrandName());
+            style.setBrand(brand);
+        }
+
+
         favorite.setStyle(style);
 
 
