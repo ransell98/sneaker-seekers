@@ -8,7 +8,7 @@ import { faBookmark, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import "../styles/FollowFavoriteButton.css";
 
 import AuthContext from "../contexts/AuthContext";
-import { addFollow as fetchAddFollow } from "../services/follow-api";
+import { addFollow as fetchAddFollow, deleteFollow } from "../services/follow-api";
 
 function FollowUnfollowButton({ appUser }) {
     const authContext = useContext(AuthContext);
@@ -35,29 +35,28 @@ function FollowUnfollowButton({ appUser }) {
     }
 
     function addFollow() {
-        console.log(appUser);
         fetchAddFollow(appUser)
-        .then((result) => {
-            console.log(result);
+        .then(() => {
+            setIsFollowed(true);
         })
         .catch((error) => {
-            console.log(error);
+            console.log(error.toString());
         })
         .finally(() => {
             setIsLoading(false);
-        })
+        });
     }
 
     function removeFollow() {
-        console.log("removeFollow()");
-        return new Promise(() => {
-            delay(1000)
-            .then(() => {
-                setIsFollowed(false);
-            })
-            .then(() => {
-                setIsLoading(false);
-            })
+        deleteFollow(appUser.id)
+        .then (() => {
+            setIsFollowed(false);
+        })
+        .catch((error) => {
+            console.log(error.toString());
+        })
+        .finally(() => {
+            setIsLoading(false);
         });
     }
     
