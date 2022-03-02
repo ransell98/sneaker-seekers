@@ -19,6 +19,7 @@ export async function createFavorite(style) {
     const init = {
         method: "POST",
         headers: {
+            "Content-Type": "application/json",
             "Authorization": `Bearer ${localStorage.getItem("BG_TOKEN")}`
         },
         body: JSON.stringify(style)
