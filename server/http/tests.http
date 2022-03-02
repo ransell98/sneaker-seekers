@@ -1,4 +1,4 @@
-@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbmVha2VyLXNlZWtlcnMiLCJzdWIiOiJhZG1pbiIsImlkIjozLCJhdXRob3JpdGllcyI6IkFETUlOIiwiZXhwIjoxNjQ2MjM0OTUwfQ.w1TITOj-ON0DCF9LTqKltGPQxz3EkhhARHQ-sUPQRXA
+@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbmVha2VyLXNlZWtlcnMiLCJzdWIiOiJhZG1pbiIsImlkIjozLCJhdXRob3JpdGllcyI6IkFETUlOIiwiZXhwIjoxNjQ2MjM3MDY1fQ.gyRQUYELO_vAKIXUPm5k7NuB5oNDo6qdV9RaxdGCR-c
 @host = http://localhost:8080
 
 ### GET USER BY USERNAME (RYAN)
@@ -131,7 +131,7 @@ Authorization: Bearer {{jwt}}
 
 ### GET FOLLOWS BY FOLLOWER ID 1
 
-GET {{host}}/sneakerseekers/follow/1
+GET {{host}}/sneakerseekers/follow
 Authorization: Bearer {{jwt}}
 
 ### ADD FOLLOW
@@ -142,13 +142,25 @@ Accept: application/json
 Authorization: Bearer {{jwt}}
 
 {
-    "followerId": 1,
-    "vendorId": 1
+      "id": 4,
+      "username": "ryan",
+      "password": null,
+      "profilePicture": null,
+      "firstName": null,
+      "lastName": null,
+      "email": null,
+      "disabled": false,
+      "authorities": [],
+      "enabled": true,
+      "accountNonExpired": true,
+      "accountNonLocked": true,
+      "credentialsNonExpired": true,
+      "authorityNames": []
 }
 
 ### DELETE FOLLOW BY FOLLOWER ID AND VENDOR ID
 
-DELETE {{host}}/sneakerseekers/follow/1/1 HTTP/1.1
+DELETE {{host}}/sneakerseekers/follow/3/4 HTTP/1.1
 Authorization: Bearer {{jwt}}
 
 ### GET LISTINGS BY TABLE ID
@@ -178,7 +190,7 @@ Authorization: Bearer {{jwt}}
 
 ### DELETE LISTING BY ID
 
-DELETE {{host}}/sneakerseekers/listing/1 HTTP/1.1
+DELETE {{host}}/sneakerseekers/listing/3 HTTP/1.1
 Authorization: Bearer {{jwt}}
 
 ### GET ALL LOCATIONS
@@ -228,7 +240,7 @@ Authorization: Bearer {{jwt}}
 
 ### GET TABLES BY EVENT ID
 
-GET {{host}}/sneakerseekers/table/1
+GET {{host}}/sneakerseekers/table/3
 
 ### ADD TABLE
 
@@ -242,7 +254,7 @@ Authorization: Bearer {{jwt}}
         "eventId": 3
     },
     "isBooked": true,
-    "tableNumber": 1,
+    "tableNumber": 12,
     "appUser": {
         "id": 4
     }
@@ -286,5 +298,5 @@ Authorization: Bearer {{jwt}}
 
 ### DELETE UPGRADE REQUEST BY ID
 
-DELETE {{host}}/sneakerseekers/upgraderequest/1 HTTP/1.1
+DELETE {{host}}/sneakerseekers/upgraderequest/3 HTTP/1.1
 Authorization: Bearer {{jwt}}
