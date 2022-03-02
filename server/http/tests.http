@@ -1,4 +1,4 @@
-@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbmVha2VyLXNlZWtlcnMiLCJzdWIiOiJhZG1pbiIsImlkIjozLCJhdXRob3JpdGllcyI6IkFETUlOIiwiZXhwIjoxNjQ2MjQxOTc3fQ.vC-f8oWrI-lyfPcS8lsjpUwGDCcTCLLlmfxZ2gNRV7Y
+@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbmVha2VyLXNlZWtlcnMiLCJzdWIiOiJhZG1pbiIsImlkIjozLCJhdXRob3JpdGllcyI6IkFETUlOIiwiZXhwIjoxNjQ2MjQ5OTg1fQ.38CLmQyPLppH8CCMuMYsTXMe5OPzRER3LhCvALxWrG8
 @host = http://localhost:8080
 
 ### GET USER BY USERNAME (RYAN)
@@ -140,25 +140,12 @@ Accept: application/json
 Authorization: Bearer {{jwt}}
 
 {
-      "id": 4,
-      "username": "ryan",
-      "password": null,
-      "profilePicture": null,
-      "firstName": null,
-      "lastName": null,
-      "email": null,
-      "disabled": false,
-      "authorities": [],
-      "enabled": true,
-      "accountNonExpired": true,
-      "accountNonLocked": true,
-      "credentialsNonExpired": true,
-      "authorityNames": []
+      "id": 3
 }
 
 ### DELETE FOLLOW BY FOLLOWER ID AND VENDOR ID
 
-DELETE {{host}}/sneakerseekers/follow/3/4 HTTP/1.1
+DELETE {{host}}/sneakerseekers/follow/3/3 HTTP/1.1
 Authorization: Bearer {{jwt}}
 
 ### GET LISTINGS BY TABLE ID
