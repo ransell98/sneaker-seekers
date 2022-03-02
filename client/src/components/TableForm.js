@@ -76,7 +76,7 @@ function TableForm() {
             event: {
                 eventId: eventId
             },
-            isBooked: true,
+            booked: true,
             tableNumber: chosenTableNumber,
             appUser: authContext.credentials
         }

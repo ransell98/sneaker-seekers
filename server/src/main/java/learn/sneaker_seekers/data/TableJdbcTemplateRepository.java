@@ -1,6 +1,9 @@
 package learn.sneaker_seekers.data;
 
+import learn.sneaker_seekers.models.Brand;
 import learn.sneaker_seekers.models.Table;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -85,16 +88,6 @@ public class TableJdbcTemplateRepository implements TableRepository {
         return rowsAffected > 0;
 
     }
-/*
-    @Override
-    public int getMaxTables(int eventId) throws DataAccessException {
-        final String sql = "select event_id, event_name, event_date, num_table, event_image, location_id "
-                + "from `event` "
-                + "where event_id = " + eventId + ";";
-
-        return jdbcTemplate.queryForObject(sql, new EventMapper()).getNumTable();
-
-    }*/
 
     @Override
     public int getMaxTables(int eventId) throws DataAccessException {
@@ -106,4 +99,34 @@ public class TableJdbcTemplateRepository implements TableRepository {
 
         return result != null ? result : 0;
     }
+
+    @Override
+    public boolean isTableBooked(int eventId, int tableNumber) throws DataAccessException {
+        final String sql = "select is_booked "
+                + "from vendor_table "
+                + "where event_id = " + eventId + " and table_number = " + tableNumber + ";";
+
+        try {
+            Boolean result = jdbcTemplate.queryForObject(sql, Boolean.class);
+            return result;
+        } catch (IncorrectResultSizeDataAccessException e){
+            return false;
+        }
+    }
+
+    @Override
+    public boolean doesUserAlreadyHaveTable(int eventId, int appUserId) throws DataAccessException {
+        final String sql = "select is_booked "
+                + "from vendor_table "
+                + "where event_id = " + eventId + " and app_user_id = " + appUserId + ";";
+
+        try {
+            Boolean result = jdbcTemplate.queryForObject(sql, Boolean.class);
+            return result;
+        } catch (IncorrectResultSizeDataAccessException e){
+            return false;
+        }
+    }
+
+
 }
