@@ -36,12 +36,12 @@ public class FavoriteController {
     @PostMapping
     public ResponseEntity<Object> add(@RequestBody Style style, @AuthenticationPrincipal AppUser user) throws DataAccessException {
         Favorite favorite = new Favorite();
-        favorite.setStyle(style);
         favorite.setAppUser(user);
 
         Brand brand = brandService.findByBrandName(style.getBrand().getBrandName());
+        style.setBrand(brand);
+        favorite.setStyle(style);
 
-        favorite.getStyle().setBrand(brand);
 
         Result<Favorite> result = service.add(favorite);
         if (result.isSuccess()) {

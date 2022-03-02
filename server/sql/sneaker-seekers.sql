@@ -70,7 +70,7 @@ create table brand (
 
 create table style (
 	style_id int primary key auto_increment, 
-	external_style_id varchar(500) null unique, 
+	external_style_id varchar(500) null, 
     style_name varchar(100) not null, 
     `description` varchar(3600) not null,
     release_year date not null, 
