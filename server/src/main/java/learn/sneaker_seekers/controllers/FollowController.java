@@ -43,8 +43,9 @@ public class FollowController {
         return ErrorResponse.build(result);
     }
 
-    @DeleteMapping("/{followerId}/{vendorId}")
-    public ResponseEntity<Void> deleteByFollowerIdAndVendorId(@PathVariable int followerId, @PathVariable int vendorId) throws DataAccessException {
+    @DeleteMapping("/{vendorId}")
+    public ResponseEntity<Void> deleteByVendorId(@PathVariable int vendorId, @AuthenticationPrincipal AppUser follower) throws DataAccessException {
+        int followerId = follower.getId();
         boolean success = service.deleteByFollowerIdAndVendorId(followerId, vendorId);
         if (success) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
