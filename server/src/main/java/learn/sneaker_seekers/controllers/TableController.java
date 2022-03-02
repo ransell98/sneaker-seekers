@@ -3,9 +3,11 @@ package learn.sneaker_seekers.controllers;
 import learn.sneaker_seekers.data.DataAccessException;
 import learn.sneaker_seekers.domain.Result;
 import learn.sneaker_seekers.domain.TableService;
+import learn.sneaker_seekers.models.AppUser;
 import learn.sneaker_seekers.models.Table;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,7 +30,8 @@ public class TableController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> add(@RequestBody Table table) throws DataAccessException {
+    public ResponseEntity<Object> add(@RequestBody Table table, @AuthenticationPrincipal AppUser appUser) throws DataAccessException {
+        table.setAppUser(appUser);
         Result<Table> result = service.add(table);
         if (result.isSuccess()) {
             return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
