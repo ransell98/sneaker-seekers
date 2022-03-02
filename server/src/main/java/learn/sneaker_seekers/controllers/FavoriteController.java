@@ -36,6 +36,21 @@ public class FavoriteController {
         return ResponseEntity.ok(favorites);
     }
 
+    @GetMapping("/{externalStyleId}")
+    public ResponseEntity<Void> findIfExisting(@PathVariable String externalStyleId, @AuthenticationPrincipal AppUser user) {
+        List<Favorite> favorites = service.findByAppUserId(user.getId());
+        Boolean isAlreadyAFavorite = false;
+        for (Favorite favorite : favorites) {
+            if (favorite.getStyle().getExternalStyleId() == externalStyleId) {
+                isAlreadyAFavorite = true;
+            }
+        }
+        if (!isAlreadyAFavorite) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
     @PostMapping
     public ResponseEntity<Object> add(@RequestBody Style style, @AuthenticationPrincipal AppUser user) throws DataAccessException {
         Favorite favorite = new Favorite();

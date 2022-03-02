@@ -30,6 +30,21 @@ public class FollowController {
         return ResponseEntity.ok(follows);
     }
 
+    @GetMapping("/{vendorId}")
+    public ResponseEntity<Void> findIfExisting(@PathVariable int vendorId, @AuthenticationPrincipal AppUser follower) {
+        List<Follow> follows = service.findByFollowerId(follower.getId());
+        Boolean isAlreadyFollowed = false;
+        for (Follow follow : follows) {
+            if (follow.getVendor().getId() == vendorId) {
+                isAlreadyFollowed = true;
+            }
+        }
+        if (!isAlreadyFollowed) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
     @PostMapping
     public ResponseEntity<Object> add(@RequestBody AppUser vendor, @AuthenticationPrincipal AppUser follower) throws DataAccessException {
         Follow follow = new Follow();
