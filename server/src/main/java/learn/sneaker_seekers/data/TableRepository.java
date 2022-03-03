@@ -14,4 +14,8 @@ public interface TableRepository {
 
     int getMaxTables(int eventId) throws DataAccessException;
 
+    boolean isTableBooked(int eventId, int tableNumber) throws DataAccessException;
+
+    boolean doesUserAlreadyHaveTable(int eventId, int appUserId) throws DataAccessException;
+
 }

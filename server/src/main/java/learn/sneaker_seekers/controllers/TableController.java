@@ -30,8 +30,8 @@ public class TableController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> add(@RequestBody Table table, @AuthenticationPrincipal AppUser appUser) throws DataAccessException {
-        table.setAppUser(appUser);
+    public ResponseEntity<Object> add(@RequestBody Table table, @AuthenticationPrincipal AppUser user) throws DataAccessException {
+        table.setAppUser(user);
         Result<Table> result = service.add(table);
         if (result.isSuccess()) {
             return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);

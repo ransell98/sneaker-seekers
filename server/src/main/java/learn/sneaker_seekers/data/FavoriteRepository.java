@@ -10,9 +10,11 @@ public interface FavoriteRepository {
 
     List<Favorite> findByAppUserId(int appUserId);
 
+    Favorite findByAppUserIdAndStyleId(int appUserId, int styleId) throws DataAccessException;
+
     Favorite add(Favorite favorite) throws DataAccessException;
 
-    boolean deleteByFavoriteId(int favoriteId) throws DataAccessException;
+    boolean delete(Favorite favorite) throws DataAccessException;
 
     boolean isStyleAdded(String styleId) throws DataAccessException;
 

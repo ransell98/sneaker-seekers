@@ -36,6 +36,21 @@ public class FavoriteController {
         return ResponseEntity.ok(favorites);
     }
 
+    @GetMapping("/{externalStyleId}")
+    public ResponseEntity<Void> findIfExisting(@PathVariable String externalStyleId, @AuthenticationPrincipal AppUser user) {
+        List<Favorite> favorites = service.findByAppUserId(user.getId());
+        Boolean isAlreadyAFavorite = false;
+        for (Favorite favorite : favorites) {
+            if (favorite.getStyle().getExternalStyleId() == externalStyleId) {
+                isAlreadyAFavorite = true;
+            }
+        }
+        if (!isAlreadyAFavorite) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
     @PostMapping
     public ResponseEntity<Object> add(@RequestBody Style style, @AuthenticationPrincipal AppUser user) throws DataAccessException {
         Favorite favorite = new Favorite();
@@ -65,26 +80,22 @@ public class FavoriteController {
         }
         return ErrorResponse.build(result);
     }
-    /*
-    @PostMapping
-    public ResponseEntity<Object> add(@RequestBody Style style, @AuthenticationPrincipal AppUser user) throws DataAccessException {
+
+
+    @DeleteMapping
+    public ResponseEntity<Void> deleteByFavoriteId(@RequestBody Style style, @AuthenticationPrincipal AppUser user) throws DataAccessException {
+        Style populatedStyle = styleService.findByExternalStyleId(style.getExternalStyleId());
+        style = populatedStyle;
+
         Favorite favorite = new Favorite();
-        favorite.setStyle(style);
         favorite.setAppUser(user);
+        favorite.setStyle(style);
+
+        Favorite populatedFavorite = service.findByAppUserIdAndStyleId(favorite.getAppUser().getId(), favorite.getStyle().getStyleId());
+        favorite = populatedFavorite;
 
 
-        Result<Favorite> result = service.add(favorite);
-        if (result.isSuccess()) {
-            return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
-        }
-        return ErrorResponse.build(result);
-    }
-
-     */
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteByFavoriteId(@PathVariable int id) throws DataAccessException {
-        boolean success = service.deleteByFavoriteId(id);
+        boolean success = service.delete(favorite);
         if (success) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
