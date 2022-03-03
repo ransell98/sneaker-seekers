@@ -41,8 +41,10 @@ public class ListingController {
         Result<Brand> brandResult = brandService.add(listing.getStyle().getBrand());
         listing.getStyle().setBrand(brandResult.getPayload());
 
-        Style populatedStyle = styleService.findByExternalStyleId(listing.getStyle().getExternalStyleId());
-        listing.setStyle(populatedStyle);
+        Result<Style> styleResult = styleService.add(listing.getStyle());
+        listing.setStyle(styleResult.getPayload());
+        //Style populatedStyle = styleService.findByExternalStyleId(listing.getStyle().getExternalStyleId());
+        //listing.setStyle(populatedStyle);
 
         Result<Listing> result = service.add(listing);
         if (result.isSuccess()) {

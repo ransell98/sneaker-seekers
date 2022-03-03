@@ -58,13 +58,15 @@ public class StyleService {
             return result;
         }
 
-         */
+
 
         if (style.getReleaseYear() == null) {
             result.addMessage("Release year is required.", ResultType.INVALID);
             return result;
         }
 
+
+         */
         if (style.getBrand().getBrandId() < 0) {
             result.addMessage("Brand is required.", ResultType.INVALID);
         }
