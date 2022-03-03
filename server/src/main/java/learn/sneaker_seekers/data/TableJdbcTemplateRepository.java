@@ -1,5 +1,6 @@
 package learn.sneaker_seekers.data;
 
+import learn.sneaker_seekers.models.AppUser;
 import learn.sneaker_seekers.models.Brand;
 import learn.sneaker_seekers.models.Table;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -20,6 +21,22 @@ public class TableJdbcTemplateRepository implements TableRepository {
 
     public TableJdbcTemplateRepository(JdbcTemplate jdbcTemplate) { this.jdbcTemplate = jdbcTemplate; }
 
+
+    @Override
+    public List<Table> findAllByUser(AppUser appUser) {
+
+        final String sql = "select v.vendor_table_id, v.is_booked, v.table_number, e.event_id, "
+                + "e.event_name, e.event_date, e.num_table, e.event_image, l.location_id, "
+                + "l.location_name, l.location_address, l.location_city, a.app_user_id, "
+                + "a.username, a.profile_picture, a.first_name, a.last_name, a.email "
+                + "from vendor_table v "
+                + "inner join app_user a on v.app_user_id = a.app_user_id "
+                + "inner join `event` e on v.event_id = e.event_id "
+                + "inner join location l on e.location_id = l.location_id "
+                + "where v.app_user_id = " + appUser.getId() + ";";
+
+        return jdbcTemplate.query(sql, new TableMapper());
+    }
 
     @Override
     public List<Table> findByEventId(int eventId) {

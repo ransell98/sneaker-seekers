@@ -1,5 +1,18 @@
 const baseUrl = "http://localhost:8080/sneakerseekers/table";
 
+export async function getTablesByUser() {
+    const init = {
+        method: "GET",
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem("BG_TOKEN")}`
+        }
+    };
+    const response = await fetch(`${baseUrl}`, init);
+    if (response.status === 200) {
+        return response.json();
+    }
+    return Promise.reject("Could not fetch tables.");
+}
 export async function getTablesByEventId(eventId) {
     const init = {
         method: "GET"

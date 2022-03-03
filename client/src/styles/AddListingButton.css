@@ -1,0 +1,9 @@
+.add-listing-button {
+    text-align: start;
+    border-radius: 30px;
+    width: 135px;
+    margin-left: 0px;
+}
+.add-listing-button svg {
+    margin-left: 5px;
+}

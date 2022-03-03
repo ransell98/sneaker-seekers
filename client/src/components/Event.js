@@ -22,8 +22,10 @@ function Event() {
     const previousPageContext = useContext(PreviousPageContext);
 
     const [thisEvent, setThisEvent] = useState();
-    const [isEventLoading, setIsEventLoading] = useState(true);
     const [tables, setTables] = useState([]);
+    const [isAuthUserHasTable, setIsAuthUserHasTable] = useState(false);
+
+    const [isEventLoading, setIsEventLoading] = useState(true);
     const [isTablesLoading, setIsTablesLoading] = useState(true);
     const [errorMessage, setErrorMessage] = useState("");
 
@@ -32,6 +34,16 @@ function Event() {
         fetchEvent();
         fetchTables();
     }, []);
+
+    useEffect(() => {
+        if (authContext.credentials && tables && tables.length > 0) {
+            for (let i = 0; i < tables.length; i++) {
+                if (tables[i].appUser.username === authContext.credentials.username) {
+                    setIsAuthUserHasTable(true);
+                }
+            }
+        }
+    }, [authContext, tables]);
 
     function fetchEvent() {
         getOneEvent(eventId)
@@ -149,6 +161,7 @@ function Event() {
             <>
                 {authContext.credentials
                 && authContext.credentials.hasAuthority("VENDOR")
+                && !isAuthUserHasTable
                 ? <LinkContainer to={`/events/${thisEvent.eventId}/booktable`}>
                     <Button
                         className="ms-3"

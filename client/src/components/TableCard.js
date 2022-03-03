@@ -1,7 +1,14 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { Accordion, Card, Col, Image, Row } from "react-bootstrap";
+import { Accordion, Button, Card, Col, Image, Row } from "react-bootstrap";
+/*import { LinkContainer } from "react-router-bootstrap";
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPencil } from '@fortawesome/free-solid-svg-icons';
+*/
 import "../styles/TableCard.css";
+
+import AuthContext from "../contexts/AuthContext";
 
 import SneakerInfo from "./SneakerInfo";
 import FollowUnfollowButton from "./FollowUnfollowButton";
@@ -9,6 +16,7 @@ import FollowUnfollowButton from "./FollowUnfollowButton";
 import { DEFAULT_PROFILE_PICTURE } from "./User";
 
 function TableCard({ table }) {
+    const authContext = useContext(AuthContext);
 
     function renderProfilePicture(appUser) {
         let profilePicture = DEFAULT_PROFILE_PICTURE;
@@ -23,6 +31,33 @@ function TableCard({ table }) {
             />
         );
     }
+
+    /*function renderEditTableButton() {
+        return (
+            <>{authContext.credentials
+                && (authContext.credentials.username == table.appUser.username)
+                ? <LinkContainer to={`/tables/${table.tableId}`}>
+                    <Button
+                        className="edit-table-button"
+                        size="sm"
+                        variant="warning"
+                    >
+                        <Row>
+                            <Col xs={8}>
+                                Edit Table
+                            </Col>
+                            <Col xs={2}>
+                                <FontAwesomeIcon
+                                    icon={faPencil}
+                                />
+                            </Col>
+                        </Row>
+                    </Button>
+                </LinkContainer>
+                : <></>
+            }</>
+        );
+    }*/
     
     function renderListingsAccordion(listings) {
         return (
@@ -84,6 +119,7 @@ function TableCard({ table }) {
                                 </Link>
                                 {" "}
                                 <FollowUnfollowButton appUser={table.appUser}/>
+                                {/*renderEditTableButton()*/}
                             </Col>
                             <Col xs={3} className="text-end pt-2">
                                 Table {table.tableNumber}

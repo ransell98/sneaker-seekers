@@ -151,3 +151,8 @@ insert into app_user_role (app_user_id, app_role_id) values
 	(1, 1),
     (2, 2),
     (3, 3);
+    
+insert into `condition` (condition_id, condition_name) values
+	(1, "New"),
+    (2, "Open Box"),
+    (3, "Used");

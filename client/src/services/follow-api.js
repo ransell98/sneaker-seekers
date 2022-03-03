@@ -43,3 +43,18 @@ export async function deleteFollow(vendorId) {
     }
     return Promise.reject("Error while deleting follow.");
 }
+export async function findIfExisting(vendorId) {
+    const init = {
+        method: "GET",
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem("BG_TOKEN")}`
+        }
+    }
+    const response = await fetch(`${baseUrl}/${vendorId}`, init);
+    if (response.status === 200) {
+        return Promise.resolve(true);
+    } else if (response.status === 204) {
+        return Promise.resolve(false);
+    }
+    return Promise.reject("Could not complete findIfExisting fetch.");
+}
