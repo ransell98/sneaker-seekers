@@ -5,8 +5,9 @@ import './styles/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import AuthContext from "./contexts/AuthContext";
-import { logout, refresh } from "./services/auth-api";
 import PreviousPageContext from "./contexts/PreviousPageContext";
+import SelectedStyleContext from "./contexts/SelectedStyleContext";
+import { logout, refresh } from "./services/auth-api";
 
 import SiteNavbar from "./components/SiteNavbar";
 import Home from "./components/Home";
@@ -19,6 +20,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Favorites from "./components/Favorites";
 import Followed from "./components/Followed";
+import AddListing from "./components/AddListing";
 import UpgradeRequests from "./components/UpgradeRequests";
 import AccountSettings from "./components/AccountSettings";
 import DeleteAccount from "./components/DeleteAccount";
@@ -44,6 +46,8 @@ const ROUTES = [
   "component": <Favorites/>},
   {"uri": "/followed",
   "component": <Followed/>},
+  {"uri": "/addlisting",
+  "component": <AddListing/>},
   {"uri": "/upgraderequests",
   "component": <UpgradeRequests/>},
   {"uri": "/account",
@@ -57,6 +61,7 @@ const ROUTES = [
 function App() {
   const [credentials, setCredentials] = useState();
   const [previousPage, setPreviousPage] = useState("/");
+  const [selectedStyle, setSelectedStyle] = useState();
 
   useEffect(() => {
     refresh()
@@ -76,27 +81,34 @@ function App() {
     previousPage: previousPage,
     setPreviousPage: (page) => setPreviousPage(page)
   }
+  
+  const selStyle = {
+    selectedStyle: selectedStyle,
+    setSelectedStyle: (style) => setSelectedStyle(style)
+  }
 
   return (
     <div className="App">
       <AuthContext.Provider value={auth}>
         <PreviousPageContext.Provider value={prevPage}>
-          <BrowserRouter>
-            <SiteNavbar/>
-            <Routes>
-              {
-                ROUTES.map((page) => {
-                  return (
-                    <Route
-                      path={page.uri} 
-                      element={page.component}
-                      key={page.uri}
-                    />
-                  );
-                })
-              }
-            </Routes>
-          </BrowserRouter>
+          <SelectedStyleContext.Provider value={selStyle}>
+            <BrowserRouter>
+              <SiteNavbar/>
+              <Routes>
+                {
+                  ROUTES.map((page) => {
+                    return (
+                      <Route
+                        path={page.uri} 
+                        element={page.component}
+                        key={page.uri}
+                      />
+                    );
+                  })
+                }
+              </Routes>
+            </BrowserRouter>
+          </SelectedStyleContext.Provider>
         </PreviousPageContext.Provider>
       </AuthContext.Provider>
     </div>

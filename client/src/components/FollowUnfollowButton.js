@@ -81,17 +81,11 @@ function FollowUnfollowButton({ appUser, follows, setFollows }) {
             setIsLoading(false);
         });
     }
-    
-    //testing only
-    function delay(t, v) {
-        return new Promise(function(resolve) {
-            setTimeout(resolve.bind(null, v), t)
-        });
-    }
 
     return (
         <>
             {authContext.credentials
+            && authContext.credentials.username !== appUser.username
             ? <Button
                 disabled={isLoading}
                 className="follow-unfollow-button"

@@ -3,6 +3,7 @@ package learn.sneaker_seekers.domain;
 import learn.sneaker_seekers.data.DataAccessException;
 import learn.sneaker_seekers.data.EventRepository;
 import learn.sneaker_seekers.data.TableRepository;
+import learn.sneaker_seekers.models.AppUser;
 import learn.sneaker_seekers.models.Event;
 import learn.sneaker_seekers.models.Table;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,10 @@ public class TableService {
     private final TableRepository repository;
 
     public TableService(TableRepository repository) { this.repository = repository; }
+
+    public List<Table> findAllByUser(AppUser appUser) {
+        return repository.findAllByUser(appUser);
+    }
 
     public List<Table> findByEventId(int eventId) { return repository.findByEventId(eventId); }
 

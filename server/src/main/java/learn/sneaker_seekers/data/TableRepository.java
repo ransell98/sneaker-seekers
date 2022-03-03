@@ -1,10 +1,13 @@
 package learn.sneaker_seekers.data;
 
+import learn.sneaker_seekers.models.AppUser;
 import learn.sneaker_seekers.models.Table;
 
 import java.util.List;
 
 public interface TableRepository {
+
+    List<Table> findAllByUser(AppUser appUser);
 
     List<Table> findByEventId(int eventId);
 

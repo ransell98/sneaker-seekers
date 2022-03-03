@@ -1,3 +1,8 @@
 .table-card {
     margin: 2em 0em;
 }
+.edit-table-button {
+    text-align: start;
+    border-radius: 30px;
+    width: 130px;
+}

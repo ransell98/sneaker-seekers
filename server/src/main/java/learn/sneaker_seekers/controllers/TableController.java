@@ -20,6 +20,15 @@ public class TableController {
 
     public TableController(TableService service) { this.service = service; }
 
+    @GetMapping()
+    public ResponseEntity<List<Table>> findAllByUser(@AuthenticationPrincipal AppUser appUser) throws DataAccessException {
+        List<Table> tables = service.findAllByUser(appUser);
+        if (tables == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(tables);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<List<Table>> findByEventId(@PathVariable int id) throws DataAccessException {
         List<Table> tables = service.findByEventId(id);
