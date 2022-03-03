@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
-import { Button, Card } from "react-bootstrap";
+import { Button, Card, Col, Row } from "react-bootstrap";
 
 import AuthContext from "../contexts/AuthContext";
 import { getAllUpgradeRequests } from "../services/upgrade-request-api";
@@ -42,6 +42,14 @@ function UpgradeRequests() {
         navigate("/login");
     }
 
+    function handleRejectRequest(request) {
+
+    }
+
+    function handleAcceptRequest(request) {
+
+    }
+
     function renderRequestCard(request) {
         return (
             <Card
@@ -56,7 +64,24 @@ function UpgradeRequests() {
                     </Link>
                 </Card.Header>
                 <Card.Body>
-
+                    <Row>
+                        <Col className="text-end me-5">
+                            <Button
+                                onClick={handleRejectRequest}
+                                variant="warning"
+                            >
+                                Reject Request
+                            </Button>
+                        </Col>
+                        <Col className="text-start ms-5">
+                            <Button
+                                onClick={handleAcceptRequest}
+                                variant="primary"
+                            >
+                                Accept Request
+                            </Button>
+                        </Col>
+                    </Row>
                 </Card.Body>
             </Card>
         );
