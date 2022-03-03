@@ -3,7 +3,7 @@ import { Button, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBookmark, faCalendar, faGear, faHeart, faHouse, faLock, faMagnifyingGlass, faRightFromBracket, faUser, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { faBookmark, faCalendar, faCircleArrowUp, faGear, faHeart, faHouse, faLock, faMagnifyingGlass, faRightFromBracket, faUser, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 
 import '../styles/Navbar.css';  
 
@@ -87,6 +87,19 @@ function SiteNavbar() {
                                         Followed Vendors
                                     </NavDropdown.Item>
                                 </LinkContainer>
+                                {
+                                    authContext.credentials.hasAuthority("ADMIN")
+                                    ? <>
+                                        <NavDropdown.Divider/>
+                                        <LinkContainer to="/upgraderequests" onClick={() => setExpanded(false)}>
+                                            <NavDropdown.Item>
+                                                <FontAwesomeIcon icon={faCircleArrowUp}/>
+                                                Upgrade Requests
+                                            </NavDropdown.Item>
+                                        </LinkContainer>
+                                    </>
+                                    : <></>
+                                }
                                 <NavDropdown.Divider/>
                                 <LinkContainer to="/account" onClick={() => setExpanded(false)}>
                                     <NavDropdown.Item>

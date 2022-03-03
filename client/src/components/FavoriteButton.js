@@ -8,7 +8,7 @@ import { faHeart, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import "../styles/FollowFavoriteButton.css";
 
 import AuthContext from "../contexts/AuthContext";
-import { createFavorite } from "../services/favorite-api";
+import { createFavorite, deleteFavorite } from "../services/favorite-api";
 
 function FavoriteButton({ style }) {
     const authContext = useContext(AuthContext);
@@ -46,25 +46,16 @@ function FavoriteButton({ style }) {
     }
 
     function removeFavorite() {
-        console.log("removeFavorite()");
-/*        return new Promise(() => {
-            delay(1000)
-            .then(() => {
-                setIsFavorite(false);
-            })
-            .then(() => {
-                setIsLoading(false);
-            })
-        });*/
+        deleteFavorite(style)
+        .then(() => {
+            setIsFavorite(false);
+        })
+        .catch(() => {
+
+        })
+        .finally(setIsLoading(false));
     }
     
-/*    //testing only
-    function delay(t, v) {
-        return new Promise(function(resolve) {
-            setTimeout(resolve.bind(null, v), t)
-        });
-    }
-*/
     return (
         <>
             {authContext.credentials

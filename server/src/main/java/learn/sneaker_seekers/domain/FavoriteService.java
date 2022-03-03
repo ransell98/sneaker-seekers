@@ -25,6 +25,10 @@ public class FavoriteService {
         return repository.findByAppUserId(appUserId);
     }
 
+    public Favorite findByAppUserIdAndStyleId(int appUserId, int styleId) throws DataAccessException {
+        return repository.findByAppUserIdAndStyleId(appUserId, styleId);
+    }
+
     public Result add(Favorite favorite) throws DataAccessException {
         Result result = validate(favorite);
         if (!result.isSuccess()) {
@@ -57,12 +61,12 @@ public class FavoriteService {
         return result;
     }
 
-    public boolean deleteByFavoriteId(int favoriteId) throws DataAccessException {
-        if (favoriteId <= 0){
+    public boolean delete(Favorite favorite) throws DataAccessException {
+        if (favorite.getFavoriteId() <= 0){
             return false;
         }
 
-        return repository.deleteByFavoriteId(favoriteId);
+        return repository.delete(favorite);
     }
 
     private Result<Favorite> validate(Favorite favorite){

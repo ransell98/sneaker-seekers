@@ -23,7 +23,7 @@ public class UpgradeRequestMapper implements RowMapper<UpgradeRequest> {
         appUser.setEmail(rs.getString("email"));
 
 
-        upgradeRequest.setAppUserId(appUser);
+        upgradeRequest.setAppUser(appUser);
         /*
         AppUserMapper appUserMapper = new AppUserMapper();
         upgradeRequest.setAppUserId(appUserMapper.mapRow(rs, rowNum));

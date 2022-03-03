@@ -65,7 +65,7 @@ class UpgradeRequestServiceTest {
 
         AppUser appUser = new AppUser();
         appUser.setId(2);
-        upgradeRequest.setAppUserId(appUser);
+        upgradeRequest.setAppUser(appUser);
 
         return upgradeRequest;
     }

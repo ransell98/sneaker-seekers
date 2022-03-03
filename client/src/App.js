@@ -19,6 +19,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Favorites from "./components/Favorites";
 import Followed from "./components/Followed";
+import UpgradeRequests from "./components/UpgradeRequests";
 import AccountSettings from "./components/AccountSettings";
 import DeleteAccount from "./components/DeleteAccount";
 
@@ -43,6 +44,8 @@ const ROUTES = [
   "component": <Favorites/>},
   {"uri": "/followed",
   "component": <Followed/>},
+  {"uri": "/upgraderequests",
+  "component": <UpgradeRequests/>},
   {"uri": "/account",
   "component": <AccountSettings/>},
   {"uri": "/account/delete",

@@ -2,13 +2,13 @@ package learn.sneaker_seekers.models;
 
 public class UpgradeRequest {
     private int upgradeRequestId;
-    private AppUser appUserId;
+    private AppUser appUser;
 
     public UpgradeRequest(){}
 
-    public UpgradeRequest(int upgradeRequestId, AppUser appUserId){
+    public UpgradeRequest(int upgradeRequestId, AppUser appUser){
         this.upgradeRequestId = upgradeRequestId;
-        this.appUserId = appUserId;
+        this.appUser = appUser;
     }
 
     public int getUpgradeRequestId() {
@@ -19,11 +19,11 @@ public class UpgradeRequest {
         this.upgradeRequestId = upgradeRequestId;
     }
 
-    public AppUser getAppUserId() {
-        return appUserId;
+    public AppUser getAppUser() {
+        return appUser;
     }
 
-    public void setAppUserId(AppUser appUserId) {
-        this.appUserId = appUserId;
+    public void setAppUser(AppUser appUser) {
+        this.appUser = appUser;
     }
 }

@@ -29,7 +29,7 @@ public class UpgradeRequestController {
     @PostMapping
     public ResponseEntity<Object> add(@AuthenticationPrincipal AppUser user) throws DataAccessException {
         UpgradeRequest upgradeRequest = new UpgradeRequest();
-        upgradeRequest.setAppUserId(user);
+        upgradeRequest.setAppUser(user);
         Result<UpgradeRequest> result = service.add(upgradeRequest);
         if (result.isSuccess()) {
             return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);

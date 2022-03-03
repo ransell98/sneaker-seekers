@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbmVha2VyLXNlZWtlcnMiLCJzdWIiOiJhZG1pbiIsImlkIjozLCJhdXRob3JpdGllcyI6IkFETUlOIiwiZXhwIjoxNjQ2MjU5MTQzfQ.7u7K3KLGWpP_75Gbu-0mYN3iwna3QDDDFxwsW1OZqHM
-=======
-@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbmVha2VyLXNlZWtlcnMiLCJzdWIiOiJhZG1pbiIsImlkIjozLCJhdXRob3JpdGllcyI6IkFETUlOIiwiZXhwIjoxNjQ2MjU2NjkyfQ.C18MB017ChjYMbuUCK8JUicJFK2HXJ6wFb-DADih_n0
->>>>>>> 844f89a2b5255bc2c5290776487dcb80d3aace82
+@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbmVha2VyLXNlZWtlcnMiLCJzdWIiOiJhZG1pbiIsImlkIjozLCJhdXRob3JpdGllcyI6IkFETUlOIiwiZXhwIjoxNjQ2MjYyNjEzfQ.nw8Gk8jZr3zJwoeE11qgWgeB6wogFCcGdazGCRGZnVQ
 @host = http://localhost:8080
 
 ### GET USER BY USERNAME (RYAN)
@@ -91,7 +87,7 @@ Authorization: Bearer {{jwt}}
 
 }
 
-### GET FAVORITE BY APP USER ID 1
+### GET FAVORITES FOR LOGGED IN USER
 
 GET {{host}}/sneakerseekers/favorite HTTP/1.1
 Authorization: Bearer {{jwt}}
@@ -126,10 +122,23 @@ Authorization: Bearer {{jwt}}
 }
 
 
-### DELETE FAVORITE BY ID
+### DELETE FAVORITE
 
-DELETE {{host}}/sneakerseekers/favorite/1 HTTP/1.1
+DELETE {{host}}/sneakerseekers/favorite HTTP/1.1
+Content-Type: application/json
 Authorization: Bearer {{jwt}}
+
+{
+	"externalStyleId":"443d1c8c-f2a8-482c-b6e2-52891c48daa5",
+	"styleName":"Jordan 11 Retro Cool Grey (2021)",
+	"description":"Since its debut in 2001, the Air Jordan 11 Cool Grey has become one of the most celebrated colorways in the Jordan 11 catalog.\n<br>\n<br>\nThe Air Jordan 11 Cool Grey (2021) features a Cool Grey Durabuck upper with patent leather overlays and a signature Jumpman embroidery on the collar. From there, a white midsole and an icy blue translucent outsole complete the design.\n<br>\n<br>\nThe Air Jordan 11 Cool Grey (2021) released in December of 2021 and retails for $225.",
+	"brand":{
+		"brandName":"Nike"
+	},
+	"releaseYear":"2021-12-11",
+	"styleImage":"https://images.stockx.com/images/Air-Jordan-11-Retro-Cool-Gr…=format,compress&trim=color&q=90&dpr=2&updated_at=1631898423",
+	"colorway":"Medium Grey/Multi-Color/Multi-Color"
+}
 
 ### GET FOLLOWS BY FOLLOWER ID 1
 

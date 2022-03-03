@@ -40,7 +40,7 @@ public class UpgradeRequestJdbcTemplateRepository implements UpgradeRequestRepos
         int rowsAffected = jdbcTemplate.update(conn -> {
             PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, upgradeRequest.getUpgradeRequestId());
-            statement.setInt(2, upgradeRequest.getAppUserId().getId());
+            statement.setInt(2, upgradeRequest.getAppUser().getId());
             return statement;
         }, keyHolder);
 
