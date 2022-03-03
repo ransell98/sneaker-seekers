@@ -66,8 +66,21 @@ public class FavoriteController {
             style.setColorway(populatedStyle.getColorway());
             style.setStyleImage(populatedStyle.getStyleImage());
         } else {
+            Result<Brand> result = brandService.add(style.getBrand());
+            style.setBrand(result.getPayload());
+            /*
             Brand brand = brandService.findByBrandName(style.getBrand().getBrandName());
-            style.setBrand(brand);
+
+            if (brand.getBrandId() > 0){
+                style.setBrand(brand);
+            } else {
+                Result<Brand> result = brandService.add(brand);
+                Brand createdBrand = result.getPayload();
+                style.setBrand(createdBrand);
+            }
+
+             */
+
         }
 
 

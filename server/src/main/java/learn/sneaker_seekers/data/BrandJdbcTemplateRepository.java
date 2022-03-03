@@ -45,6 +45,10 @@ public class BrandJdbcTemplateRepository implements BrandRepository{
     @Override
     public Brand add(Brand brand) throws DataAccessException {
 
+        if (findByBrandName(brand.getBrandName()) != null){
+            return findByBrandName(brand.getBrandName());
+        }
+
         final String sql = "insert into brand"
                 + "(brand_id, brand_name) "
                 + "values (?, ?);";
