@@ -6,6 +6,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 
+import AuthContext from "../contexts/AuthContext";
 import PreviousPageContext from "../contexts/PreviousPageContext";
 import { getOneEvent } from "../services/event-api";
 import { getTablesByEventId } from "../services/table-api";
@@ -17,6 +18,7 @@ import TableCard from "./TableCard";
 
 function Event() {
     const { id: eventId } = useParams();
+    const authContext = useContext(AuthContext);
     const previousPageContext = useContext(PreviousPageContext);
 
     const [thisEvent, setThisEvent] = useState();
@@ -144,19 +146,24 @@ function Event() {
 
     function renderBookTableButton() {
         return (
-            <LinkContainer to={`/events/${thisEvent.eventId}/booktable`}>
-                <Button
-                    className="ms-3"
-                    size="lg"
-                    variant="primary"
-                >
-                    Book Table
-                    <FontAwesomeIcon 
-                        className="ms-2"
-                        icon={faCirclePlus}
-                    />
-                </Button>
-            </LinkContainer>
+            <>
+                {authContext.credentials
+                && authContext.credentials.hasAuthority("VENDOR")
+                ? <LinkContainer to={`/events/${thisEvent.eventId}/booktable`}>
+                    <Button
+                        className="ms-3"
+                        size="lg"
+                        variant="primary"
+                    >
+                        Book Table
+                        <FontAwesomeIcon 
+                            className="ms-2"
+                            icon={faCirclePlus}
+                        />
+                    </Button>
+                </LinkContainer>
+                : <></>}
+            </>
         );
     }
     

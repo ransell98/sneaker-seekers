@@ -30,7 +30,7 @@ function Followed() {
             setFollows(result);
         })
         .catch((error) => {
-            setErrorMessage(error);
+            setErrorMessage(error.toString());
         })
         .finally(() => {
             setIsLoading(false);

@@ -40,11 +40,11 @@ class UpgradeRequestJdbcTemplateRepositoryTest {
 
         AppUser appUser = new AppUser();
         appUser.setId(2);
-        upgradeRequest.setAppUserId(appUser);
+        upgradeRequest.setAppUser(appUser);
 
         UpgradeRequest actual = repository.add(upgradeRequest);
         assertNotNull(actual);
-        assertEquals(NEXT_ID, actual.getAppUserId());
+        assertEquals(NEXT_ID, actual.getAppUser());
     }
 
     @Test
