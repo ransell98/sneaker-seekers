@@ -41,7 +41,7 @@ public class FavoriteController {
         List<Favorite> favorites = service.findByAppUserId(user.getId());
         Boolean isAlreadyAFavorite = false;
         for (Favorite favorite : favorites) {
-            if (favorite.getStyle().getExternalStyleId() == externalStyleId) {
+            if (favorite.getStyle().getExternalStyleId().equalsIgnoreCase(externalStyleId)) {
                 isAlreadyAFavorite = true;
             }
         }

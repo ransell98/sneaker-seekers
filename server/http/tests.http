@@ -1,4 +1,4 @@
-@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbmVha2VyLXNlZWtlcnMiLCJzdWIiOiJyYW5zZWxsOTgiLCJpZCI6NCwiYXV0aG9yaXRpZXMiOiJVU0VSIiwiZXhwIjoxNjQ2MzI1Njc3fQ.SctaHMSmfMs3dIbveW3TZ_Kgw4EJBENMA9U5K9lWxwg
+@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbmVha2VyLXNlZWtlcnMiLCJzdWIiOiJ1c2VyIiwiaWQiOjEsImF1dGhvcml0aWVzIjoiVVNFUiIsImV4cCI6MTY0NjMzNjk3N30.J0tcgeYjPo3WwEUSpMhZAvznpGB76IwCmHofIz-7E6E
 @host = http://localhost:8080
 
 ### GET USER BY USERNAME (RYAN)
@@ -101,6 +101,10 @@ Authorization: Bearer {{jwt}}
 GET {{host}}/sneakerseekers/favorite HTTP/1.1
 Authorization: Bearer {{jwt}}
 
+### FIND IF FAVORITE EXISTS
+
+GET {{host}}/sneakerseekers/favorite/5e6a1e57-1c7d-435a-82bd-5666a13560fe HTTP/1.1
+Authorization: Bearer {{jwt}}
 
 ### ADD FAVORITE
 
@@ -109,7 +113,7 @@ Content-Type: application/json
 Authorization: Bearer {{jwt}}
 
 {
-    "styleId": 5
+    "styleId": 1
 }
 
 ### ADD NON EXISTING FAVORITE
@@ -289,6 +293,11 @@ Authorization: Bearer {{jwt}}
 ### GET ALL UPGRADE REQUESTS
 
 GET {{host}}/sneakerseekers/upgraderequest
+Authorization: Bearer {{jwt}}
+
+### GET 
+
+GET {{host}}/sneakerseekers/upgraderequest/findIfExist
 Authorization: Bearer {{jwt}}
 
 ### ADD UPGRADE REQUEST

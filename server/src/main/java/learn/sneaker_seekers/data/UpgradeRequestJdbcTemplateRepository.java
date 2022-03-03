@@ -34,10 +34,22 @@ public class UpgradeRequestJdbcTemplateRepository implements UpgradeRequestRepos
         final String sql = "select u.upgrade_request_id, a.app_user_id, a.username, a.profile_picture, a.first_name, "
                 + "a.last_name, a.email "
                 + "from upgrade_request u "
-                + "inner join app_user a on u.app_user_id = a.app_user_id;"
-                + "where f.app_user_id = " + appUserId + ";";
+                + "inner join app_user a on u.app_user_id = a.app_user_id "
+                + "where a.app_user_id = " + appUserId + ";";
 
         return jdbcTemplate.query(sql, new UpgradeRequestMapper());
+    }
+
+    @Override
+    public UpgradeRequest findByUpgradeRequestId(int upgradeRequestId) throws DataAccessException {
+        final String sql = "select u.upgrade_request_id, a.app_user_id, a.username, a.profile_picture, a.first_name, "
+                + "a.last_name, a.email "
+                + "from upgrade_request u "
+                + "inner join app_user a on u.app_user_id = a.app_user_id "
+                + "where u.upgrade_request_id = " + upgradeRequestId + ";";
+
+        return jdbcTemplate.queryForObject(sql, new UpgradeRequestMapper());
+
 
     }
 

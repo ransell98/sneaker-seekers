@@ -6,6 +6,7 @@ import learn.sneaker_seekers.domain.AppUserService;
 import learn.sneaker_seekers.domain.Result;
 import learn.sneaker_seekers.domain.UpgradeRequestService;
 import learn.sneaker_seekers.models.AppUser;
+import learn.sneaker_seekers.models.Favorite;
 import learn.sneaker_seekers.models.UpgradeRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,19 @@ public class UpgradeRequestController {
     @GetMapping
     public List<UpgradeRequest> findAll() {
         return service.findAll();
+    }
+
+    @GetMapping("/findIfExist")
+    public ResponseEntity<Void> findIfExisting(@AuthenticationPrincipal AppUser user) throws DataAccessException{
+        List<UpgradeRequest> upgradeRequests = service.findByAppUserId(user.getId());
+        Boolean alreadyRequestedUpgrade = false;
+        if (upgradeRequests.size() > 0) {
+            alreadyRequestedUpgrade = true;
+        }
+        if (!alreadyRequestedUpgrade) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PostMapping

@@ -10,6 +10,8 @@ public interface UpgradeRequestRepository {
 
     List<UpgradeRequest> findByAppUserId(int appUserId);
 
+    UpgradeRequest findByUpgradeRequestId(int upgradeRequestId) throws DataAccessException;
+
     UpgradeRequest add(UpgradeRequest upgradeRequest) throws DataAccessException;
 
     boolean deleteByUpgradeRequestId(int upgradeRequestId) throws DataAccessException;

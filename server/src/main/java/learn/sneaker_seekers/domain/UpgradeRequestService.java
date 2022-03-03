@@ -23,6 +23,10 @@ public class UpgradeRequestService {
         return repository.findByAppUserId(appUserId);
     }
 
+    public UpgradeRequest findByUpgradeRequestId(int upgradeRequestId) throws DataAccessException {
+        return repository.findByUpgradeRequestId(upgradeRequestId);
+    }
+
     public Result add(UpgradeRequest upgradeRequest) throws DataAccessException {
         Result result = validate(upgradeRequest);
         if (!result.isSuccess()) {
