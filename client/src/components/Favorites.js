@@ -27,8 +27,12 @@ function Favorites() {
     function fetchStyles() {
         getAllFavorites()
         .then((result) => {
-            console.log(result);
-            setStyles(result);
+            console.log(result.map((favorite) => {
+                return favorite.style;
+            }));
+            setStyles(result.map((favorite) => {
+                return favorite.style;
+            }));
             setIsLoading(false);
         })
         .catch((error) => {

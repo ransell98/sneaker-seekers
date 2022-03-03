@@ -52,10 +52,13 @@ public class StyleService {
             return result;
         }
 
+        /*
         if (Validations.isNullOrBlank(style.getDescription())) {
             result.addMessage("Description of style is required.", ResultType.INVALID);
             return result;
         }
+
+         */
 
         if (style.getReleaseYear() == null) {
             result.addMessage("Release year is required.", ResultType.INVALID);

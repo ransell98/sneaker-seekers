@@ -1,4 +1,4 @@
-@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbmVha2VyLXNlZWtlcnMiLCJzdWIiOiJhZG1pbiIsImlkIjozLCJhdXRob3JpdGllcyI6IkFETUlOIiwiZXhwIjoxNjQ2MzMwNzA0fQ.Ui88mTFyZpHAMsjhSzJkb7B-woYi7DiWW6dJwjEpF8I
+@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbmVha2VyLXNlZWtlcnMiLCJzdWIiOiJyYW5zZWxsOTgiLCJpZCI6NCwiYXV0aG9yaXRpZXMiOiJVU0VSIiwiZXhwIjoxNjQ2MzI1Njc3fQ.SctaHMSmfMs3dIbveW3TZ_Kgw4EJBENMA9U5K9lWxwg
 @host = http://localhost:8080
 
 ### GET USER BY USERNAME (RYAN)
@@ -301,19 +301,6 @@ Authorization: Bearer {{jwt}}
 {
     "upgradeRequestId": 1,
     "appUserId": 2
-}
-
-###
-PUT {{host}}/sneakerseekers/upgraderequest HTTP/1.1
-Content-Type: application/json
-Accept: application/json
-Authorization: Bearer {{jwt}}
-
-{
-    "upgradeRequestId": 2,
-    "appUser": {
-        "username": "admin"
-    } 
 }
 
 ### DELETE UPGRADE REQUEST BY ID
