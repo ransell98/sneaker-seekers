@@ -72,9 +72,9 @@ create table style (
 	style_id int primary key auto_increment, 
 	external_style_id varchar(500) null, 
     style_name varchar(100) not null, 
-    `description` varchar(3600) not null,
-    release_year date not null, 
-    colorway varchar(100) not null, 
+    `description` varchar(3600) null,
+    release_year date null, 
+    colorway varchar(100) null, 
     style_image varchar(300) null, 
     brand_id int not null, 
     constraint fk_style_brand_id
