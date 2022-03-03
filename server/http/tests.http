@@ -1,4 +1,4 @@
-@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbmVha2VyLXNlZWtlcnMiLCJzdWIiOiJyYW5zZWxsOTgiLCJpZCI6NCwiYXV0aG9yaXRpZXMiOiJVU0VSIiwiZXhwIjoxNjQ2MzI1Njc3fQ.SctaHMSmfMs3dIbveW3TZ_Kgw4EJBENMA9U5K9lWxwg
+@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbmVha2VyLXNlZWtlcnMiLCJzdWIiOiJ2ZW5kb3IiLCJpZCI6MiwiYXV0aG9yaXRpZXMiOiJWRU5ET1IiLCJleHAiOjE2NDYzMjkwNDV9.cKZUlJJZYGyJmSVZrPTi4734kuBsO4mt0i2TcCHYHf4
 @host = http://localhost:8080
 
 ### GET USER BY USERNAME (RYAN)
@@ -172,7 +172,7 @@ Authorization: Bearer {{jwt}}
 
 ### GET LISTINGS BY TABLE ID
 
-GET {{host}}/sneakerseekers/listing/4
+GET {{host}}/sneakerseekers/listing/10
 
 ### ADD LISTING
 
@@ -247,7 +247,7 @@ Authorization: Bearer {{jwt}}
 
 ### GET TABLES BY EVENT ID
 
-GET {{host}}/sneakerseekers/table/3
+GET {{host}}/sneakerseekers/table/1
 
 ### ADD TABLE
 
@@ -307,3 +307,65 @@ Authorization: Bearer {{jwt}}
 
 DELETE {{host}}/sneakerseekers/upgraderequest/3 HTTP/1.1
 Authorization: Bearer {{jwt}}
+
+
+### ADD LISTING
+
+POST {{host}}/sneakerseekers/listing HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{jwt}}
+
+{
+  "style": {
+    "externalStyleId": "92cacbe9-73a2-4dc6-9475-0fa7dac53fe0",
+    "styleName": "Converse Chuck Taylor All-Star Pokemon First Partners",
+    "description": "",
+    "brand": {
+      "brandName": "Converse"
+    },
+    "releaseYear": "2022-12-07",
+    "styleImage": "https://images.stockx.com/images/Converse-Chuck-Taylor-All-Star-Pokemon-First-Partners.jpg?fit=fill&bg=FFFFFF&w=300&h=214&auto=format,compress&trim=color&q=90&dpr=2&updated_at=1641606350",
+    "colorway": "Black/White"
+  },
+  "listingPrice": "100",
+  "listingCondition": {
+    "conditionId": 1,
+    "conditionName": "New"
+  },
+  "quantity": 1,
+  "table": {
+    "tableId": 10,
+    "tableNumber": 1,
+    "event": {
+      "eventId": 1,
+      "eventName": "Sneaker Seekers Atlanta 2022",
+      "eventDate": "2022-03-05",
+      "numTable": 50,
+      "eventImage": "images/events/atlanta.jpg",
+      "location": {
+        "locationId": 1,
+        "locationName": "Atlanta Convention Center",
+        "locationAddress": "240 Peachtree Street NW Suite 2200",
+        "locationCity": "Atlanta, GA"
+      }
+    },
+    "appUser": {
+      "id": 2,
+      "username": "vendor",
+      "password": null,
+      "profilePicture": null,
+      "firstName": null,
+      "lastName": null,
+      "email": null,
+      "disabled": false,
+      "authorities": [],
+      "enabled": true,
+      "accountNonLocked": true,
+      "credentialsNonExpired": true,
+      "accountNonExpired": true,
+      "authorityNames": []
+    },
+    "booked": true
+  }
+}
