@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,7 +8,7 @@ import { faBookmark, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import "../styles/FollowFavoriteButton.css";
 
 import AuthContext from "../contexts/AuthContext";
-import { addFollow as fetchAddFollow, deleteFollow } from "../services/follow-api";
+import { addFollow as fetchAddFollow, deleteFollow, findIfExisting } from "../services/follow-api";
 
 function FollowUnfollowButton({ appUser, follows, setFollows }) {
     const authContext = useContext(AuthContext);
@@ -16,6 +16,16 @@ function FollowUnfollowButton({ appUser, follows, setFollows }) {
     const [ isLoading, setIsLoading ] = useState(false);
     const [ isFollowed, setIsFollowed ] = useState(false);
     const [ isHover, setIsHover ] = useState(false);
+
+    useEffect(() => {
+        findIfExisting(appUser.id)
+        .then((result) => {
+            setIsFollowed(result);
+        })
+        .catch((error) => {
+            console.log(error.toString());
+        });
+    }, []);
 
     function handleMouseEnter() {
         setIsHover(true);
@@ -39,7 +49,7 @@ function FollowUnfollowButton({ appUser, follows, setFollows }) {
         .then((result) => {
             setIsFollowed(true);
             if (follows) {
-                setIsFollowed([...follows, result]);
+                setFollows([...follows, result]);
             }
         })
         .catch((error) => {
@@ -61,7 +71,7 @@ function FollowUnfollowButton({ appUser, follows, setFollows }) {
                         newFollows.push(follows[i]);
                     }
                 }
-                setIsFollowed(newFollows);
+                setFollows(newFollows);
             }
         })
         .catch((error) => {
