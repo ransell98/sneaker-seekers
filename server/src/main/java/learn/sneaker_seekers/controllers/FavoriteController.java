@@ -68,24 +68,9 @@ public class FavoriteController {
         } else {
             Result<Brand> result = brandService.add(style.getBrand());
             style.setBrand(result.getPayload());
-            /*
-            Brand brand = brandService.findByBrandName(style.getBrand().getBrandName());
-
-            if (brand.getBrandId() > 0){
-                style.setBrand(brand);
-            } else {
-                Result<Brand> result = brandService.add(brand);
-                Brand createdBrand = result.getPayload();
-                style.setBrand(createdBrand);
-            }
-
-             */
-
         }
 
-
         favorite.setStyle(style);
-
 
         Result<Favorite> result = service.add(favorite);
         if (result.isSuccess()) {
