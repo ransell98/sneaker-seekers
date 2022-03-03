@@ -90,7 +90,6 @@ public class AppUserRepository {
 
         int rowsAffected = jdbcTemplate.update(sql,
                 user.getUsername(),
-                !user.isEnabled(),
                 user.getId());
 
         if (rowsAffected > 0) {

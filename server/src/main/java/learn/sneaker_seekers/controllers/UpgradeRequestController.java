@@ -42,6 +42,7 @@ public class UpgradeRequestController {
     @PutMapping
     public ResponseEntity<Object> acceptUpgradeRequest (@RequestBody UpgradeRequest request) throws DataAccessException {
         AppUser user = request.getAppUser();
+        user = appUserService.findByUserName(user.getUsername());
         List<String> authoritiesList = user.getAuthorityNames();
         authoritiesList.add("VENDOR");
         user.setAuthorityNames(authoritiesList);
