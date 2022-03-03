@@ -30,6 +30,19 @@ public class UpgradeRequestJdbcTemplateRepository implements UpgradeRequestRepos
     }
 
     @Override
+    public List<UpgradeRequest> findByAppUserId(int appUserId) {
+        final String sql = "select u.upgrade_request_id, a.app_user_id, a.username, a.profile_picture, a.first_name, "
+                + "a.last_name, a.email "
+                + "from upgrade_request u "
+                + "inner join app_user a on u.app_user_id = a.app_user_id;"
+                + "where f.app_user_id = " + appUserId + ";";
+
+        return jdbcTemplate.query(sql, new UpgradeRequestMapper());
+
+    }
+
+
+    @Override
     public UpgradeRequest add(UpgradeRequest upgradeRequest) throws DataAccessException {
 
         final String sql = "insert into upgrade_request"

@@ -1,10 +1,11 @@
 package learn.sneaker_seekers.controllers;
 
+import learn.sneaker_seekers.App;
 import learn.sneaker_seekers.data.DataAccessException;
+import learn.sneaker_seekers.domain.AppUserService;
 import learn.sneaker_seekers.domain.Result;
 import learn.sneaker_seekers.domain.UpgradeRequestService;
 import learn.sneaker_seekers.models.AppUser;
-import learn.sneaker_seekers.models.Table;
 import learn.sneaker_seekers.models.UpgradeRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +19,9 @@ import java.util.List;
 @RequestMapping("/sneakerseekers/upgraderequest")
 public class UpgradeRequestController {
     private final UpgradeRequestService service;
+    private final AppUserService appUserService;
 
-    public UpgradeRequestController(UpgradeRequestService service) { this.service = service; }
+    public UpgradeRequestController(UpgradeRequestService service, AppUserService appUserService) { this.service = service; this.appUserService = appUserService; }
 
     @GetMapping
     public List<UpgradeRequest> findAll() {
@@ -35,6 +37,25 @@ public class UpgradeRequestController {
             return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
         }
         return ErrorResponse.build(result);
+    }
+
+    @PutMapping
+    public ResponseEntity<Object> acceptUpgradeRequest (@RequestBody UpgradeRequest request) throws DataAccessException {
+        AppUser user = request.getAppUser();
+        List<String> authoritiesList = user.getAuthorityNames();
+        authoritiesList.add("VENDOR");
+        user.setAuthorityNames(authoritiesList);
+
+        Result<AppUser> updateResult = appUserService.update(user);
+        if (!updateResult.isSuccess()) {
+            return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+        }
+
+        boolean success = service.deleteByUpgradeRequestId(request.getUpgradeRequestId());
+        if (success) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @DeleteMapping("/{id}")
