@@ -22,10 +22,9 @@ function SneakerInfo({ style, hideButtons }) {
                                 Brand:{" "}
                             </strong>
                             <span className="text-nowrap">
-                                {/*style.brand.brandName
+                                {style.brand.brandName
                                 ? style.brand.brandName
-                                : ""
-                                */}
+                                : ""}
                             </span>
                         </div>
                         <div>
