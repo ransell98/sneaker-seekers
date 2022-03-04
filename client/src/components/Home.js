@@ -39,7 +39,7 @@ function Home() {
                                 Search Sneakers
                             </h2>
                             <Card.Text>
-                                Search through a list of thousands of available sneaker styles, filter by brand and other features, and keep track of a list of your all-time favorites.
+                                Search through a list of thousands of available sneaker styles and keep track of a list of your all-time favorites.
                             </Card.Text>
                         </Card>
                     </LinkContainer>

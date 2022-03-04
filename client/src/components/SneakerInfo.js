@@ -5,7 +5,7 @@ import "../styles/Sneakers.css";
 import FavoriteButton from "./FavoriteButton";
 import AddListingButton from "./AddListingButton";
 
-function SneakerInfo({ style, hideButtons }) {
+function SneakerInfo({ style, styles, setStyles, hideButtons }) {
     return (
         <Row className="sneaker-style-info">
             <Col xs={12} md={{span: 3, order: 2}}>
@@ -44,7 +44,10 @@ function SneakerInfo({ style, hideButtons }) {
                                 xs={6} md={12} lg={6}
                                 className="mx-0 my-md-2"
                             >
-                                <FavoriteButton style={style}/>
+                                <FavoriteButton
+                                    style={style}
+                                    styles={styles}
+                                    setStyles={setStyles}/>
                             </Col>
                             <Col
                                 xs={6} md={12} lg={6}

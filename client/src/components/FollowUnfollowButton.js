@@ -45,14 +45,15 @@ function FollowUnfollowButton({ appUser, follows, setFollows }) {
     }
 
     function addFollow() {
+        setIsFollowed(true);
         fetchAddFollow(appUser)
         .then((result) => {
-            setIsFollowed(true);
             if (follows) {
                 setFollows([...follows, result]);
             }
         })
         .catch((error) => {
+            setIsFollowed(false);
             console.log(error.toString());
         })
         .finally(() => {

@@ -2,7 +2,7 @@ import { Card } from "react-bootstrap";
 
 import SneakerInfo from "./SneakerInfo";
 
-function SneakerStyleCard({ style }) {
+function SneakerStyleCard({ style, styles, setStyles }) {
     return (
         <Card
             className="sneaker-style-card 
@@ -12,7 +12,7 @@ function SneakerStyleCard({ style }) {
                         pe-3 pe-md-0
                         pb-3"
         >
-            <SneakerInfo style={style}/>
+            <SneakerInfo style={style} styles={styles} setStyles={setStyles}/>
         </Card>
     );
 }

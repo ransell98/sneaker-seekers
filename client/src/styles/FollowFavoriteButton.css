@@ -7,13 +7,13 @@
     width: 130px;
 }
 .follow-unfollow-button {
-    width: 110px;
+    width: 120px;
 }
 .favorite-button .col-8 {
     width: 90px;
 }
 .follow-unfollow-button .col-8 {
-    width: 80px;
+    width: 90px;
 }
 .favorite-button svg, .follow-unfollow-button svg {
     margin: 0em;

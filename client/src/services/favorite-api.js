@@ -47,3 +47,18 @@ export async function deleteFavorite(style) {
     }
     return Promise.reject("Error in deleting favorite.");
 }
+export async function findIfExisting(externalStyleId) {
+    const init = {
+        method: "GET",
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem("BG_TOKEN")}`
+        }
+    }
+    const response = await fetch(`${baseUrl}/${externalStyleId}`, init);
+    if (response.status === 204) {
+        return Promise.resolve(true);
+    } else if (response.status === 404) {
+        return Promise.resolve(false);
+    }
+    return Promise.reject("Could not complete findIfExisting fetch.");
+}

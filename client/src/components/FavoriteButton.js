@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,14 +8,24 @@ import { faHeart, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import "../styles/FollowFavoriteButton.css";
 
 import AuthContext from "../contexts/AuthContext";
-import { createFavorite, deleteFavorite } from "../services/favorite-api";
+import { createFavorite, deleteFavorite, findIfExisting } from "../services/favorite-api";
 
-function FavoriteButton({ style }) {
+function FavoriteButton({ style, styles, setStyles }) {
     const authContext = useContext(AuthContext);
 
     const [ isLoading, setIsLoading ] = useState(false);
     const [ isFavorite, setIsFavorite ] = useState(false);
     const [ isHover, setIsHover ] = useState(false);
+
+    useEffect(() => {
+        findIfExisting(style.externalStyleId)
+        .then((result) => {
+            setIsFavorite(result);
+        })
+        .catch((error) => {
+            console.log(error.toString());
+        });
+    }, []);
 
     function handleMouseEnter() {
         setIsHover(true);
@@ -35,23 +45,34 @@ function FavoriteButton({ style }) {
     }
 
     function addFavorite() {
-        console.log(style);
+        setIsFavorite(true);
+        setIsHover(false);
         createFavorite(style)
         .then(() => {
-            setIsFavorite(true);
         })
         .catch(() => {
+            setIsFavorite(false);
         })
         .finally(setIsLoading(false));
     }
 
     function removeFavorite() {
+        setIsFavorite(false);
+        setIsHover(false);
         deleteFavorite(style)
         .then(() => {
-            setIsFavorite(false);
+            if (styles) {
+                const newStyles = [];
+                for (let i = 0; i < styles.length; i++) {
+                    if (styles[i].externalStyleId !== style.externalStyleId) {
+                        newStyles.push(styles[i]);
+                    }
+                }
+                setStyles(newStyles);
+            }
         })
         .catch(() => {
-
+            setIsFavorite(true);
         })
         .finally(setIsLoading(false));
     }

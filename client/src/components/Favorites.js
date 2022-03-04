@@ -27,9 +27,6 @@ function Favorites() {
     function fetchStyles() {
         getAllFavorites()
         .then((result) => {
-            console.log(result.map((favorite) => {
-                return favorite.style;
-            }));
             setStyles(result.map((favorite) => {
                 return favorite.style;
             }));
@@ -55,6 +52,8 @@ function Favorites() {
                             style={s}
                             key={s.styleId}
                             className="mt-4 ms-lg-5"
+                            styles={styles}
+                            setStyles={setStyles}
                         />
                     );
                 })}
