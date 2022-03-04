@@ -11,6 +11,7 @@ import AuthContext from "../contexts/AuthContext";
 import PreviousPageContext from "../contexts/PreviousPageContext";
 import { createUser } from "../services/user-api";
 import { login } from "../services/auth-api";
+import { createUpgradeRequest } from "../services/upgrade-request-api";
 
 import Page from "./Page";
 import Loading from "./Loading";
@@ -102,10 +103,15 @@ function Register() {
             .then(() => {
                 login(user)
                     .then(principal => {
-                        authContext.login(principal);
+                        authContext.login(principal)
+                        /*
                         if (isVendor) {
-                            //create request to become vendor
+                            createUpgradeRequest()
+                            .catch((error) => {
+                                console.log(error.toString());
+                            });
                         }
+                        */
                         navigate(previousPageContext.previousPage);
                     })
                     .catch(() => {
@@ -294,6 +300,7 @@ function Register() {
                         );
                     })}
                 </div>
+                {/*
                 <Form.Group controlId="vendorCheckbox" className="my-2">
                     <Form.Check 
                         label="I would like to be a vendor (must be approved by an admin)"
@@ -302,6 +309,7 @@ function Register() {
                         value={isVendor}
                     />
                 </Form.Group>
+                */}
                 <Row>
                     <Button
                         className="col-4 offset-4"
