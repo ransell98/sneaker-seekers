@@ -2,7 +2,10 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { Button, Card, Col, ButtonGroup, Dropdown, DropdownButton, Form, Row } from "react-bootstrap";
 
+import "../styles/AddListing.css";
+
 import AuthContext from "../contexts/AuthContext";
+import PreviousPageContext from "../contexts/PreviousPageContext";
 import SelectedStyleContext from "../contexts/SelectedStyleContext";
 import { getTablesByUser } from "../services/table-api";
 import { addListing } from "../services/listing-api";
@@ -15,6 +18,7 @@ import SneakerInfo from "./SneakerInfo";
 
 function AddListing() {
     const authContext = useContext(AuthContext);
+    const previousPageContext = useContext(PreviousPageContext);
     const selStyleContext = useContext(SelectedStyleContext);
     const navigate = useNavigate();
 
@@ -94,7 +98,7 @@ function AddListing() {
         }
         addListing(newListing)
         .then((result) => {
-            console.log(result);
+            navigate(previousPageContext.previousPage);
         })
         .catch((error) => {
             setErrorMessage(error.toString());
@@ -150,6 +154,7 @@ function AddListing() {
                                         ? <>{tables.map((table) => {
                                             return (
                                                 <Dropdown.Item
+                                                    key={table.event.eventName}
                                                     onClick={() => {
                                                         handleTableChange(table);
                                                     }}
@@ -233,6 +238,7 @@ function AddListing() {
                                         ? <>{conditions.map((condition) => {
                                             return (
                                                 <Dropdown.Item
+                                                    key={condition.conditionName}
                                                     onClick={() => {
                                                         handleConditionChange(condition);
                                                     }}

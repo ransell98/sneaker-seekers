@@ -26,7 +26,8 @@ public class BrandService {
         }
 
         if (brand.getBrandId() != 0){
-            result.addMessage("Brand ID must not be set for add.", ResultType.INVALID);
+//            result.addMessage("Brand ID must not be set for add.", ResultType.INVALID);
+            result.setPayload(brand);
             return result;
         }
 

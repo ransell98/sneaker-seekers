@@ -9,10 +9,7 @@ export async function addListing(listing) {
         },
         body: JSON.stringify(listing)
     }
-    console.log(baseUrl);
-    console.log(init);
     const response = await fetch(baseUrl, init);
-    console.log(response.status);
     if (response.status === 201) {
         return Promise.resolve();
     }

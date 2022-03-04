@@ -24,6 +24,7 @@ public class StyleService {
     public Result add(Style style) throws DataAccessException{
         Result result = validate(style);
         if (!result.isSuccess()) {
+            result.setPayload(style);
             return result;
         }
 

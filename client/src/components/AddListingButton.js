@@ -9,6 +9,7 @@ import "../styles/AddListingButton.css";
 
 import AuthContext from "../contexts/AuthContext";
 import SelectedStyleContext from "../contexts/SelectedStyleContext";
+import { getTablesByUser } from "../services/table-api";
 
 function AddListingButton({ style }) {
     const authContext = useContext(AuthContext);
@@ -20,7 +21,15 @@ function AddListingButton({ style }) {
     useEffect(() => {
         if (authContext.credentials
         && authContext.credentials.hasAuthority("VENDOR")) {
-            setIsTableAvailable(true);
+            getTablesByUser()
+            .then((result) => {
+                if (result.length > 0) {
+                    setIsTableAvailable(true);
+                }
+            })
+            .catch((error) => {
+                console.log(error.toString());
+            })
         } else {
             setIsTableAvailable(false);
         }
