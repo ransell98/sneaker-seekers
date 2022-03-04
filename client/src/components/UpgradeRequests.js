@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Button, Card, Col, Row } from "react-bootstrap";
 
 import AuthContext from "../contexts/AuthContext";
-import { getAllUpgradeRequests } from "../services/upgrade-request-api";
+import { getAllUpgradeRequests, acceptUpgradeRequest, deleteUpgradeRequest } from "../services/upgrade-request-api";
 
 import Page from "./Page";
 import Loading from "./Loading";
@@ -20,7 +20,6 @@ function UpgradeRequests() {
     useEffect(() => {
         getAllUpgradeRequests()
         .then((result) => {
-            console.log(result);
             setUpgradeRequests(result);
         })
         .catch((error) => {
@@ -42,12 +41,34 @@ function UpgradeRequests() {
         navigate("/login");
     }
 
-    function handleRejectRequest(request) {
+    function removeRequestFromPage(request) {
+        const newUpgradeRequests = [];
+        for (let i = 0; i < upgradeRequests.length; i++) {
+            if (upgradeRequests[i].upgradeRequestId !== request.upgradeRequestId) {
+                newUpgradeRequests.push(upgradeRequests[i]);
+            }
+        }
+        setUpgradeRequests(newUpgradeRequests);
+    }
 
+    function handleRejectRequest(request) {
+        deleteUpgradeRequest(request.upgradeRequestId)
+        .then(() => {
+            removeRequestFromPage(request);
+        })
+        .catch((error) => {
+            console.log(error.toString());
+        });
     }
 
     function handleAcceptRequest(request) {
-
+        acceptUpgradeRequest(request)
+        .then(() => {
+            removeRequestFromPage(request);
+        })
+        .catch((error) => {
+            console.log(error.toString());
+        });
     }
 
     function renderRequestCard(request) {
@@ -67,7 +88,9 @@ function UpgradeRequests() {
                     <Row>
                         <Col className="text-end me-5">
                             <Button
-                                onClick={handleRejectRequest}
+                                onClick={() => {
+                                    handleRejectRequest(request);
+                                }}
                                 variant="warning"
                             >
                                 Reject Request
@@ -75,7 +98,9 @@ function UpgradeRequests() {
                         </Col>
                         <Col className="text-start ms-5">
                             <Button
-                                onClick={handleAcceptRequest}
+                                onClick={() => {
+                                    handleAcceptRequest(request);
+                                }}
                                 variant="primary"
                             >
                                 Accept Request

@@ -7,16 +7,34 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleArrowUp, faSpinner, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 import AuthContext from "../contexts/AuthContext";
-import { createUpgradeRequest } from "../services/upgrade-request-api";
+import { createUpgradeRequest, findIfExisting } from "../services/upgrade-request-api";
 
 import Page from "./Page";
+import Loading from "./Loading";
 
 function AccountSettings() {
     const authContext = useContext(AuthContext);
     const navigate = useNavigate();    
 
     const [authorities, setAuthorities] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [hideUpgradeButton, setHideUpgradeButton] = useState(false);
     const [isUpgradeButtonLoading, setIsUpgradeButtonLoading] = useState(false);
+
+    useEffect(() => {
+        findIfExisting()
+        .then((result) => {
+            if (result) {
+                setHideUpgradeButton(true);
+            }
+        })
+        .catch((error) => {
+            console.log(error.toString());
+        })
+        .finally(() => {
+            setIsLoading(false);
+        });
+    }, []);
 
     useEffect(() => {
         if (!authContext.credentials) {
@@ -34,7 +52,7 @@ function AccountSettings() {
         setIsUpgradeButtonLoading(true);
         createUpgradeRequest()
         .then(() => {
-
+            setHideUpgradeButton(true);
         })
         .catch((error) => {
             console.log(error.toString());
@@ -68,38 +86,49 @@ function AccountSettings() {
                     )
                 }
             </h3>
-            <p>Change Username</p>
-            <p>Change Password</p>
+            <p className="mt-3">
+                Username:
+                {" "}
+                {authContext.credentials
+                ? authContext.credentials.username
+                : ""}
+            </p>
             <hr/>
-            {
-                authorities.includes("VENDOR")
-                ? <></>
-                : <>
-                    <Button
-                        className="mb-3"
-                        disabled={isUpgradeButtonLoading}
-                        onClick={handleRequestUpgrade}
-                        variant="primary"
-                    >
-                        <FontAwesomeIcon
-                            icon={isUpgradeButtonLoading
-                                ? faSpinner
-                                : faCircleArrowUp}
-                            pulse={isUpgradeButtonLoading}
-                        />
+            {isLoading
+            ? <Loading/>
+            : <>
+                {
+                    authorities.includes("VENDOR")
+                    || hideUpgradeButton
+                    ? <></>
+                    : <>
+                        <Button
+                            className="mb-3"
+                            disabled={isUpgradeButtonLoading}
+                            onClick={handleRequestUpgrade}
+                            variant="primary"
+                        >
+                            <FontAwesomeIcon
+                                icon={isUpgradeButtonLoading
+                                    ? faSpinner
+                                    : faCircleArrowUp}
+                                pulse={isUpgradeButtonLoading}
+                            />
+                            {" "}
+                            Request to Become Vendor
+                        </Button>
+                        <br/>
+                    </>
+                }
+                <LinkContainer to="/account/delete">
+                    <Button variant="warning">
+                        <FontAwesomeIcon icon={faTrash}/>
                         {" "}
-                        Request to Become Vendor
+                        Delete Account
                     </Button>
-                    <br/>
-                </>
+                </LinkContainer>
+            </>
             }
-            <LinkContainer to="/account/delete">
-                <Button variant="warning">
-                    <FontAwesomeIcon icon={faTrash}/>
-                    {" "}
-                    Delete Account
-                </Button>
-            </LinkContainer>
         </Page>
     );
 }
